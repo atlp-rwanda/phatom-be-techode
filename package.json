@@ -1,0 +1,35 @@
+{
+  "name": "phantom-techode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node app.js",
+    "dev": "nodemon --exec npm run compile",
+    "compile": "babel-node app.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.8",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atlp-rwanda/phatom-be-techode.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atlp-rwanda/phatom-be-techode/issues"
+  },
+  "homepage": "https://github.com/atlp-rwanda/phatom-be-techode#readme"
+}
