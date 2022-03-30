@@ -1,13 +1,14 @@
 {
   "name": "phantom-techode",
   "version": "1.0.0",
-  "description": "",
+  "description": "(backend) Application that allows simulating bus movements and enabling passengers to track their locations & movements.",
   "main": "index.js",
   "scripts": {
     "start": "babel-node app.js",
     "dev": "nodemon --exec npm run compile",
     "compile": "babel-node app.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "lint": "eslint --ext .js"
   },
   "dependencies": {
     "@babel/cli": "^7.16.8",
@@ -16,17 +17,24 @@
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
-    "dotenv": "^16.0.0"
+    "dotenv": "^16.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
+    "nodemon": "^2.0.15",
+    "prettier": "^2.6.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/atlp-rwanda/phatom-be-techode.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Techode",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/atlp-rwanda/phatom-be-techode/issues"
