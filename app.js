@@ -11,7 +11,14 @@ import backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import languageRoutes from './routes/language'
 
-dotEnv.config();
+/* ========== setting up dotenv ============= */
+dotEnv.config()
+
+// accessing dotEnv variable
+console.log(process.env.ENVIRONMENT)
+/* ========== setting up dotenv ============= */
+
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const specs = swaggerJsDoc(options);
@@ -56,6 +63,5 @@ app.listen(PORT, () => {
   app.emit("Started")
   console.log(`app is listening on port ${PORT}`);
 });
-
 
 export  { app };
