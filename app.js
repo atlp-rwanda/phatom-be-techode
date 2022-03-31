@@ -1,10 +1,18 @@
+import dotEnv from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from "swagger-jsdoc";
-
 import usersRoutes from './routes/users/users.js';
+
+/* ========== setting up dotenv ============= */
+dotEnv.config()
+
+// accessing dotEnv variable
+console.log(process.env.ENVIRONMENT)
+/* ========== setting up dotenv ============= */
+
 
 const app = express();
 app.use(cors());
