@@ -1,5 +1,9 @@
 import express from 'express'
+<<<<<<< HEAD
 import { createUser,getAllUsers } from "../../controllers/userController.js"
+=======
+import userController from "../../controllers/userController.js"
+>>>>>>> chore(config): configure continous integration
 
 
 const router = express.Router();
