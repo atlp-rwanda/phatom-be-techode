@@ -10,7 +10,7 @@ import usersRoutes from './routes/users/users.js';
 dotEnv.config()
 
 // accessing dotEnv variable
-console.log(process.env.ENVRONOMENT)
+console.log(process.env.ENVIRONMENT)
 /* ========== setting up dotenv ============= */
 
 
