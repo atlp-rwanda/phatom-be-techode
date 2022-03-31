@@ -8,10 +8,19 @@ const should = chai.should();
 chai.use(chaiHTTP);
 chai.should();
 
+<<<<<<< HEAD
 describe('Test one : Entry', () => {
 
   before((done) => {
     done();
+=======
+describe('Test one : users', () => {
+
+  before((done) => {
+    // app.on("Started", () => {
+      done();
+    // })	
+>>>>>>> a659b6f (Feat: (reset passord)- reste password)
   })
 
 	it('Backend root director test', (done) => {
@@ -23,4 +32,10 @@ describe('Test one : Entry', () => {
 				done();
 			});
 	});
+<<<<<<< HEAD
+=======
+
+  
+
+>>>>>>> a659b6f (Feat: (reset passord)- reste password)
 });
