@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
+    "start": "babel-node app.js",
+    "dev": "nodemon --exec npm run compile",
+    "compile": "babel-node app.js",
     "lint": "eslint --ext .js",
     "test": "c8 --check-coverage mocha test/*.test.js --timeout 3000 --exit",
     "coverage": "c8 --check-coverage -r lcov npm test"
@@ -25,13 +26,6 @@
     "url": "https://github.com/atlp-rwanda/phatom-be-techode/issues"
   },
   "homepage": "https://github.com/atlp-rwanda/phatom-be-techode#readme",
-  "scripts": {
-    "start": "babel-node app.js",
-    "dev": "nodemon --exec npm run compile",
-    "compile": "babel-node app.js",
-    "test": "jest --coverage",
-    "lint": "eslint --ext .js"
-  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "c8": "^7.11.0",

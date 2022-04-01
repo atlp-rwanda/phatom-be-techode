@@ -10,7 +10,7 @@ import i18next from 'i18next'
 import backend from 'i18next-fs-backend'
 import middleware from 'i18next-http-middleware'
 
-import languageRoutes from './routes/language'
+import languageRoutes from "./routes/language.js"
 
 
 /* ========== setting up dotenv ============= */
@@ -41,40 +41,41 @@ i18next
 })
 
 const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Phantom - Techode',
-            version: '1.0.0',
-            description: 'Phantom backend Express Library API'
+  definition: {
+      openapi: '3.0.0',
+      info: {
+          title: 'Phantom - Techode',
+          version: '1.0.0',
+          description: 'Phantom backend Express Library API'
+      },
+      servers: [
+        {
+          url: `https://localhost:5000/`,
+          //  url: 'http://localhost:7000/api/v1'
+        
+        }], 
+        components: {
+          securitySchemes: {
+            bearerAuth: {
+              type: 'http',
+              scheme: 'bearer',
+              in: 'header',
+              bearerFormat: 'JWT'
+            }
+          }
         },
-        servers: [
-         {
-            url: `https://localhost:5000/`,
-           //  url: 'http://localhost:7000/api/v1'
-         
-         }], 
-         components: {
-           securitySchemes: {
-             bearerAuth: {
-               type: 'http',
-               scheme: 'bearer',
-               in: 'header',
-               bearerFormat: 'JWT'
-             }
-           }
-         },
-         security: [
-           {
-             bearerAuth: []
-           }
-         ], 
-    },
-   
-    apis: ["./routes/dashboard/*.js", './routes/users/*.js','./routes/authentication/*.js']     
- }
+        security: [
+          {
+            bearerAuth: []
+          }
+        ], 
+  },
+  
+  apis: ["./routes/dashboard/*.js", './routes/users/*.js','./routes/authentication/*.js']     
 
- const specs = swaggerJsDoc(options)
+}
+
+const specs = swaggerJsDoc(options)
 app.use('/api/doc', swaggerUI.serve, swaggerUI.setup(specs));
 app.use(bodyParser.urlencoded({ extended: false }));
 
