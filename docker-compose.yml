@@ -1,6 +1,13 @@
 version: "3"
 
 services:
+  phantom_frontend:
+    container_name: phantom_frontend
+    image: sezeranojchrisostome/phantom:latest
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
   phantom_database:
     container_name: phantom_database
     restart: always
