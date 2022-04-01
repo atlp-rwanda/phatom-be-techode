@@ -12,14 +12,16 @@ chai.should();
 
 
 describe("Test one : users", () => {
-    it("get all users", (done) => {
-        chai
+
+    it("Backend root director test",  (done) => {
+       chai
             .request(app)
-            .get("/users")
+            .get("/")
             .end((err, res) => {
                 res.should.have.status(200);
-                res.should;
                 done();
             });
     });
+   
+   
 })

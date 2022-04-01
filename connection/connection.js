@@ -4,7 +4,7 @@ import { UserSchema } from '../models/user.js';
 import dotenv from "dotenv"
 
 dotenv.config();
-const source = new DataSource({
+export const source = new DataSource({
 	type: 'postgres',
 	host: process.env.DATABASE_HOST,
 	port: process.env.DATABASE_PORT,

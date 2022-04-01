@@ -77,4 +77,7 @@ source.initialize()
 		);
 	});
 
+export const appExport = () =>{
+    return  app ;
+ }
 export default app
