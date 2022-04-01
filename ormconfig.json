@@ -1,0 +1,15 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 7000,
+  "username": "postgres",
+  "password": "test123",
+  "database": "dev_db",
+  "entities": ["models/*.js"],
+  "migrations": ["migrations/**/*.js"],
+  "subscribers": ["subscribers/**/*.js"],
+  "migrationsTableName": "custom_migration_table",
+  "cli": {
+      "migrationsDir": "migration"
+  }
+}
