@@ -56,5 +56,4 @@ app.listen(PORT, () => {
   app.emit("Started")
   console.log(`app is listening on port ${PORT}`);
 });
-
 export  { app };
