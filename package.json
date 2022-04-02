@@ -9,7 +9,7 @@
       "dev": "nodemon --exec npm run compile",
       "compile": "babel-node app.js",
       "lint": "eslint --ext .js",
-      "test": "cross-env ENVIRONMENT=test c8 --check-coverage mocha test/*.test.js --no-timeout --exit",
+      "test": "cross-env ENVIRONMENT=test c8 --check-coverage mocha test/*.test.js --timeout 10000 --exit",
       "coverage": "c8 --check-coverage -r lcov npm test",
       "typeorm": "typeorm-ts-node-commonjs"
    },

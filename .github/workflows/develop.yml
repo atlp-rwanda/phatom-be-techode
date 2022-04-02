@@ -43,7 +43,7 @@ jobs:
       - name: Sending coveralls report
         uses: coverallsapp/github-action@master
         with: 
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{secrets.GITHUB_TOKEN}}
       - name: send coverage report
         uses: paambaati/codeclimate-action@v2.5.7
         env:
