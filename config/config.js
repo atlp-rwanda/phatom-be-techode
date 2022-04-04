@@ -11,6 +11,7 @@ module.exports = {
   production: {
     url: process.env.DATABASE_PRODUCTION,
     dialect: 'postgres',
+<<<<<<< HEAD
     logging:false,
     ssl: false,
     dialectOptions: {
@@ -18,3 +19,8 @@ module.exports = {
     }
   },
 }
+=======
+  },
+}
+
+>>>>>>> ch(Postgres) postgres setup

@@ -15,7 +15,7 @@ let sequelize;
 if (config.url) {
 	sequelize = new Sequelize(config.url, config);
 } 
-/* c8 ignore next 3 */ 
+/* c8 ignore next 3 */
 else {
 	sequelize = new Sequelize(config.database, config.username, config.password, config);
   }
@@ -42,7 +42,10 @@ sequelize
 	.then(() => {
 		console.log('Connection has been established successfully.');
 	})
-	.catch((err) => { console.error('Unable to connect to the database:', err.message) });
+	.catch((err) => {
+		/* c8 ignore next 2 */
+		console.error('Unable to connect to the database:', err.message);
+	});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

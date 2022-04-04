@@ -32,6 +32,21 @@ const router = express.Router();
  *        
  */
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+router.get('/', userController.getUsers);
+=======
+
+/* === Start:: list all users route === */ 
+    router.get('/', getAllUsers);
+/* ==== End:: list all users route === */ 
+
+/* === Start:: Create users route === */ 
+    router.post('/', createUser);
+/* ==== End:: Create users route === */ 
+>>>>>>> ch(Postgres) postgres setup
+>>>>>>> ch(Postgres) postgres setup
 
 /* === Start:: list all users route === */ 
     router.get('/', getAllUsers);
