@@ -25,10 +25,4 @@ describe('Test one : users', () => {
 				done();
 			});
 	});
-
-<<<<<<< HEAD
-  
-
-=======
->>>>>>> ch(testing): test users controller
 });
