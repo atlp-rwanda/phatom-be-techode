@@ -32,8 +32,13 @@ const router = express.Router();
  *        
  */
 
-router.get('/', getAllUsers);
 
-router.post('/', createUser);
+/* === Start:: list all users route === */ 
+    router.get('/', getAllUsers);
+/* ==== End:: list all users route === */ 
+
+/* === Start:: Create users route === */ 
+    router.post('/', createUser);
+/* ==== End:: Create users route === */ 
 
 export default router

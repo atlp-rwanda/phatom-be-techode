@@ -27,9 +27,12 @@ jobs:
     env:
       DATABASE_HOST: localhost
       DATABASE_USER: test
-      DATABASE_PASSWORD: test
+      DATABASE_PASSWORD: "test"
       DATABASE_PORT: "5432"
       DATABASE_NAME: test
+      ENVIRONMENT: test
+      TEST_DATABASE_URL: ${{secrets.TEST_DATABASE_URL}}
+      DEV_DATABASE_URL: ${{secrets.DEV_DATABASE_URL}}
     steps:
       - name: Development Code
         uses: actions/checkout@v2
