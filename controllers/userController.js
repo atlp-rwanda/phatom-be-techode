@@ -10,14 +10,15 @@ const getAllUsers = async (req, res) => {
 			// 	return success(res,200,users,"Retrieved");
 			// })
 		/* ======= End:: List all users with count ============ */ 
-		
-	
-	
-		/* ======= Start:: List all users =================== */ 
-			users.findAndCountAll().then(users => {
-				return success(res,200,users,"Retrieved");
-			})
-		/* ========= End:: List all users ================== */ 
+		try {
+			/* ======= Start:: List all users =================== */ 
+				users.findAndCountAll().then(users => {
+					return success(res,200,users,"Retrieved");
+				})
+			/* ========= End:: List all users ================== */ 
+		} catch (error) {
+			return sendError(res,500,null,error.message);
+		}
 	
 };
 

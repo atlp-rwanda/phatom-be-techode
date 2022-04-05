@@ -5,6 +5,8 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import usersRoutes from './routes/users/users.js';
+import permission from './routes/permissions/permissions.js';
+import rolesRoute from './routes/roles/roles.js';
 import options from './config/options.js';
 import i18next from 'i18next';
 import backend from 'i18next-fs-backend';
@@ -46,6 +48,15 @@ i18next
 /* ========== Start:: User api url ========= */ 
   app.use('/api/v1/users', usersRoutes);
 /* ============== Start:: User api ========= */ 
+
+/* ========== Start:: role api url ========= */ 
+  app.use('/api/v1/roles', rolesRoute);
+/* ============== Start:: role api ========= */ 
+
+/* ========== Start:: permissions api url ========= */ 
+  app.use('/api/v1/permissions', permission);
+/* ============== Start:: permissions api ========= */ 
+
 
 /* ========== Start:: Api documantation version one ============ */ 
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
