@@ -1,55 +1,60 @@
 import express from 'express'
 import { signUp, signIn } from "../controllers/authsController.js"
-import validateAuth from '../middleware/validation'
+import { validInput, validLogin } from '../middleware/validation'
 
 
 const router = express.Router();
 
 /* === Start:: register user === */ 
-router.post('/register', validateAuth, signUp);
+router.post('/register', validInput, signUp);
 /* ==== End:: register user === */ 
-
-/* === Start:: login route === */
 
 // Login endpoint documentation
 // Login Schema
 /**
  * @swagger
- * definitions:
- *   Login:
- *     properties:
- *       email:
- *         type: string
- *       password:
- *         type: string
+ * components:
+ *   schemas:
+ *     Login:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         email:
+ *           type: string
+ *           description: User's Email
+ *         password:
+ *           type: string
+ *           description: User's Password
  */
-/**
+
+
 // Documentation
 /**
  * @swagger
- * /api/v1/login:
+ * /api/v1/users/login:
  *   post:
- *     tags:
- *       - Login API
- *     summary: Phantom Login API
- *     description: This is the login API where a registered user should be able to login into Phantom.
- *     produces:
- *       - application/json
- *     parameters:
- *       - name: user
- *         description: login
- *         in: body
- *         required: true
- *         schema:
- *           $ref: '#/definitions/Login'
+ *     summary: This is the login API where a registered user should be able to login into Phantom Web app
+ *     tags: [Login API]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login'
  *     responses:
  *       200:
- *         description: User successfully Logged in and the token was generated
+ *         description: Logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Login'
+ *       500:
+ *         description: Some server error
  */
-
-// End-point for user to login
  
-router.post('/login', signIn);
+router.post('/', validLogin, signIn);
 /* ==== End:: login route === */ 
 
 export default router

@@ -10,6 +10,7 @@ import i18next from 'i18next';
 import backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import languageRoutes from './routes/language'
+import loginRoute from './routes/logins';
 
 /* ========== setting up dotenv ============= */
 dotEnv.config()
@@ -52,6 +53,7 @@ i18next
 
 /* ========== Start:: User api url ========= */ 
   app.use('/api/v1/users', usersRoutes);
+  app.use('/api/v1/users/login', loginRoute);
 /* ============== Start:: User api ========= */ 
 
 /* ========== Start:: Api documantation version one ============ */ 
@@ -62,6 +64,7 @@ app.listen(PORT, () => {
   app.emit("Started")
   console.log(`app is listening on port ${PORT}`);
 });
+
 
 export  { app };
 
