@@ -58,7 +58,6 @@ i18next
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
 /* ========== Start:: Api documantation version one ============ */ 
 
-
 app.listen(PORT, () => {
   app.emit("Started")
   console.log(`app is listening on port ${PORT}`);
