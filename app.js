@@ -13,6 +13,8 @@ import backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import languageRoutes from './routes/language'
 import loginRoute from './routes/logins';
+import dashboardRoutes from './routes/dashboard/dashboard.js'
+import cookies from "cookie-parser";
 
 /* ========== setting up dotenv ============= */
 dotEnv.config()
@@ -22,12 +24,16 @@ console.log(process.env.ENVIRONMENT)
 /* ========== setting up dotenv ============= */
 
 
+
+
 const app = express();
 /* c8 ignore next 1 */ 
 const PORT = process.env.PORT || 5000;
 const specs = swaggerJsDoc(options);
 
 
+const app = express();
+app.use(cookies());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
@@ -43,6 +49,9 @@ i18next
     }
 })
 
+
+
+
 /* ========== Start:: Root directory ========= */ 
   app.get('/', (req, res) => {
     res.send('Weclome to Phantom.');
@@ -53,6 +62,10 @@ i18next
 /* ========== Start:: User api url ========= */ 
   app.use('/lng', languageRoutes);
 /* ========== Start:: User api url ========= */ 
+
+/* ========== Start:: Admin api url ========= */ 
+app.use('/dashboard', dashboardRoutes);
+/* ============== End:: Admin api ========= */ 
 
 /* ========== Start:: User api url ========= */ 
   app.use('/api/v1/users', usersRoutes);
