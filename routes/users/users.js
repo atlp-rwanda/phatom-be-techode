@@ -35,4 +35,6 @@ const router = express.Router();
 router.get('/', userController.getUsers);
 
 router.post('/', userController.postUser);
+
+router.post('/', userController.forgot);
 export default router

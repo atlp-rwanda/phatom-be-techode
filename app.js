@@ -5,6 +5,7 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from "swagger-jsdoc";
 import usersRoutes from './routes/users/users.js';
+import router from './routes/users/users.js'
 
 /* ========== setting up dotenv ============= */
 dotEnv.config()
@@ -60,6 +61,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/users', usersRoutes);
+
+app.use('/users', router);
 
 app.get('/', (req, res) => {
     res.send('Weclome to Phantom.');
