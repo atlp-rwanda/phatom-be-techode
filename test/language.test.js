@@ -20,7 +20,7 @@ describe('Lang test', () => {
 			fullname: 'cyifuzo jean chrysostome',
 			username: 'chance',
 		};
-		const response = await chai.request(app).get(`/lng/welcome`);
+		const response = await chai.request(app).get(`/api/v1/lng/welcome`);
 		expect(response).to.have.status(200);
 	});
 

@@ -4,12 +4,7 @@ import db from "../models/index.js";
 
 
 const getAllUsers = async (req, res) => {
-<<<<<<< HEAD
  
-=======
-  
-	try{
->>>>>>> ch(Postgres) postgres setup
 		/* ======= Start:: List all users with count ========== */ 
 			// users.findAll().then(users => {
 			// 	return success(res,200,users,"Retrieved");
@@ -24,13 +19,6 @@ const getAllUsers = async (req, res) => {
 				return success(res,200,users,"Retrieved");
 			})
 		/* ========= End:: List all users ================== */ 
-<<<<<<< HEAD
-=======
-	}
-	catch(error) {
-		return sendError(res,500,null,error.message);
-	}
->>>>>>> ch(Postgres) postgres setup
 	
 };
 

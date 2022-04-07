@@ -1,6 +1,7 @@
 {
     "welcome": "Bienvenue chez Fantôme",
     "success": "Succès",
+<<<<<<< HEAD
     "roleNotExist":"Le rôle n'existe pas",
     "roleExist":"Le rôle existe déjà",    
     "roleHaveBeenCreated":"Le rôle a été créé",
@@ -18,7 +19,30 @@
     "requiredEmail": "E-mail est requis",
     "requiredPassword": "Mot de passe requis",
     "wrongCredential":"Accréditation non valide",
+<<<<<<< HEAD
     "loginMessage":"Connecté avec succès",
     "phantomLogout": "Se déconnecter",
     "token": "jeton créé"
+=======
+    "loginMessage":"Connecté avec succès"
+=======
+    "status": "statut",
+    "error": "Erreur",
+    "fail":"échouer",
+    "Single driver": "Chauffeur unique",
+    "DriverExist": "Le pilote avec cet e-mail existe déjà",
+    "emailMessage": "Mot de passe fantôme généré automatiquement",
+    "pwdMsg": "Votre mot de passe actuel est",
+    "newDriver": "Nouveau pilote créé",
+    "allDrivers": "Tous les pilotes",
+    "DriverNotFound": "Pilote introuvable",
+    "DriverUpdated": "Pilote mis à jour",
+    "singleOperator": "Opérateur unique",
+    "operatorExist": "L'opérateur avec cet e-mail existe déjà",
+    "newOperator": "Nouvel opérateur créé",
+    "allOperators": "Tous les opérateurs",
+    "operatorNotFound": "L'opérateur n'existe pas",
+    "operatorUpdated": "Opérateur mis à jour"
+>>>>>>> ch(tests & translation) tests controllers
+>>>>>>> ch(tests & translation) tests controllers
 }
