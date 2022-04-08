@@ -5,7 +5,7 @@
    "main": "index.js",
    "scripts": {
       "start": "cross-env NODE_ENV=production ENVIRONMENT=production  babel-node app.js",
-      "dev": "nodemon --exec npm run compile",
+      "dev": "cross-env NODE_ENV=development ENVIRONMENT=development nodemon --exec npm run compile",
       "compile": "babel-node app.js",
       "lint": "eslint --ext .js",
       "test": "cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate:undo && cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate && cross-env NODE_ENV=test ENVIRONMENT=test npm run seedAll && c8 --check-coverage  mocha test/*.test.js --timeout 10000 --require @babel/register --ignore ./models/index.js --exit",
