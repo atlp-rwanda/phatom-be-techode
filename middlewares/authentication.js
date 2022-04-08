@@ -13,11 +13,11 @@ export const adminAuth = async (req , res , next) => {
       const verified = jwt.verify(token , "Techode");
 
       if(verified.id) return next()
-      return  res.status(401).json({'status': 'fail','code': 400,'message' : "Not authorized", "data": null});
+      return  res.status(401).json({'status': 'fail','code': 401,'message' : "Not authorized", "data": null});
       console.log(verified)
       
   } catch (error) {
-     return  res.status(500).json({'status': 'fail','code': 500,'message' : "Server error", "data": null});
+   return  res.status(401).json({'status': 'fail','code': 401,'message' : "Not authorized", "data": null});
   }
   
 }

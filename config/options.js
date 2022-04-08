@@ -11,7 +11,7 @@ const options = {
 				url: `http://localhost:5000/`,
 			},
             {
-				url: `https://phantom-back-ch-config--n1ewma.herokuapp.com/`,
+				url: `http://phantom-back-ch-config--n1ewma.herokuapp.com/`,
 			}
 		],
 		components: {

@@ -45,4 +45,14 @@ describe('Test one : users', () => {
 		const response = await chai.request(app).get(`/api/v1/users`);
 		expect(response).to.have.status(200);
 	});
+
+	it('should generate token', async () => {
+		const response = await chai.request(app).get(`/api/v1/dashboard/token`);
+		expect(response).to.have.status(200);
+	});
+	it('should logout from account', async () => {
+		const response = await chai.request(app).get(`/api/v1/dashboard/logout`);
+		expect(response).to.have.status(200);
+	});
+
 });

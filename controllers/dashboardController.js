@@ -1,17 +1,17 @@
 import jwt from 'jsonwebtoken';
 import cookie from 'cookie-parser'
 import express from 'express'
+import { success,fail,sendError } from "../function/respond.js";
 
 
 
 const logout = (req, res) => {
 
-    //  const { access-token } = res.cookie;
 
     if (res.cookie) {
-        console.log('Session ', req.cookie)
         res.clearCookie("access-token");
         res.redirect('/');
+        return success(res,200,null,"phantomLogout",req);
         res.end()
     } else {
         res.send('No session available.');
@@ -25,7 +25,8 @@ const logout = (req, res) => {
      res.cookie("access-token", token,{
               maxAge: 60*60*24,
             })
-     res.send(token);
+    //  res.send(token);
+    return success(res,200,token,"token",req);
  } 
 
 
