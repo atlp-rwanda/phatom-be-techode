@@ -28,6 +28,11 @@ describe('Roles testing', () => {
 		expect(response).to.have.status(201);
 	});
 
+    it('should not create role which already exist', async () => {
+		const response = await chai.request(app).post(`/api/v1/roles`).send({ rolename: "testAdmingfx" });
+		expect(response).to.have.status(400);
+	});
+
     it('Shoud prompt an error, if user id is not provided ', (done) => {
         chai.request(app)
             .post(`/api/v1/roles/createAccessTest`)
@@ -106,6 +111,15 @@ describe("Access control testing", () => {
             });            
     });
 
+    it('Should not delete with empty param or not integer', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/asdfa`)
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
     it('Should delete role', (done) => {
         chai.request(app)
             .delete(`/api/v1/roles/3`)
@@ -175,8 +189,17 @@ describe("Access control testing", () => {
 				done()
             });            
     });
+    it('Should not remove permission with valid inputs', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/permission/remove`)
+            .send({})
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
 
-    it('Should not permission whose does not exist', (done) => {
+    it('Should not assign permission whose role does not exist', (done) => {
         chai.request(app)
             .delete(`/api/v1/roles/permission/remove`)
             .send({
@@ -215,13 +238,36 @@ describe("Access control testing", () => {
             });            
     });
 
+    it('Should not remove permission which does not exist on role', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/permission/remove`)
+            .send({
+                "roleid": 1,
+                "permissionid": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should not remove permission  on role which does not exist', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/permission/remove`)
+            .send({
+                "roleid": 99,
+                "permissionid": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
     it('Should not assign role with invalid inputs', (done) => {
         chai.request(app)
             .put(`/api/v1/roles/assign/users`)
-            .send({
-                "roleid": 1,
-                "userId": 2
-            })
+            .send({})
             .end((err, res) => {
                 chai.expect(res).to.have.status(400);
 				done()
@@ -308,7 +354,7 @@ describe("Testin access" , () => {
     before((done) => {
 		done();
 	});
-    it('Should assign role ', (done) => {
+    it('Should retrive role ', (done) => {
         chai.request(app)
             .get(`/api/v1/users/`)            
             .end((err, res) => {
@@ -326,6 +372,32 @@ describe("Testin access" , () => {
             })
             .end((err, res) => {
                 chai.expect(res).to.have.status(200);
+				done()
+            });            
+    });
+    
+    it('Should not assign role again if it does exist ', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/assign/users`)
+            .send({
+                "userId": 2,
+                "roleId": 1
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should not assign role  if role does not exist ', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/assign/users`)
+            .send({
+                "userId": 2,
+                "roleId": 96
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
 				done()
             });            
     });
@@ -353,7 +425,17 @@ describe("Testin access" , () => {
             });            
     });
 
-    it('Should  assign create permission', (done) => {
+    it('Should not assign permission with invalid inputs', (done) => {
+        chai.request(app)
+            .post(`/api/v1/roles/permission/assign`)
+            .send({})
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should  assign  permission', (done) => {
         chai.request(app)
             .post(`/api/v1/roles/permission/assign`)
             .send({
@@ -362,6 +444,19 @@ describe("Testin access" , () => {
             })
             .end((err, res) => {
                 chai.expect(res).to.have.status(200);
+				done()
+            });            
+    });
+
+    it('Should not assign permission again which exist', (done) => {
+        chai.request(app)
+            .post(`/api/v1/roles/permission/assign`)
+            .send({
+                "roleid": 1,
+                "permissionid": 6
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
 				done()
             });            
     });
@@ -376,9 +471,121 @@ describe("Testin access" , () => {
             });            
     });
 
-    it('should Retieve all roles', async () => {
-		
+    it('should Retieve all roles', async () => {		
         const permission = await getRolesPermission(1);
-        console.log(permission);
 	});
+
+    it('Should not update role with empty rolename ', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/1`)
+            .send({ rolename: "" })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should not update role with empty id param or not int', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/asdfsdf`)
+            .send({ rolename: "newupdate" })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should not update role with unknown roleid ', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/121`)
+            .send({ rolename: "newrolename" })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should update role', (done) => {
+        chai.request(app)
+            .put(`/api/v1/roles/2`)
+            .send({ rolename: "2" })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(200);
+				done()
+            });            
+    });
+
+    it('Should not remove role from unknown user  ', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({
+                "roleId": 1,
+                "userId": 132
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+    
+    it('Should not remove role from unknown permission  ', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({
+                "roleId": 966,
+                "userId": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should not remove role from user if it does there is no valid inputs', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({})
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done();
+            });            
+    });
+    it('Should not remove unkown role', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({
+                "roleId": 600,
+                "userId": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done();
+            });            
+    });
+    
+    it('Should not remove role from user who does not have that role ', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({
+                "roleId": 4,
+                "userId": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
+
+    it('Should  remove role from  user  ', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/remove/users`)
+            .send({
+                "roleId": 1,
+                "userId": 2
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(200);
+				done()
+            });            
+    });
 })

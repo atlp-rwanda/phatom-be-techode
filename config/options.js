@@ -8,7 +8,7 @@ const options = {
 		},
 		servers: [
 			{
-				url: `http://localhost:5000/`,
+				url: `http://localhost:5000/`
 			},
             {
 				url: `https://phantom-back-ch-config--n1ewma.herokuapp.com/`,
