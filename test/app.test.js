@@ -1,25 +1,29 @@
-
-
-import chai from 'chai'
-import chaiHttp from 'chai-http'
-import app from '../app.js'
-
-
+const { expect } = require('chai');
+const chai = require('chai');
+const chaiHTTP = require('chai-http')
+const { app }  = require('../app.js');
+const users  = require('../models/users.js');
 const should = chai.should();
 
-chai.use(chaiHttp);
+chai.use(chaiHTTP);
 chai.should();
 
+describe('Test one : users', () => {
 
-describe("Test one : users", () => {
-    it("get all users", (done) => {
-        chai
-            .request(app)
-            .get("/users")
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.should;
-                done();
-            });
-    });
-})
+  before((done) => {
+    done();
+  })
+
+	it('Backend root director test', (done) => {
+		chai
+			.request(app)
+			.get('/')
+			.end((err, res) => {
+				res.should.have.status(200);
+				done();
+			});
+	});
+
+  
+
+});
