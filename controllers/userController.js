@@ -1,69 +1,42 @@
+import { users } from "../models";
+import { success,fail,sendError } from "../function/respond.js";
+import db from "../models/index.js";
 
 
-import User from "../userPassReset/userModel.js";
-import bcryptjs from "bcryptjs";
-
-
-const users = [
-    {
-        firstName: "Lucky",
-        lastName: "Doe",
-        age: 25
-    },
-    {
-        firstName: "Moise",
-        lastName: "John",
-        age: 45
-    }
-
-]
-
-const getUsers = (req, res) => {
-    console.log(users);
-    res.send(users);
-
+const getAllUsers = async (req, res) => {
+ 
+		/* ======= Start:: List all users with count ========== */ 
+			// users.findAll().then(users => {
+			// 	return success(res,200,users,"Retrieved");
+			// })
+		/* ======= End:: List all users with count ============ */ 
+		
+	
+	
+		/* ======= Start:: List all users =================== */ 
+			users.findAndCountAll().then(users => {
+				return success(res,200,users,"Retrieved");
+			})
+		/* ========= End:: List all users ================== */ 
+	
 };
 
-const postUser = (req, res) => {
-    const user = req.body;
-    console.log(user)
-    users.push(user)
-
-    res.send(user);
-};
-
-const forgot = async (req, res)=> {
+const createUser = async (req, res) => {
     try {
-      const exist = await User.findone({email: req.body.email});
+	
+		if(!req.body.username && !req.body.password &&  !req.body.fullname){			
+			throw new Error('Body is required');	
+				
+		}
+		if(!req.body.password || req.body.password.trim() === ""){
+			return fail(res,400,req.body,"Please make sure you add password"); 
+		}
+		const newUser = users.create(req.body);
+		const {fullname,username} = req.body;
+		return success(res,201,{fullname,username},"New user have been created");
+	} catch (error) {
+		return sendError(res,500,null,error.message);
+	}
+};
 
-      console.log("oooops: ", exist)
-      return res.status(200).send(exist.email)
-      if (exist.email) {
-        const tokenid = generateToken({ id: exist.id }, '10m');
-        const confirm = confirmEmail(tokenid);
-        await nodemailer(
-          exist.email,yield
-          'reset password',
-          'request for reset password',
-          confirm
-        );
-        return res.status(200).json({
-          status: 200,
-          message: 'Password reset link has been sent to your email'
-        });
-      } else {
-        res.status(404).json({ status: 404, message: 'Email has not found' });
-      }
-    } catch (error) {
-      return res.status(500).send( error);
-    }
-  }
-
-
-
-
-
-
-
-export default {getUsers, postUser, forgot};
-
+export  { getAllUsers, createUser };

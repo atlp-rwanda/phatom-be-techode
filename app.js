@@ -3,70 +3,62 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
-import swaggerJsDoc from "swagger-jsdoc";
+import swaggerJsDoc from 'swagger-jsdoc';
 import usersRoutes from './routes/users/users.js';
-import router from './routes/users/users.js'
+import options from './config/options.js';
+import i18next from 'i18next';
+import backend from 'i18next-fs-backend';
+import middleware from 'i18next-http-middleware';
+import languageRoutes from './routes/language'
 
-/* ========== setting up dotenv ============= */
-dotEnv.config()
-
-// accessing dotEnv variable
-console.log(process.env.ENVIRONMENT)
-/* ========== setting up dotenv ============= */
-
-
+dotEnv.config();
 const app = express();
-app.use(cors());
-
 const PORT = process.env.PORT || 5000;
+const specs = swaggerJsDoc(options);
 
-const options = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Phantom - Techode',
-            version: '1.0.0',
-            description: 'Phantom backend Express Library API'
-        },
-        servers: [
-         {
-            url: `https://localhost:5000/`,
-           //  url: 'http://localhost:7000/api/v1'
-         
-         }], 
-         components: {
-           securitySchemes: {
-             bearerAuth: {
-               type: 'http',
-               scheme: 'bearer',
-               in: 'header',
-               bearerFormat: 'JWT'
-             }
-           }
-         },
-         security: [
-           {
-             bearerAuth: []
-           }
-         ], 
-    },
-   
-    apis: ["./routes/dashboard/*.js", './routes/users/*.js','./routes/authentication/*.js']     
- }
 
- const specs = swaggerJsDoc(options)
-app.use('/api/doc', swaggerUI.serve, swaggerUI.setup(specs));
+
+
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(middleware.handle(i18next))
 
-app.use(bodyParser.json());
+i18next
+.use(backend)
+.use(middleware.LanguageDetector)
+.init({
+    fallbackLng: 'en',
+    backend: {
+        loadPath: './locales/{{lng}}/translation.json'
+    }
+})
 
-app.use('/users', usersRoutes);
-
-app.use('/users', router);
-
-app.get('/', (req, res) => {
+/* ========== Start:: Root directory ========= */ 
+  app.get('/', (req, res) => {
     res.send('Weclome to Phantom.');
+  });
+/* ============ End:: Root directory ========= */ 
+
+
+/* ========== Start:: User api url ========= */ 
+  app.use('/lng', languageRoutes);
+/* ========== Start:: User api url ========= */ 
+
+/* ========== Start:: User api url ========= */ 
+  app.use('/api/v1/users', usersRoutes);
+/* ============== Start:: User api ========= */ 
+
+/* ========== Start:: Api documantation version one ============ */ 
+  app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
+/* ========== Start:: Api documantation version one ============ */ 
+
+
+app.listen(PORT, () => {
+  app.emit("Started")
+  console.log(`app is listening on port ${PORT}`);
 });
 
-app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
-export default app
+
+export  { app };
