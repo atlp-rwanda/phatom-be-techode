@@ -4,7 +4,7 @@ import { success, fail, sendError } from "../function/respond.js";
 const validInput = async (req, res, next) => {
   const { fullname, username, password , email } = req.body;
   if (!validator.isEmail(email)) {
-    return fail(res, 401, null, "invalid email address");
+    return fail(res, 400, null, "invalid email address");
   }
   if (!username) {
     return fail(res, 401, null, "username is required");
@@ -14,8 +14,7 @@ const validInput = async (req, res, next) => {
   }
   if (!password) {
     return fail(res, 401, null, "password is required");
-  }
-  
+  }  
   next();
 };
 
