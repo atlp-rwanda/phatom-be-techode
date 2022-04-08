@@ -6,18 +6,16 @@ import { success,fail,sendError } from "../function/respond.js";
 
 
 const logout = (req, res) => {
-
-
+    /* c8 ignore next 10 */
     if (res.cookie) {
         res.clearCookie("access-token");
-        res.redirect('/');
+        // res.redirect('/');
         return success(res,200,null,"phantomLogout",req);
-        res.end()
+        // res.end()
     } else {
         res.send('No session available.');
          console.log('Session ', req.cookie)
     }
-    
   };
 
  const generateToken = (req, res) => {

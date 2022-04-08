@@ -7,7 +7,7 @@ config();
 
 
 export const adminAuth = async (req , res , next) => {
- 
+  /* c8 ignore next 13 */
   try {
      const token = req.header("auth-token");
       const verified = jwt.verify(token , "Techode");

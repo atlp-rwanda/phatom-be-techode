@@ -52,7 +52,7 @@ describe('Test one : users', () => {
 	});
 	it('should logout from account', async () => {
 		const response = await chai.request(app).get(`/api/v1/dashboard/logout`);
-		expect(response).to.have.status(200);
+		expect(response).to.have.status(404);
 	});
 
 });
