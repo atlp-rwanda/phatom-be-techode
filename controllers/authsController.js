@@ -1,20 +1,22 @@
-import models from '../models';
+import { users } from '../models';
 import { hashPassword, jwtToken, comparePassword } from '../middleware/auth'
 import cookieParser from 'cookie-parser';
+import dotenv  from "dotenv"
 import { success, fail, sendError } from "../function/respond.js";
 
-const { users } = models;
+const signUp = async (req, res) => {
+  try {  
+    
+    const { fullname, username, email, password } = req.body;
+    const findUser = await users.findAll({where : {email}});
+    if(findUser.length > 0) return sendError(res, 409, {error :null}, "This email account exist");
 
-
-const signUp = async (req, res, ne) => {
-  try {
-    const { fullname, username, email, role, password } = req.body;
     const hash = hashPassword(password);
-    const user = await users.create({ fullname, username, email, role, password: hash });
+    const user = await users.create({ fullname, username, email, role : null, password: hash });
     const token = jwtToken.createToken(user);
-    return success(res, 201, { token, user: { fullname, username, email, role } }, "user created")
+    return success(res, 201, { token, user: findUser }, "user created")
   } catch (e) {
-    return sendError(res, 500, null, e.massage);
+    return sendError(res, 500, {error :null}, e.message);
   }
 };
 
