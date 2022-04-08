@@ -9,7 +9,7 @@ const checkAuth = async (req,res,next) => {
         // const userId  = req.userId;
         const userId  = req.header('userId');
         const action  = req.header('action');
-        if(!userId) return fail(res,400,null,"UseId is required");
+        if(!userId) return fail(res,90000,null,"UseId is required");
 
         if(action.trim().length == 0) return fail(res,400,null,"Please provide the action to perform");
         /* ===================== Getting User =========================== */
@@ -34,7 +34,7 @@ const checkAuth = async (req,res,next) => {
         /* ========================= If role is not permmitted ======================== */
         if(!permitted) return fail(res,401,null,`${userName}'s role is not permitted to ${action}`); 
 
-        /* == Head tonext controler == */ 
+        /* == Head to next controler == */ 
         next();
 
     } catch (error) {

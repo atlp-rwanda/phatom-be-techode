@@ -16,16 +16,14 @@ const permissionExist = async (id = null , permissionname = null) => {
 
 const getAllpermissions = async (req, res) => {
 	
-    try {
-        /* ======= Start:: List all permissions =================== */ 
-            permissions.findAndCountAll().then(permission => {
-                return success(res,200,permission,"Retrieved");
-            })
-        /* ========= End:: List all permissions ================== */ 
+
+    /* ======= Start:: List all permissions =================== */ 
+        permissions.findAndCountAll().then(permission => {
+            return success(res,200,permission,"Retrieved");
+        })
+    /* ========= End:: List all permissions ================== */ 
         
-    } catch (error) {
-        return sendError(res,500,null,error.message);  
-    }
+   
 	
 };
 
