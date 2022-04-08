@@ -1,0 +1,54 @@
+name: Continuous Integration
+
+on:
+  push:
+  pull_request:
+    branches:
+      - develop
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    concurrency: test_environment
+    env:
+      DATABASE_HOST: localhost
+      DATABASE_USER: test
+      DATABASE_PASSWORD: "test"
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: test
+      ENVIRONMENT: test
+      TEST_DATABASE_URL: ${{secrets.TEST_DATABASE_URL}}
+      DEV_DATABASE_URL: ${{secrets.DEV_DATABASE_URL}}
+    steps:
+      - name: Development Code
+        uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - run: npm install
+      - name: Run tests and generate coverage reports
+        run: npm run coverage
+      - name: Sending coveralls report
+        uses: coverallsapp/github-action@master
+        with: 
+          github-token: ${{secrets.GITHUB_TOKEN}}
+      - name: send coverage report
+        uses: paambaati/codeclimate-action@v2.5.7
+        env:
+          CC_TEST_REPORTER_ID: ${{secrets.CC_REPORT}}
+
