@@ -33,11 +33,6 @@ const router = express.Router();
  */
 
 
-<<<<<<< HEAD
-router.post('/', userController.postUser);
-
-router.post('/', userController.forgot);
-=======
 /* === Start:: list all users route === */ 
     router.get('/', getAllUsers);
 /* ==== End:: list all users route === */ 
@@ -46,5 +41,4 @@ router.post('/', userController.forgot);
     router.post('/', createUser);
 /* ==== End:: Create users route === */ 
 
->>>>>>> 0df830c1bd425a7916c31f3a3dac6b367766d22c
 export default router
