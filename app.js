@@ -5,6 +5,7 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerJsDoc from 'swagger-jsdoc';
 import usersRoutes from './routes/users/users.js';
+import accountRouter from './routes/users/accounts.js';
 import options from './config/options.js';
 import i18next from 'i18next';
 import backend from 'i18next-fs-backend';
@@ -50,9 +51,14 @@ i18next
   app.use('/api/v1/users', usersRoutes);
 /* ============== Start:: User api ========= */ 
 
+/*=============== Start:: Reset api url ===============*/
+  app.use('/api/v1/accounts', accountRouter)
+/*===============End:: Reser api url ===============*/
+
 /* ========== Start:: Api documantation version one ============ */ 
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
 /* ========== Start:: Api documantation version one ============ */ 
+
 
 
 app.listen(PORT, () => {
