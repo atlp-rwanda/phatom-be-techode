@@ -24,7 +24,7 @@ const getAllUsers = async (req, res) => {
 const createUser = async (req, res) => {
     try {
 	
-		if(!req.body.username && !req.body.password &&  !req.body.fullname){			
+		if(!req.body.username && !req.body.password &&  !req.body.fullname &&   !req.body.email){			
 			throw new Error('Body is required');	
 				
 		}

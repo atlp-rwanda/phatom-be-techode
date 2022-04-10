@@ -20,6 +20,7 @@ describe('Test one : users', () => {
 			fullname: 'cyifuzo jean chrysostome',
 			username: 'chance',
 			password: 'test123',
+			email: 'delcy@gmail.com',
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
