@@ -50,7 +50,7 @@ const deleteRole = async (req, res) => {
 
             let exist = await roleExist(id)           
             if(exist.length == 0){
-               return fail(res,400,null,"Role does not exist") ;
+               return fail(res,400,null,"roleNotExist",req) ;
             }
         /* ================================ End: validatoin ================================= */ 
     
@@ -73,13 +73,13 @@ const createRole = async (req, res) => {
 
             let exist = await roleExist(null,rolename)    
             if(exist.length > 0) {
-                return fail(res,400,null,"Role exist");
+                return fail(res,400,null,"roleNotExist",req);
             }
         /* ================== start: validatoin =================== */ 
 
         /* ========== Start: create role ================= */ 
             const createRole = await roles.create({rolename});
-            return success(res,201,createRole,"Role have been created");
+            return success(res,201,createRole,"roleHaveBeenCreated",req);
         /* ============ End: create role ================= */ 
     } catch (error) { return sendError(res,500,null,error.message) }
 };
@@ -99,16 +99,16 @@ const updateRole = async (req, res) => {
             if( error) {
                 return fail(res,400,null,error.details[0].message);
             }
-            
+
             let exist = await roleExist(id)           
             if(exist.length == 0){
-                return fail(res,400,null,"Role does not exist") ;
+                return fail(res,400,null,"roleNotExist",req) ;
             }
         /* ================================ End: validatoin ================================= */ 
     
         /* ======= Start:: Update roles =================== */ 
             const updated = await roles.update( { rolename },{where : {id}});
-            return success(res,200,{ rolename },"Updated");
+            return success(res,200,{ rolename },"updated",req);
         /* ========= End:: Update roles ================== */         
     } catch (error) { return sendError(res,500,null,error.message); }	
 };
@@ -124,14 +124,14 @@ const assignPermssion = async(req,res) => {
         /* =================== Start:: validate if permssions exsist ==================  */ 
         const pExist = await permissionExist(permissionid);
         if(pExist.length == 0){
-            return fail(res,400,null,"Permission does not exist");
+            return fail(res,400,null,"permissionDoesNotExist",req);
         }
 
 
         /* =================== Start:: Validate if role exist ==================  */ 
         const rExist = await roleExist(roleid);
         if(rExist.length == 0 ) {
-            return fail(res,400,null,"Role does not exist");
+            return fail(res,400,null,"roleNotExist",req);
         }
 
 
@@ -142,7 +142,7 @@ const assignPermssion = async(req,res) => {
         let rolesPermissions  = await getRolesPermission(roleid);
         let roleHasPermssion = rolesPermissions.includes(getPermission.permission);
         if(roleHasPermssion) {
-            return fail(res,400,null,"Role has already that permission");        
+            return fail(res,400,null,"roleHasAlreadyThatPermission",req);        
         }
 
         /* ========================== Start:: update role   ================================  */
@@ -156,7 +156,7 @@ const assignPermssion = async(req,res) => {
 
         /* =============================== Start:: get roles   ====================================  */
         const getUpdateRole = await roleExist(roleid);
-        return success(res,200,{ role: getUpdateRole },"Permission have been assigned");
+        return success(res,200,{ role: getUpdateRole },"permissionHasBeenAssigned",req);
 
     } catch (error) { return sendError(res,500,null,error.message)}
 }
@@ -171,14 +171,14 @@ const removePermission = async (req,res) => {
         /* =================== Start:: validate if permssions exsist ==================  */ 
         const pExist = await permissionExist(permissionid);
         if(pExist.length == 0){
-            return fail(res,400,null,"Permission does not exist")
+            return fail(res,400,null,"permissionDoesNotExist",req)
         }
     
     
         /* =================== Start:: Validate if role exist ==================  */ 
         const rExist = await roleExist(roleid);
         if(rExist.length == 0 ){
-            return fail(res,400,null,"Role does not exist");
+            return fail(res,400,null,"roleNotExist",req);
         }
 
 
@@ -186,7 +186,7 @@ const removePermission = async (req,res) => {
         const permissionList = await getRolesPermission(roleid);
         let roleHasPermssion = permissionList.includes(pExist[0].permission);
         if(!roleHasPermssion){
-            return fail(res,400,null,"Role does not have that permission");
+            return fail(res,400,null,"roleDoesNotHaveThatPermission",req);
         }
 
     
@@ -197,6 +197,7 @@ const removePermission = async (req,res) => {
 
 
         /* ========== Start: updating permssions string ======== */
+        /* c8 ignore next 5 */ 
             const listLength = newPermissionsList.length ;
             for (let i = 0; i < listLength ; i++) {
                 newPermissions += newPermissionsList[i];
@@ -206,7 +207,7 @@ const removePermission = async (req,res) => {
 
         /* ========================== Start: updating permissions in database =========================== */ 
         const updateRole = await roles.update({ permissions : newPermissions },{where : {id : roleid}});    
-        return success(res,200,{ permission: newPermissions },"Permission have been removed");
+        return success(res,200,{ permission: newPermissions },"permissionHaveBeenRemoved",req);
         /* ============================= End: updating permissions in database ============================ */
         
     } catch (error) { return sendError(res,500,null,error.message)}
@@ -225,25 +226,25 @@ const assignRole = async (req,res) => {
             const user = await users.findAll({where: { id:userId }});
             let userExist = user.length;
             if(!userExist) {
-                return fail(res,400,null,"User does not exist");
+                return fail(res,400,null,"userNotExist",req);
             }
 
         /* =============== Start:: validate if role exist ==================  */ 
             const role = await roleExist(roleId);
             let exist =  role.length;
             if(!exist) {
-                return fail(res,400,null,"Role does not exist");
+                return fail(res,400,null,"roleNotExist",req);
             }
         /* =============== Start:: validate if role exist ==================  */
             exist =  user[0].roleId ==  roleId;
             if(exist) {
-                return fail(res,400,null,"Role already assigned");    
+                return fail(res,400,null,"roleAlreadyAssigned",req);    
             }            
 
         /* ========================= Start:: Updating the user role ==================  */ 
             await users.update({roleId},{where:{ id : userId }});
             const getUsers = await users.findAndCountAll({where: { id : userId }});
-            return success(res,200,{ user: getUsers },"Role have been updated");
+            return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
         
     } catch (error) { return sendError(res,500,null,error.message); }
@@ -261,26 +262,26 @@ const removeRole = async (req,res) => {
             const user = await users.findAll({where: { id:userId }});
             let userExist = user.length;
             if(!userExist) {
-                return fail(res,400,null,"User does not exist");
+                return fail(res,400,null,"userNotExist",req);
             }
 
         /* =============== Start:: validate if role exist ==================  */ 
             const role = await roleExist(roleId);
             let exist =  role.length;
             if(!exist) {
-                return fail(res,400,null,"Role does not exist");
+                return fail(res,400,null,"roleNotExist",req);
             }
 
         /* =============== Start:: validate if role exist on that users ==================  */
             exist =  user[0].roleId ==  roleId;
             if(!exist) {
-                return fail(res,400,null,"This user does not have this role");    
+                return fail(res,400,null,"userDoesNotHaveThisRole",req);    
             }
 
         /* ========================= Start:: Updating the user role ==================  */ 
             await users.update({roleId : null},{where:{ id : userId }});
             const getUsers = await users.findAndCountAll({where: { id : userId }});
-            return success(res,200,{ user: getUsers },"Role have been updated");
+            return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
         
     } catch (error) { return sendError(res,500,null,error.message)}

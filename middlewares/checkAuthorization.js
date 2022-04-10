@@ -9,7 +9,7 @@ const checkAuth = async (req,res,next) => {
         // const userId  = req.userId;
         const userId  = req.header('userId');
         const action  = req.header('action');
-        if(!userId) return fail(res,90000,null,"UseId is required");
+        if(!userId) return fail(res,400,null,"UseId is required");
 
         if(action.trim().length == 0) return fail(res,400,null,"Please provide the action to perform");
         /* ===================== Getting User =========================== */
@@ -38,6 +38,7 @@ const checkAuth = async (req,res,next) => {
         next();
 
     } catch (error) {
+        /* c8 ignore next 2 */ 
         return sendError(res,500,null,error.message);
     }
 } 

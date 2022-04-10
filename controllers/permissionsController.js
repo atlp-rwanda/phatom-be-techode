@@ -9,6 +9,7 @@ const permissionExist = async (id = null , permissionname = null) => {
             id:id 
         }
     }
+    /* c8 ignore next 1 */ 
     permissionname != null ? query={where:{permission_name:permissionname}}: "";
     let exist = await permissions.findAll(query);
     return exist

@@ -38,12 +38,20 @@ describe('Roles testing', () => {
             .post(`/api/v1/roles/createAccessTest`)
             .set({ action : "createRoute"})
             .end((err, res) => {
-                chai.expect(res).to.have.status(500);
+                chai.expect(res).to.have.status(400);
 				done()
             });            
     });
 
-
+    it('Shoud prompt an error, if action is empty ', (done) => {
+        chai.request(app)
+            .post(`/api/v1/roles/createAccessTest`)
+            .set({ userId: 1, action : " "})
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
     
     it('Should prompt an error, if permission  provided  does not exist', (done) => {
         chai.request(app)

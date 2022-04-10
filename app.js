@@ -15,6 +15,7 @@ import languageRoutes from './routes/language'
 
 dotEnv.config();
 const app = express();
+/* c8 ignore next 1 */ 
 const PORT = process.env.PORT || 5000;
 const specs = swaggerJsDoc(options);
 

@@ -80,6 +80,12 @@ const router = express.Router();
  *    summary: Creating role
  *    tags:
  *    - "Roles"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -140,6 +146,11 @@ const router = express.Router();
  *        required: true
  *        schema:
  *          type: integer
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -200,6 +211,11 @@ const router = express.Router();
  *        required: true
  *        schema:
  *          type: integer
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    responses:
  *        200: 
  *          description: Updated
@@ -245,6 +261,12 @@ const router = express.Router();
  *    summary: getting a roles
  *    tags:
  *    - "Roles"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    responses:
  *        200: 
  *          description: Retrived
@@ -283,6 +305,12 @@ const router = express.Router();
  *    summary: Assgining permissions to role
  *    tags:
  *    - "Access"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -341,6 +369,12 @@ const router = express.Router();
  *    summary: Removing permissions from role
  *    tags:
  *    - "Access"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -400,6 +434,12 @@ const router = express.Router();
  *    summary: Assgining permissions to role
  *    tags:
  *    - "Access"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -457,6 +497,12 @@ const router = express.Router();
  *    summary: Assgining permissions to the user
  *    tags:
  *    - "Access"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default english
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -513,6 +559,12 @@ const router = express.Router();
  *    summary: Assgining permissions to the user
  *    tags:
  *    - "Access"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
  *    requestBody:
  *      content:
  *        application/json:
@@ -583,6 +635,11 @@ const router = express.Router();
  *        required: true
  *        schema:
  *          type: string
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default is english  
+ *        schema:
+ *          type: string   
  *    responses:
  *        200: 
  *          description: Updated

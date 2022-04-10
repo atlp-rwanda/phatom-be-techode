@@ -1,4 +1,18 @@
 {
     "welcome": "Welcome to Phantom",
-    "success": "success"
+    "success": "success",
+    "roleNotExist":"Role does not exist", 
+    "roleExist":"Role already exist",
+    "roleHaveBeenCreated":"Role have been created",
+    "userNotExist":"User does not exist",
+    "roleUpdated":"Role have been updated",    
+    "userDoesNotHaveThisRole":"This user does not have this role",
+    "roleAlreadyAssigned":"Role already assigned",
+    "permissionHaveBeenRemoved":"Permission has been removed",
+    "roleDoesNotHaveThatPermission":"Role does not have that permission",
+    "permissionDoesNotExist":"Permission does not exist",
+    "permissionHasBeenAssigned":"Permission have been assigned",
+    "roleHasAlreadyThatPermission":"The role has already that permission",
+    "updated":"Updated",    
+    "Retrieved":"Fetched"
 }

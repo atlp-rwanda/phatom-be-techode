@@ -15,6 +15,7 @@ let sequelize;
 if (config.url) {
 	sequelize = new Sequelize(config.url, config);
 } 
+/* c8 ignore next 3 */ 
 else {
 	sequelize = new Sequelize(config.database, config.username, config.password, config);
   }
