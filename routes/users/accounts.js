@@ -59,6 +59,65 @@ const accountRouter = Router();
 
 accountRouter.post('/forgot-password',	forgotPassword);
 accountRouter.get('/reset-password/:token', validateToken);
+
+
+
+/**
+ * @swagger
+ * tags:
+ *  name: Reset
+ */
+
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *    sendingPassword:
+ *      type: object
+ *      required:
+ *        - password
+ *      example:
+ *        password: delyce@123
+ *      properties:
+ *        email:
+ *          type: string
+ *          description: astrng password is required
+ * 
+ */
+
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/accounts/reset-password/{token}:
+ *  post:
+ *    summary: reset password
+ *    tags:
+ *      - Reset
+ *    description: fill in your email
+ *    parameters:
+ *      - name: token
+ *        in: param
+ *        description: 
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: "#/components/schemas/sendingPassword"
+ *    responses:
+ *      200:
+ *        description: check your email
+ * 
+ */
+
+
+
+
 accountRouter.post('/reset-password/:token',changePasswordPost);
 
 export default accountRouter;

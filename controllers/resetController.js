@@ -6,7 +6,16 @@ import sendMail from './resetUtil.js';
 export const forgotPassword = async (req, res) => {
 	
 	try {
+		
 		const { email } = req.body;
+		if (!req.body.email) {
+			return res.status(400).json({
+			  success: false,
+			  data: {
+				message: "Missing email",
+			  },
+			});
+		  }
 		const user = await users.findOne({ where: { email } });	
 		if (!user) return res.status(400).json({ message: 'User not found' });
 		
@@ -52,7 +61,17 @@ export const validateToken = async (req, res) => {
 };
 
 export const changePasswordPost = async (req, res) => {
+	
 	const { token } = req.params;
+	if (!req.params.token) {
+		
+		return res.status(400).json({
+		  success: false,
+		  data: {
+			message: "Missing token",
+		  },
+		});
+	  }
 	const newPassword = req.body.password;
 	/* ===================== Getting token ===================== */
 	const resetoken = await resetTokens.findOne({ where: { token } });
