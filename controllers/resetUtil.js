@@ -1,37 +1,36 @@
 import bcrypt from 'bcrypt';
-import 'dotenv/config.js';
+import { config }  from 'dotenv';
 import { body, validationResult } from 'express-validator';
 import Nodemailer from 'nodemailer';
 import User from '../models/users';
 import renderMail from './renderMail';
-const sendEmail = async (link, email, user) => {
-	const transport = Nodemailer.createTransport({
-		host: 'smtp.gmail.com',
-		port: 587,
-		secure: true,
-		auth: {
-			user: process.env.EMAIL_USER,
-			pass: process.env.EMAIL_PASS,
-		},
-	});
-	const message = {
-		from: process.env.EMAIL_USER,
-		to: email,
-		envelope: {
-			from: `Phantom Techode <${process.env.EMAIL_USER}>`,
-			to: `${email}, ${user.firstName} <${email}>`,
-		},
-		subject: 'Password reset',
-		html: renderMail(link, user),
-		text: link,
-	};
+config()
+const sendEmail = async (link, email, user) => {	
 	try {
+		const transport = Nodemailer.createTransport({
+			host: process.env.SERVICE,
+			port: 587,
+			secure: false,
+			auth: {
+				user: process.env.EMAIL_USER,
+				pass: process.env.EMAIL_PASS,
+			},
+		});
+		const message = {
+			from: process.env.EMAIL_USER,
+			to: email,
+			envelope: {
+				from: `Phantom Techode <${process.env.EMAIL_USER}>`,
+				to: `${email}, ${user.fullname} <${email}>`,
+			},
+			subject: 'Password reset',
+			html: renderMail(link, user),
+			text: link,
+		};
 		await transport.sendMail(message);
-		console.log('Email sent ', email, link);
 		return true;
 	} catch (error) {
-		console.log('Something went wrong');
-		console.log(error);
+		return error.message;
 	}
 };
 

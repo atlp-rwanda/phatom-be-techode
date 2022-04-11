@@ -8,7 +8,11 @@ module.exports = {
      * Example:
      * 
      */
+<<<<<<< HEAD
      await queryInterface.createTable('reset-token', { 
+=======
+     await queryInterface.createTable('resetTokens', { 
+>>>>>>> d09380dbd00312c47ba4d26826fb3cbf105e222f
       id:{
           allowNull: false,
           autoIncrement: true,
@@ -37,9 +41,13 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn("NOW")
       }
+<<<<<<< HEAD
         
       
       });
+=======
+    });
+>>>>>>> d09380dbd00312c47ba4d26826fb3cbf105e222f
   },
 
   async down (queryInterface, Sequelize) {
@@ -49,6 +57,10 @@ module.exports = {
      * Example:
      * 
      */
+<<<<<<< HEAD
      await queryInterface.dropTable('reset-token');
+=======
+     await queryInterface.dropTable('resetTokens');
+>>>>>>> d09380dbd00312c47ba4d26826fb3cbf105e222f
   }
 };
