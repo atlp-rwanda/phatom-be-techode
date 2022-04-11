@@ -25,7 +25,9 @@ const addDriver = async(req,res) => {
                 email:email
             }
         });
-        if(driverExist.length > 0) return fail(res,409,null,req.t('DriverExist'),req.t('fail'))
+        if(driverExist.length > 0){
+            return fail(res,409,null,'DriverExist',req)
+        }
         drivers.create({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -34,15 +36,14 @@ const addDriver = async(req,res) => {
             password: hashedPassword 
         }).then(driver => {
             sendMail(driver.email, req.t('emailMessage'),`${ req.t('pwdMsg')+" "+passwordNew}`)
-            return success(res,201,driver,req.t('newDriver'),req.t('success'))
-        }).catch((errors)=> {
-            return sendError(res,500,errors,errors.message)
-        })
+            return success(res,201,driver,'newDriver',req)
+        }).catch((errors)=> { return sendError(res,500,errors,errors.message) })
 }
 
 const allDrivers = async(req, res) => {
     let filter = {}
     let {q} = req.query
+    /* c8 ignore next 10 */
     if(q){
         filter = {
             where: {
@@ -55,30 +56,28 @@ const allDrivers = async(req, res) => {
     }
     try{
         drivers.findAndCountAll({attributes: {exclude: ['password']}}).then((drivers)=> {
-            return success(res,200,drivers,req.t('allDrivers'), req.t('success'))
+            return success(res,200,drivers,'allDrivers',req)
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){return sendError(res,500,null,error.message)}
 }
 
 const getSingleDriver = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) return fail(res,422,null,error.details[0].message) 
-    const driverExist = await drivers.findAll({
-        where :{ 
-            id 
-        }
-    });
-    if(driverExist.length == 0) return fail(res,404,driverExist,req.t('DriverNotFound'),req.t('fail'))
     try{
-        drivers.findByPk(id).then((driver)=> {
-            return success(res,200,driver,req.t('Single driver'),req.t('success'))
-        })
-    } catch(error){
-        return sendError(res,500,null,error.message)
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error) return fail(res,422,null,error.details[0].message) 
+        const driverExist = await drivers.findAll({
+            where :{ 
+                id 
+            }
+        });
+    if(driverExist.length == 0){
+        return fail(res,404,driverExist,'DriverNotFound',req)
     }
+        drivers.findByPk(id).then((driver)=> {
+            return success(res,200,driver,'Single driver',req)
+        })
+    } catch(error){return sendError(res,500,null,error.message)}
 }
 
 const deleteDriver = async(req, res) => {
@@ -90,27 +89,29 @@ const deleteDriver = async(req, res) => {
             id 
         }
     });
-    if(driverExist.length == 0) return fail(res,404,driverExist,req.t('DriverNotFound'),req.t('fail'))
+    if(driverExist.length == 0){
+        return fail(res,404,driverExist,'DriverNotFound',req)
+    }
     try{
         drivers.findByPk(id).then((driver)=> {
             driver.destroy()
             return success(res,204,driver,"Driver deleted")
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message) }
 }
 const updateDriver = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) return fail(res,422,null,error.details[0].message) 
-    const driverExist = await drivers.findAll({
-        where :{ 
-            id 
-        }
-    });
-    if(driverExist.length == 0) return fail(res,404,driverExist,req.t('DriverNotFound'),req.t('fail'))
     try {
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error) return fail(res,422,null,error.details[0].message) 
+        const driverExist = await drivers.findAll({
+            where :{ 
+                id 
+            }
+        });
+        if(driverExist.length == 0){
+            return fail(res,404,driverExist,'DriverNotFound',req)
+        }
         drivers.findByPk(id).then((driver) => {
             driver.update({
                 firstname: req.body.firstname,
@@ -119,11 +120,9 @@ const updateDriver = async(req, res) => {
                 telephone: req.body.telephone,  
                 password: passwordNew
             })
-            return success(res,200,driver,req.t('operatorUpdated'),req.t('success'))
+            return success(res,200,driver,'operatorUpdated',req)
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message) }
 }
 
 

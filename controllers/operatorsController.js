@@ -23,7 +23,9 @@ const addOperator = async(req,res) => {
             email:email
         }
     });
-    if(operatorExist.length > 0) return fail(res,409,null,req.t('operatorExist'),req.t('fail'))
+    if(operatorExist.length > 0){
+        return fail(res,409,null,'operatorExist',req)
+    }
         operators.create({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -32,16 +34,14 @@ const addOperator = async(req,res) => {
             password: hashedPassword 
         }).then(operator => {
             sendMail(operator.email, req.t('emailMessage'), `${ req.t('pwdMsg')+" "+passwordNew}`)
-            return success(res,201,operator,req.t('newOperator'),req.t('success'))
-        }).catch((errors)=> {
-            return sendError(res,500,errors,errors.message)
-        })
+            return success(res,201,operator,'newOperator',req)
+        }).catch((errors)=> { return sendError(res,500,errors,errors.message)})
 }
 
 const allOperators = async(req, res) => {
     let filter = {}
     let { q } = req.query
-
+    /* c8 ignore next 9 */
     if(q){
         filter = {
             where: {
@@ -53,62 +53,62 @@ const allOperators = async(req, res) => {
     }
     try{
         operators.findAndCountAll({attributes: {exclude: ['password']}}).then((operators)=> {
-            return success(res,200,operators,req.t('allOperators'), req.t('success'))
+            return success(res,200,operators,'allOperators',req)
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message)}
 }
 
 const getSingleOperator = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) return fail(res,422,null,error.details[0].message) 
-    const operatorExist = await operators.findAll({
-        where :{ 
-            id 
-        }
-    });
-    if(operatorExist.length == 0) return fail(res,404,operatorExist,req.t('operatorNotFound'),req.t('fail'))
     try{
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error) return fail(res,422,null,error.details[0].message) 
+        const operatorExist = await operators.findAll({
+            where :{ 
+                id 
+            }
+        });
+        if(operatorExist.length == 0){
+            return fail(res,404,operatorExist,'operatorNotFound',req)
+        }
         operators.findByPk(id).then((operator)=> {
-            return success(res,200,operator,req.t('singleOperator'),req.t('success'))
+            return success(res,200,operator,'singleOperator',req)
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message)}
 }
 
 const deleteOperator = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) return fail(res,422,null,error.details[0].message) 
-    const operatorExist = await operators.findAll({
-        where :{ 
-            id 
-        }
-    });
-    if(operatorExist.length == 0) return fail(res,404,operatorExist,req.t('operatorNotFound'),req.t('fail'))
     try{
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error) return fail(res,422,null,error.details[0].message) 
+        const operatorExist = await operators.findAll({
+            where :{ 
+                id 
+            }
+        });
+        if(operatorExist.length == 0){
+            return fail(res,404,operatorExist,'operatorNotFound',req)
+        }
         operators.findByPk(id).then((operator)=> {
             operator.destroy()
             return success(res,204,operator,"Operator deleted")
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message)}
 }
 const updateOperator = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) return fail(res,422,null,error.details[0].message) 
-    const operatorExist = await operators.findAll({
-        where :{ 
-            id 
-        }
-    });
-    if(operatorExist.length == 0) return fail(res,404,operatorExist,req.t('operatorNotFound'),req.t('fail'))
     try {
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error) return fail(res,422,null,error.details[0].message) 
+        const operatorExist = await operators.findAll({
+            where :{ 
+                id 
+            }
+        });
+        if(operatorExist.length == 0){
+            return fail(res,404,operatorExist,'operatorNotFound',req)
+        }
         operators.findByPk(id).then((operator) => {
             operator.update({
                 firstname: req.body.firstname,
@@ -117,11 +117,9 @@ const updateOperator = async(req, res) => {
                 telephone: req.body.telephone,
                 password: passwordNew  
             })
-            return success(res,200,operator,req.t('DriverUpdated'),req.t('success'))
+            return success(res,200,operator,'DriverUpdated',req)
         })
-    } catch(error){
-        return sendError(res,500,null,error.message)
-    }
+    } catch(error){ return sendError(res,500,null,error.message)}
 }
 
 

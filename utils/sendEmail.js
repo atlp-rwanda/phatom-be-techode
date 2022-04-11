@@ -16,7 +16,7 @@ async function sendMail(to, subject, text) {
             pass:process.env.EMAIL_PASSWORD
         }
     })
-
+    /* c8 ignore next 10 */
     let info = await transporter.sendMail({
         from: '"Phantom 👻" <foo@example.com>', 
         to: to, 
@@ -24,7 +24,6 @@ async function sendMail(to, subject, text) {
         text: text, 
         html: `<b>${text}</b>`, 
     })
-
     console.log("Message sent: %s", info.messageId);
   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
 }
