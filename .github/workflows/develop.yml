@@ -31,6 +31,7 @@ jobs:
       DATABASE_PORT: "5432"
       DATABASE_NAME: test
       ENVIRONMENT: test
+      JWT_SECRETE: ${{secrets.JWT_SECRETE}}
       TEST_DATABASE_URL: ${{secrets.TEST_DATABASE_URL}}
       DEV_DATABASE_URL: ${{secrets.DEV_DATABASE_URL}}
     steps:
@@ -51,4 +52,3 @@ jobs:
         uses: paambaati/codeclimate-action@v2.5.7
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_REPORT}}
-

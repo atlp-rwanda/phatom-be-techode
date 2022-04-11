@@ -25,7 +25,4 @@ describe('Test one : users', () => {
 				done();
 			});
 	});
-
-  
-
 });

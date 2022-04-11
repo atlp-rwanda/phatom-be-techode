@@ -15,6 +15,7 @@ const getAllUsers = async (req, res) => {
 	
 		/* ======= Start:: List all users =================== */ 
 			users.findAndCountAll().then(users => {
+				
 				return success(res,200,users,"Retrieved");
 			})
 		/* ========= End:: List all users ================== */ 

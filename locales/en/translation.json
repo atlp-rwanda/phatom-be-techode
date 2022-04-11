@@ -1,4 +1,9 @@
 {
     "welcome": "Welcome to Phantom",
-    "success": "success"
+    "success": "success",
+    "requiredEmail": "Email is required",
+    "requiredPassword": "password is required",
+    "wrongCredential": "Invalid credential",
+    "loginMessage":"Logged in successfully"
+
 }
