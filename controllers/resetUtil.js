@@ -35,7 +35,6 @@ const sendEmail = async (link, email, user) => {
 	}
 };
 
-export default sendEmail;
 
 export const validate = (req, res, next) => {
 	const errors = validationResult(req);
@@ -81,3 +80,6 @@ export const createUserValidation = () => [
 		}),
 	body('firstName', 'this too is required').notEmpty(),
 ];
+
+
+export default sendEmail;

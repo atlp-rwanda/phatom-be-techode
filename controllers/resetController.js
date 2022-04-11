@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import resetToken from '../models';
-import users from '../models/users.js';
+import { users } from '../models';
 import sendMail from './resetUtil.js';
 
 export const forgotPassword = async (req, res) => {

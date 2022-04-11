@@ -53,13 +53,13 @@ i18next
 /* ============== Start:: User api ========= */ 
 
 /*=============== Start:: Reset api url ===============*/
-app.use('api/v1/accounts', accountRouter)
-
+  app.use('/api/v1/accounts', accountRouter)
 /*===============End:: Reser api url ===============*/
 
 /* ========== Start:: Api documantation version one ============ */ 
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
 /* ========== Start:: Api documantation version one ============ */ 
+
 
 
 app.listen(PORT, () => {

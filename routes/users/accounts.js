@@ -1,14 +1,6 @@
 import { Router } from 'express';
-import {
-	changePasswordGet,
-	changePasswordPost,
-	forgotPassword,
-} from '../../controllers/resetController.js';
-import {
-	emailValidation,
-	passwordValidation,
-	validate,
-} from '../../controllers/resetUtil.js';
+import { changePasswordGet,changePasswordPost,forgotPassword } from '../../controllers/resetController.js';
+import { emailValidation,passwordValidation,validate } from '../../controllers/resetUtil.js';
 
 const accountRouter = Router();
 
@@ -16,13 +8,13 @@ const accountRouter = Router();
 
 
 /**
- * @openapi
+ * @swagger
  * tags:
  *  name: Reset
  */
 
 /**
- * @openapi
+ * @swagger
  * components:
  *  schemas:
  *    sendingEmail:
@@ -43,7 +35,7 @@ const accountRouter = Router();
 
 
 /**
- * @openapi
+ * @swagger
  * /api/v1/accounts/forgot-password/:
  *  post:
  *    summary: reset password
@@ -65,24 +57,8 @@ const accountRouter = Router();
 
 
 
-accountRouter.post(
-	'/forgot-password',
-	emailValidation(),
-	validate,
-	forgotPassword
-);
-
-
-
+accountRouter.post(	'/forgot-password',	emailValidation,validate,forgotPassword);
 accountRouter.get('/reset-password/:token', changePasswordGet);
-
-
-
-accountRouter.post(
-	'/reset-password/:token',
-	passwordValidation(),
-	validate,
-	changePasswordPost
-);
+accountRouter.post('/reset-password/:token',passwordValidation,validate,changePasswordPost);
 
 export default accountRouter;
