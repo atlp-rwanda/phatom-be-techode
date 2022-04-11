@@ -349,6 +349,7 @@ describe("Access control testing", () => {
 			fullname: 'cyifuzo jean chrysostome',
 			username: 'chance',
 			password: 'test123',
+            email:"sezerano@gmail.com"
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
@@ -584,6 +585,16 @@ describe("Testin access" , () => {
             });            
     });
 
+    it('should create a User', async () => {
+		const user = {
+            fullname:"sezerano jean chrysotome",
+            username:"sezerano",
+            email:"jeanDoe@gmail.com",
+            password:"123456"
+        };
+		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		expect(response).to.have.status(201);
+	});
     it('Should  remove role from  user  ', (done) => {
         chai.request(app)
             .delete(`/api/v1/roles/remove/users`)

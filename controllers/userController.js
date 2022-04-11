@@ -4,18 +4,29 @@ import db from "../models/index.js";
 
 
 const getAllUsers = async (req, res) => {
-	/* ======= Start:: List all users =================== */ 
-		users.findAndCountAll().then(users => {
-			return success(res,200,users,"Retrieved");
-		})
-	/* ========= End:: List all users ================== */ 	
+ 
+		/* ======= Start:: List all users with count ========== */ 
+			// users.findAll().then(users => {
+			// 	return success(res,200,users,"Retrieved");
+			// })
+		/* ======= End:: List all users with count ============ */ 
+		
+	
+	
+		/* ======= Start:: List all users =================== */ 
+			users.findAndCountAll().then(users => {
+				
+				return success(res,200,users,"Retrieved");
+			})
+		/* ========= End:: List all users ================== */ 
+	
 };
 
 const createUser = async (req, res) => {
     try {
 
 	    /* =============================== start: Validation ============================== */ 
-			if(!req.body.username && !req.body.password &&  !req.body.fullname) throw new Error('Body is required');				
+			if(!req.body.username && !req.body.password &&  !req.body.fullname && !req.body.email) throw new Error('Body is required');				
 			if(!req.body.password || req.body.password.trim() === "") return fail(res,400,req.body,"Please make sure you add password");
 		/* ================================= End: Validation ============================== */ 
 		

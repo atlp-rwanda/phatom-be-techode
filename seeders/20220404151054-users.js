@@ -6,6 +6,8 @@ module.exports = {
       username: 'John Doe',
       password: "123456",
       fullname: "sezeron j",
+      roles:"client",
+      email:"test@gmail.com"
 
     }], {});
   },

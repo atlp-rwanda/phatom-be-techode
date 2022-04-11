@@ -12,8 +12,16 @@ import i18next from 'i18next';
 import backend from 'i18next-fs-backend';
 import middleware from 'i18next-http-middleware';
 import languageRoutes from './routes/language'
+import loginRoute from './routes/logins';
 
-dotEnv.config();
+/* ========== setting up dotenv ============= */
+dotEnv.config()
+
+// accessing dotEnv variable
+console.log(process.env.ENVIRONMENT)
+/* ========== setting up dotenv ============= */
+
+
 const app = express();
 /* c8 ignore next 1 */ 
 const PORT = process.env.PORT || 5000;
@@ -48,6 +56,7 @@ i18next
 
 /* ========== Start:: User api url ========= */ 
   app.use('/api/v1/users', usersRoutes);
+  app.use('/api/v1/users/login', loginRoute);
 /* ============== Start:: User api ========= */ 
 
 /* ========== Start:: role api url ========= */ 
@@ -63,7 +72,6 @@ i18next
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
 /* ========== Start:: Api documantation version one ============ */ 
 
-
 app.listen(PORT, () => {
   app.emit("Started")
   console.log(`app is listening on port ${PORT}`);
@@ -71,3 +79,4 @@ app.listen(PORT, () => {
 
 
 export  { app };
+

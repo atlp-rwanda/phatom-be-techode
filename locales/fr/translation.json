@@ -14,5 +14,9 @@
     "permissionHasBeenAssigned":"L'autorisation a été attribuée",
     "roleHasAlreadyThatPermission":"Le rôle a déjà cette autorisation",
     "updated":"Mis à jour",
-    "Retrieved":"Récupéré"
+    "Retrieved":"Récupéré",
+    "requiredEmail": "E-mail est requis",
+    "requiredPassword": "Mot de passe requis",
+    "wrongCredential":"Accréditation non valide",
+    "loginMessage":"Connecté avec succès"
 }

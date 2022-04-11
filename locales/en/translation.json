@@ -14,5 +14,10 @@
     "permissionHasBeenAssigned":"Permission have been assigned",
     "roleHasAlreadyThatPermission":"The role has already that permission",
     "updated":"Updated",    
-    "Retrieved":"Fetched"
+    "Retrieved":"Fetched",
+    "requiredEmail": "Email is required",
+    "requiredPassword": "password is required",
+    "wrongCredential": "Invalid credential",
+    "loginMessage":"Logged in successfully"
+
 }
