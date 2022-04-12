@@ -17,11 +17,11 @@ checks:
   return-statements:
     enabled: true
   similar-code:
-    enabled: true
+    enabled: false
   identical-code:
-    enabled: true
+    enabled: false
 exclude_patterns:
-  - "**/tests/"
-  - "**/__tests__/"
+  - "**/test/"
+  - "**/__test__/"
   - "coverage/"
   - "*.test.js"

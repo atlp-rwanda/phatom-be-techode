@@ -35,7 +35,9 @@ const addOperator = async(req,res) => {
         }).then(operator => {
             sendMail(operator.email, req.t('emailMessage'), `${ req.t('pwdMsg')+" "+passwordNew}`)
             return success(res,201,operator,'newOperator',req)
-        }).catch((errors)=> { return sendError(res,500,errors,errors.message)})
+        })
+        /* c8 ignore next 1*/
+        .catch((errors)=> { return sendError(res,500,errors,errors.message)})
 }
 
 const allOperators = async(req, res) => {
@@ -55,6 +57,7 @@ const allOperators = async(req, res) => {
         operators.findAndCountAll({attributes: {exclude: ['password']}}).then((operators)=> {
             return success(res,200,operators,'allOperators',req)
         })
+        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}
 }
 
@@ -74,6 +77,7 @@ const getSingleOperator = async(req, res) => {
         operators.findByPk(id).then((operator)=> {
             return success(res,200,operator,'singleOperator',req)
         })
+        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}
 }
 
@@ -94,6 +98,7 @@ const deleteOperator = async(req, res) => {
             operator.destroy()
             return success(res,204,operator,"Operator deleted")
         })
+        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}
 }
 const updateOperator = async(req, res) => {
@@ -121,6 +126,7 @@ const updateOperator = async(req, res) => {
             })
             return success(res,200,operator,'DriverUpdated',req)
         })
+        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}
 }
 
