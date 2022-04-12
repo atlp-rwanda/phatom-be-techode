@@ -1,7 +1,6 @@
 {
     "welcome": "Bienvenue chez Fantôme",
     "success": "Succès",
-<<<<<<< HEAD
     "roleNotExist":"Le rôle n'existe pas",
     "roleExist":"Le rôle existe déjà",    
     "roleHaveBeenCreated":"Le rôle a été créé",
@@ -19,13 +18,10 @@
     "requiredEmail": "E-mail est requis",
     "requiredPassword": "Mot de passe requis",
     "wrongCredential":"Accréditation non valide",
-<<<<<<< HEAD
     "loginMessage":"Connecté avec succès",
     "phantomLogout": "Se déconnecter",
-    "token": "jeton créé"
-=======
-    "loginMessage":"Connecté avec succès"
-=======
+    "token": "jeton créé",
+    "loginMessage":"Connecté avec succès",
     "status": "statut",
     "error": "Erreur",
     "fail":"échouer",
@@ -43,6 +39,4 @@
     "allOperators": "Tous les opérateurs",
     "operatorNotFound": "L'opérateur n'existe pas",
     "operatorUpdated": "Opérateur mis à jour"
->>>>>>> ch(tests & translation) tests controllers
->>>>>>> ch(tests & translation) tests controllers
 }

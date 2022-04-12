@@ -1,3 +1,4 @@
+const baseUrl = process.env.SERVER_URL;
 const options = {
 	definition: {
 		openapi: '3.0.0',
@@ -8,10 +9,7 @@ const options = {
 		},
 		servers: [
 			{
-				url: `http://localhost:5000/`,
-			},
-            {
-				url: `http://phantom-back-ch-config--n1ewma.herokuapp.com/`,
+				url: baseUrl || `http://localhost:5000/`,
 			}
 		],
 		components: {

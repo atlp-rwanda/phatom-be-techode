@@ -1,7 +1,6 @@
 {
     "welcome": "Welcome to Phantom",
     "success": "success",
-<<<<<<< HEAD
     "roleNotExist":"Role does not exist", 
     "roleExist":"Role already exist",
     "roleHaveBeenCreated":"Role have been created",
@@ -19,13 +18,9 @@
     "requiredEmail": "Email is required",
     "requiredPassword": "password is required",
     "wrongCredential": "Invalid credential",
-<<<<<<< HEAD
     "loginMessage":"Logged in successfully",
     "phantomLogout": "Logged out !!",
-    "token": "Token created"
-=======
-    "loginMessage":"Logged in successfully"
-=======
+    "token": "Token created",
     "status": "status",
     "error": "error",
     "fail": "fail",
@@ -43,7 +38,4 @@
     "allOperators": "All operators",
     "operatorNotFound": "Operator doesn't exist",
     "operatorUpdated": "Operator Updated"
->>>>>>> ch(tests & translation) tests controllers
-
->>>>>>> ch(tests & translation) tests controllers
 }
