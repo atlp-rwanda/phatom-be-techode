@@ -23,7 +23,7 @@ describe('Test one : users', () => {
 			fullname: 'cyifuzo jean damascene',
 			username: 'chance',
 			email: 'admin@andela.com',
-			role: 'client',
+			roles: 'client',
 			password: 'test123',
 		};
         chai.request(app)

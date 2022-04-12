@@ -1,5 +1,5 @@
 import { users } from '../models';
-import { hashPassword, jwtToken, comparePassword } from '../middleware/auth'
+import { hashPassword, jwtToken, comparePassword } from '../middlewares/auth'
 import cookieParser from 'cookie-parser';
 import dotenv  from "dotenv"
 import { success, fail, sendError } from "../function/respond.js";

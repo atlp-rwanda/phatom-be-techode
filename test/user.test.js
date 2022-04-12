@@ -2,15 +2,17 @@ const chai = require('chai');
 const chaiHTTP = require('chai-http');
 const { app } = require('../app');
 const { expect } = require('chai');
-const users = require('../models/users.js');
+const { users } = require('../models');
 const db = require('../models');
 chai.should();
 chai.use(chaiHTTP);
 
 describe('Test one : users', () => {
 	before((done) => {
-		db.users.destroy({
-			where: {},
+		users.destroy({
+			where: {
+				where: { isDeleted : false }
+			},
 			truncate: true,
 		});
 		done();

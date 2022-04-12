@@ -4,7 +4,7 @@
    "description": "(backend) Application that allows simulating bus movements and enabling passengers to track their locations & movements.",
    "main": "index.js",
    "scripts": {
-      "start": "cross-env NODE_ENV=production ENVIRONMENT=production  babel-node app.js",
+      "start": "cross-env NODE_ENV=production ENVIRONMENT=production npm run migrate && cross-env NODE_ENV=production ENVIRONMENT=production  babel-node app.js",
       "dev": "cross-env NODE_ENV=development ENVIRONMENT=development nodemon --exec npm run compile",
       "compile": "babel-node app.js",
       "lint": "eslint --ext .js",
@@ -15,7 +15,8 @@
       "migrate:undo": "npx sequelize db:migrate:undo:all",
       "undoseed": "npx sequelize db:seed:undo:all",
       "create:model": "npx sequelize model:generate --name ",
-      "create:seed": "npx sequelize seed:generate --name "
+      "create:seed": "npx sequelize seed:generate --name ",
+      "migration:generate": "npx sequelize migration:generate --name "
    },
    "keywords": [
       "mocha",

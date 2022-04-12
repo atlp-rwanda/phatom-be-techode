@@ -11,9 +11,7 @@ chai.should();
 describe('Test one : users', () => {
 
   before((done) => {
-    // app.on("Started", () => {
-      done();
-    // })	
+    done();
   })
 
 	it('Backend root director test', (done) => {
