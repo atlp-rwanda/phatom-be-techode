@@ -2,7 +2,7 @@
    "name": "phantom-techode",
    "version": "1.0.0",
    "description": "(backend) Application that allows simulating bus movements and enabling passengers to track their locations & movements.",
-   "main": "index.js",
+   "main": "app.js",
    "scripts": {
       "start": "cross-env NODE_ENV=production ENVIRONMENT=production npm run migrate && cross-env NODE_ENV=production ENVIRONMENT=production  babel-node app.js",
       "dev": "cross-env NODE_ENV=development ENVIRONMENT=development nodemon --exec npm run compile",

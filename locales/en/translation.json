@@ -18,6 +18,7 @@
     "requiredEmail": "Email is required",
     "requiredPassword": "password is required",
     "wrongCredential": "Invalid credential",
-    "loginMessage":"Logged in successfully"
-
+    "loginMessage":"Logged in successfully",
+    "phantomLogout": "Logged out !!",
+    "token": "Token created"
 }

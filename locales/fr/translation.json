@@ -18,5 +18,7 @@
     "requiredEmail": "E-mail est requis",
     "requiredPassword": "Mot de passe requis",
     "wrongCredential":"Accréditation non valide",
-    "loginMessage":"Connecté avec succès"
+    "loginMessage":"Connecté avec succès",
+    "phantomLogout": "Se déconnecter",
+    "token": "jeton créé"
 }
