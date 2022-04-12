@@ -37,9 +37,7 @@ const addDriver = async(req,res) => {
         }).then(driver => {
             sendMail(driver.email, req.t('emailMessage'),`${ req.t('pwdMsg')+" "+passwordNew}`)
             return success(res,201,driver,'newDriver',req)
-        })
-        /* c8 ignore next 1*/
-        .catch((errors)=> { return sendError(res,500,errors,errors.message) })
+        }).catch((errors)=> { return sendError(res,500,errors,errors.message) })
 }
 
 const allDrivers = async(req, res) => {
@@ -60,7 +58,6 @@ const allDrivers = async(req, res) => {
         drivers.findAndCountAll({attributes: {exclude: ['password']}}).then((drivers)=> {
             return success(res,200,drivers,'allDrivers',req)
         })
-        /* c8 ignore next 1*/
     } catch(error){return sendError(res,500,null,error.message)}
 }
 
@@ -82,7 +79,6 @@ const getSingleDriver = async(req, res) => {
         drivers.findByPk(id).then((driver)=> {
             return success(res,200,driver,'Single driver',req)
         })
-        /* c8 ignore next 1*/
     } catch(error){return sendError(res,500,null,error.message)}
 }
 
@@ -105,7 +101,6 @@ const deleteDriver = async(req, res) => {
             driver.destroy()
             return success(res,204,driver,"Driver deleted")
         })
-        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message) }
 }
 const updateDriver = async(req, res) => {
@@ -133,7 +128,6 @@ const updateDriver = async(req, res) => {
             })
             return success(res,200,driver,'operatorUpdated',req)
         })
-        /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message) }
 }
 
