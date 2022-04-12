@@ -4,7 +4,7 @@ const options = {
 		info: {
 			title: 'Phantom - Techode',
 			version: '1.0.0',
-			description: 'Phantom backend Express Library API',
+			description: 'Phantom backend API. Application that allows simulating bus movements and enabling passengers to track their locations & movements. (Backend).',
 		},
 		servers: [
 			{

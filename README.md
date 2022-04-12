@@ -1,6 +1,6 @@
 
 
-[![Continuous Integration](https://github.com/atlp-rwanda/phatom-be-techode/actions/workflows/develop.yml/badge.svg)](https://github.com/atlp-rwanda/phatom-be-techode/actions/workflows/develop.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/9106b0c38340a9e4b148/maintainability)](https://codeclimate.com/github/atlp-rwanda/phatom-be-techode/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9106b0c38340a9e4b148/test_coverage)](https://codeclimate.com/github/atlp-rwanda/phatom-be-techode/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/phatom-be-techode/badge.svg?branch=ft-be-sign-in-to-phantom)](https://coveralls.io/github/atlp-rwanda/phatom-be-techode?branch=ft-be-sign-in-to-phantom)
+[![Continuous Integration](https://github.com/atlp-rwanda/phatom-be-techode/actions/workflows/develop.yml/badge.svg)](https://github.com/atlp-rwanda/phatom-be-techode/actions/workflows/develop.yml) [![Maintainability](https://api.codeclimate.com/v1/badges/9106b0c38340a9e4b148/maintainability)](https://codeclimate.com/github/atlp-rwanda/phatom-be-techode/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/9106b0c38340a9e4b148/test_coverage)](https://codeclimate.com/github/atlp-rwanda/phatom-be-techode/test_coverage) [![Coverage Status](https://coveralls.io/repos/github/atlp-rwanda/phatom-be-techode/badge.svg?branch=ft-be-Register-drivers-operators-TP-10)](https://coveralls.io/github/atlp-rwanda/phatom-be-techode?branch=ft-be-Register-drivers-operators-TP-10)
 
 
 # Phantom (Backend)

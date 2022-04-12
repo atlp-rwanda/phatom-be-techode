@@ -1,6 +1,7 @@
 {
     "welcome": "Welcome to Phantom",
     "success": "success",
+<<<<<<< HEAD
     "roleNotExist":"Role does not exist", 
     "roleExist":"Role already exist",
     "roleHaveBeenCreated":"Role have been created",
@@ -18,7 +19,31 @@
     "requiredEmail": "Email is required",
     "requiredPassword": "password is required",
     "wrongCredential": "Invalid credential",
+<<<<<<< HEAD
     "loginMessage":"Logged in successfully",
     "phantomLogout": "Logged out !!",
     "token": "Token created"
+=======
+    "loginMessage":"Logged in successfully"
+=======
+    "status": "status",
+    "error": "error",
+    "fail": "fail",
+    "Single driver": "Single driver",
+    "DriverExist": "Driver with this email already exist",
+    "emailMessage": "Phantom auto generated password",
+    "pwdMsg": "Your current password is",
+    "newDriver": "New driver created",
+    "allDrivers": "All Drivers",
+    "DriverNotFound":"Driver Not Found",
+    "DriverUpdated": "Driver Updated",
+    "singleOperator": "Single operator",
+    "operatorExist": "Operator with this email already exist",
+    "newOperator": "New operator created",
+    "allOperators": "All operators",
+    "operatorNotFound": "Operator doesn't exist",
+    "operatorUpdated": "Operator Updated"
+>>>>>>> ch(tests & translation) tests controllers
+
+>>>>>>> ch(tests & translation) tests controllers
 }

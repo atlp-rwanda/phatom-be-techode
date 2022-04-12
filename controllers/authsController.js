@@ -17,7 +17,7 @@ const signUp = async (req, res) => {
 
     
     const hash = hashPassword(password);
-    const user = await users.create({ fullname, username, email, role : null, password: hash });
+    const user = await users.create({ fullname, username, email, roles : null, password: hash });
     const token = jwtToken.createToken(user);
     return success(res, 201, { token, user: { fullname, username, email } }, "user created")
   } catch (e) {

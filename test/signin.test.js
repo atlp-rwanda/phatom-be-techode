@@ -17,23 +17,16 @@ describe('Test one : users', () => {
     });
     
 
-
-	it('should create with valid inputs ', (done) => {
-		const user = {
-			fullname: 'cyifuzo jean damascene',
-			username: 'chance',
-			email: 'admin@andela.com',
-			roles: 'client',
-			password: 'test123',
-		};
-        chai.request(app)
-            .post('/api/v1/users/login/register')
-            .send(user)
-            .end((err, res) => {
-                chai.expect(res).to.have.status(201);
-				done()
-            });
-            
+    it('should create with valid inputs', async () => {
+        const user = {
+            fullname: 'cyifuzo jean damascene',
+            username: 'cyifuzo',
+            email: 'admin@andela.com',
+            role: 'client',
+            password: 'test123',
+        };
+        const response = await chai.request(app).post(`/api/v1/users/login/register`).send(user);
+        expect(response).to.have.status(201);
     });
 	it('should not create user without valid email ', (done) => {
 		const user = {
