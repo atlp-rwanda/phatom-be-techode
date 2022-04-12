@@ -35,6 +35,7 @@ const addOperator = async(req,res) => {
         }).then(operator => {
             sendMail(operator.email, req.t('emailMessage'), `${ req.t('pwdMsg')+" "+passwordNew}`)
             return success(res,201,operator,'newOperator',req)
+        /* c8 ignore next 1 */       
         }).catch((errors)=> { return sendError(res,500,errors,errors.message)})
 }
 

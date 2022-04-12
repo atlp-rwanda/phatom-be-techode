@@ -128,6 +128,7 @@ const updateDriver = async(req, res) => {
             })
             return success(res,200,driver,'operatorUpdated',req)
         })
+     /* c8 ignore next 1 */           
     } catch(error){ return sendError(res,500,null,error.message) }
 }
 
