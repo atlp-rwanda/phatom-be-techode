@@ -8,7 +8,7 @@ const should = chai.should();
 chai.use(chaiHTTP);
 chai.should();
 
-describe('Test one : users', () => {
+describe('Test one : Entry', () => {
 
   before((done) => {
     done();

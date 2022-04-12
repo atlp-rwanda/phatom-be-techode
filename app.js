@@ -30,8 +30,6 @@ console.log(process.env.ENVIRONMENT)
 /* ========== setting up dotenv ============= */
 
 
-
-
 const app = express();
 /* c8 ignore next 1 */ 
 const PORT = process.env.PORT || 5000;
@@ -43,13 +41,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(middleware.handle(i18next))
 app.use(express.json())
-
-/* ========== Start:: Root directory ========= */ 
-  app.get('/', (req, res) => {
-    res.send('Welcome to Phantom.');
-  });
-/* ============ End:: Root directory ========= */ 
-
 
 /* ========== setting up multi language configuration ============= */
 i18next
@@ -63,11 +54,8 @@ i18next
 })
 
 
-
-
 /* ========== Start:: Root directory ========= */ 
   app.get('/', (req, res) => {
-    // res.send('weclome', req);
     return success(res,200,null,"welcome", req);
   });
 /* ============ End:: Root directory ========= */ 

@@ -97,6 +97,18 @@ describe('Test one : operators', () => {
 		expect(response).to.have.status(404);
 	});
 
+	it('should not update a Operator without an id', async () => {
+		const id = 'waka'
+		const operator = {
+			firstname: 'John',
+            lastname: 'Doe',
+			email: 'john@doe.com',
+            telephone: '0786478846463',
+			password: 'test123',
+		};
+		const response = await chai.request(app).put(`/api/v1/operators/${id}`).send(operator);
+		expect(response).to.have.status(422);
+	});
 
 	it('should update a Operator', async () => {
 		const id = '1'

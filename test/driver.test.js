@@ -88,6 +88,19 @@ describe('Test one : drivers', () => {
 		expect(response).to.have.status(404);
 	})
 
+	it('should not update a Driver without an id', async () => {
+		const id = 'waka'
+		const driver = {
+			firstname: 'John',
+            lastname: 'Doe',
+			email: 'waka.florien45@gmail.com',
+            telephone: '0786478846463',
+			password: 'test123',
+		};
+		const response = await chai.request(app).put(`/api/v1/drivers/${id}`).send(driver);
+		expect(response).to.have.status(422);
+	});
+
 	it('should not update a Driver without email', async () => {
 		const id = '1999'
 		const driver = {

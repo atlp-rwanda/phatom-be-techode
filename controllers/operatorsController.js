@@ -100,7 +100,9 @@ const updateOperator = async(req, res) => {
     try {
         let { id } = req.params
         const { error } = validateDriverId({id})
-        if(error) return fail(res,422,null,error.details[0].message) 
+        if(error){
+            return fail(res,422,null,error.details[0].message)
+        } 
         const operatorExist = await operators.findAll({
             where :{ 
                 id 
