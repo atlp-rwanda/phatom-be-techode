@@ -1,4 +1,9 @@
 {
     "welcome": "Bienvenue chez Fantôme",
-    "success": "Succès"
+    "success": "Succès",
+    "missingEmail": "e-mail manquant",
+    "userNotFound": " utilisateur non trouvé",
+    "linkHasBeenSent":"le lien a été envoyé à votre email",
+    "TokenDoesnotExist":"Le jeton n'existe pas",
+    "TokenHasExpired":"Le jeton a expiré"
 }

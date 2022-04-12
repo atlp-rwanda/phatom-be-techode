@@ -1,4 +1,9 @@
 {
     "welcome": "Welcome to Phantom",
-    "success": "success"
+    "success": "success",
+    "missingEmail": "missing email",
+    "userNotFound": " user not found",
+    "linkHasBeenSent":"link has been sent to your email",
+    "TokenDoesnotExist":"Token does not exist",
+    "TokenHasExpired":"Token has expired"
 }
