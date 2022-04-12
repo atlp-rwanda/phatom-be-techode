@@ -1,27 +1,20 @@
 version: "2"
 checks:
-  argument-count:
-    enabled: true
-  complex-logic:
-    enabled: true
-  file-lines:
-    enabled: true
   method-complexity:
     enabled: true
-  method-count:
+    config:
+      threshold: 5
+  file-lines:
     enabled: true
+    config:
+      threshold: 250
   method-lines:
     enabled: true
-  nested-control-flow:
-    enabled: true
-  return-statements:
-    enabled: true
-  similar-code:
-    enabled: true
-  identical-code:
-    enabled: true
+    config:
+      threshold: 45
 exclude_patterns:
-  - "**/tests/"
-  - "**/__tests__/"
+  - "**/test/"
+  - "**/__test__/"
   - "coverage/"
   - "*.test.js"
+  - "/**/*{V,v}alidation.js"

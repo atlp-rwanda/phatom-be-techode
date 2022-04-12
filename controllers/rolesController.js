@@ -58,8 +58,7 @@ const deleteRole = async (req, res) => {
             roles.destroy({where : {id}}).then(roles => {
                 return success(res,200,roles,"Deleted");
             })
-        /* ========= End:: Delete roles ================== */     
-    /* c8 ignore next 1 */       
+        /* ========= End:: Delete roles ================== */         
     } catch (error) { return sendError(res,500,null,error.message) }	
 };
 
@@ -82,6 +81,7 @@ const createRole = async (req, res) => {
             const createRole = await roles.create({rolename});
             return success(res,201,createRole,"roleHaveBeenCreated",req);
         /* ============ End: create role ================= */ 
+        /* c8 ignore next 1*/
     } catch (error) { return sendError(res,500,null,error.message) }
 };
 
@@ -110,8 +110,8 @@ const updateRole = async (req, res) => {
         /* ======= Start:: Update roles =================== */ 
             const updated = await roles.update( { rolename },{where : {id}});
             return success(res,200,{ rolename },"updated",req);
-        /* ========= End:: Update roles ================== */    
-    /* c8 ignore next 1 */            
+        /* ========= End:: Update roles ================== */   
+        /* c8 ignore next 1*/      
     } catch (error) { return sendError(res,500,null,error.message); }	
 };
 
@@ -159,7 +159,7 @@ const assignPermssion = async(req,res) => {
         /* =============================== Start:: get roles   ====================================  */
         const getUpdateRole = await roleExist(roleid);
         return success(res,200,{ role: getUpdateRole },"permissionHasBeenAssigned",req);
-    /* c8 ignore next 1 */   
+        /* c8 ignore next 1*/
     } catch (error) { return sendError(res,500,null,error.message)}
 }
 
@@ -211,7 +211,7 @@ const removePermission = async (req,res) => {
         const updateRole = await roles.update({ permissions : newPermissions },{where : {id : roleid}});    
         return success(res,200,{ permission: newPermissions },"permissionHaveBeenRemoved",req);
         /* ============================= End: updating permissions in database ============================ */
-    /* c8 ignore next 1 */    
+        /* c8 ignore next 1*/
     } catch (error) { return sendError(res,500,null,error.message)}
 }
 
@@ -248,7 +248,7 @@ const assignRole = async (req,res) => {
             const getUsers = await users.findAndCountAll({where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
-     /* c8 ignore next 1 */     
+        /* c8 ignore next 1*/
     } catch (error) { return sendError(res,500,null,error.message); }
 }
 
@@ -285,7 +285,7 @@ const removeRole = async (req,res) => {
             const getUsers = await users.findAndCountAll({where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
-    /* c8 ignore next 1 */       
+        /* c8 ignore next 1*/
     } catch (error) { return sendError(res,500,null,error.message)}
 }
 
