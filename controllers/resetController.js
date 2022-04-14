@@ -10,9 +10,8 @@ export const forgotPassword = async (req, res) => {
 		if (!req.body.email) {
 			return fail(res, 401, null, 'missingEmail', req);
 		}
-		const user = await users.findOne({ where: { email } });
-		if (!user) 
-		return fail(res, 400, null, 'userNotFound', req);
+		const user = await users.findOne({ where: { email :  email.toString() } });
+		if (!user) return fail(res, 400, null, 'userNotFound', req);
 		
 
 		/* ========= Deleting token assigned to this users ========== */

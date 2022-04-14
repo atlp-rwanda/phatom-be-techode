@@ -11,10 +11,8 @@ import swaggerUI from 'swagger-ui-express';
 import options from './config/options.js';
 import { success } from "./function/respond.js";
 import dashboardRoutes from './routes/dashboard/dashboard.js';
-import driversRoute from './routes/drivers/driversRoute';
 import languageRoutes from './routes/language';
 import loginRoute from './routes/logins';
-import operatorsRoute from './routes/operators/operatorsRoute';
 import permission from './routes/permissions/permissions.js';
 import rolesRoute from './routes/roles/roles.js';
 import accountRouter from './routes/users/accounts.js';
@@ -22,7 +20,6 @@ import usersRoutes from './routes/users/users.js';
 import busesRoute from './routes/buses/busesRoute.js';
 
 import routesRoute from './routes/routes/routesRoute'
-
 
 /* ========== setting up dotenv ============= */
 dotEnv.config()
@@ -59,10 +56,6 @@ i18next
 /* ============ End:: Root directory ========= */ 
 
 
-/* ========== Start:: Driver api url ========= */ 
-  app.use('/api/v1/drivers', driversRoute);
-/* ============== End:: Driver api ========= */ 
-
 /* ========== Start:: Route api url ========= */ 
 app.use('/api/v1/routes', routesRoute);
 /* ============== End:: Route api ========= */ 
@@ -75,10 +68,6 @@ app.use('/api/v1/routes', routesRoute);
   app.use('/api/v1/users', usersRoutes);
   app.use('/api/v1/users/login', loginRoute);
 /* ============== Start:: User api ========= */ 
-
-/* ========== Start:: Operator api url ========= */ 
-  app.use('/api/v1/operators', operatorsRoute);
-/* ============== End:: Operator api ========= */ 
 
 /* ========== Start:: role api url ========= */ 
   app.use('/api/v1/roles', rolesRoute);

@@ -56,7 +56,7 @@ describe('Roles testing', () => {
     it('Should prompt an error, if permission  provided  does not exist', (done) => {
         chai.request(app)
             .post(`/api/v1/roles/createAccessTest`)
-            .set({ userId : 2 , action : "createRouteuyfgu"})
+            .set({ userId : 5 , action : "createRouteuyfgu"})
             .end((err, res) => {
                 chai.expect(res).to.have.status(401);
 				done()
@@ -357,10 +357,12 @@ describe("Access control testing", () => {
 
     it('should create a User', async () => {
 		const user = {
-			fullname: 'cyifuzo jean chrysostome',
+			firstname: 'cyifuzo',
+			lastname: 'jean chrysostome',
 			username: 'chance',
-			password: 'test123',
-            email:"sezerano@gmail.com"
+			telephone: '07884764564',
+			email: 'cyifuzo@example.com',
+            userType: 'Driver'
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
@@ -600,10 +602,13 @@ describe("Testin access" , () => {
 
     it('should create a User', async () => {
 		const user = {
-            fullname:"sezerano jean chrysotome",
-            username:"sezerano",
-            email:"jeanDoe@gmail.com",
-            password:"123456"
+            firstname: 'cyifuzo',
+			lastname: 'jean chrysostome',
+			username: 'chance',
+			telephone: '07884764564',
+			email: 'waka@example.com',
+            userType: 'Driver',
+            rolename: 'jean'
         };
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
