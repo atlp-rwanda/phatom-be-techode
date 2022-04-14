@@ -46,8 +46,14 @@
     "pleaseLogin": "Please login",
     "unverifiedToken":"Jeton non vérifié",
     "missingEmail": "missing email",
-    "userNotFound": " user not found",
     "linkHasBeenSent":"link has been sent to your email",
     "TokenDoesnotExist":"Token does not exist!",
-    "TokenHasExpired":"Token has expired"
+    "TokenHasExpired":"Token has expired",
+    "paginated list": "paginated list",
+    "New user have been created":"New user have been created",
+    "userExist": "user exist",
+    "userNotFound":"user Not Found",
+    "Single user": "Single user",
+    "user deleted": "user deleted",
+    "userUpdated": "user updated"
 }

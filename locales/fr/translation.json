@@ -46,8 +46,14 @@
     "pleaseLogin": "Veuillez vous connecter",    
     "unverifiedToken":"Unverified token",
     "missingEmail": "e-mail manquant",
-    "userNotFound": " utilisateur non trouvé",
     "linkHasBeenSent": "le lien a été envoyé à votre email",
     "TokenDoesnotExist": "Le jeton n'existe pas",
-    "TokenHasExpired": "Le jeton a expiré"
+    "TokenHasExpired": "Le jeton a expiré",
+    "paginated list": "liste paginée",
+    "New user have been created": "Un nouvel utilisateur a été créé",
+    "userExist": "Utilisateur existe",
+    "userNotFound": "utilisateur non trouvé",
+    "Single user": "utilisateur unique",
+    "user deleted": "utilisateur supprimé",
+    "userUpdated": "utilisateur mis à jour"
 }
