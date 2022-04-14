@@ -13,10 +13,12 @@ export const  validateDriverId  = (data) => {
 /* ========= Start: Create role request validation ============== */ 
 export const  validateDriversOnCreate  = (data) => {
     const schema = Joi.object({
+        username: Joi.string().required(),
         firstname: Joi.string().required(),
         lastname: Joi.string().required(),
         email: Joi.string().required().email(),
-        telephone: Joi.string().required().min(10)
+        telephone: Joi.string().required().min(10),
+        userType: Joi.string().required(),
     });
 
     const value = schema.validate(data , { abortEarly: false });

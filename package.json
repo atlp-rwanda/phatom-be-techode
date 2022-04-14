@@ -8,7 +8,7 @@
       "dev": "cross-env NODE_ENV=development ENVIRONMENT=development nodemon --exec npm run compile",
       "compile": "babel-node app.js",
       "lint": "eslint --ext .js",
-      "test": "cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate:undo && cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate && cross-env NODE_ENV=test ENVIRONMENT=test npm run seedAll && c8 --check-coverage  mocha test/*.test.js --timeout 10000 --require @babel/register --ignore ./models/index.js --exit",
+      "test": "cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate:undo && cross-env NODE_ENV=test ENVIRONMENT=test npm run migrate && cross-env NODE_ENV=test ENVIRONMENT=test npm run seedAll && cross-env NODE_ENV=test ENVIRONMENT=test c8 --check-coverage  mocha test/*.test.js --timeout 10000 --require @babel/register --ignore ./models/index.js --exit",
       "coverage": "c8 --check-coverage -r lcov npm test",
       "migrate": "npx sequelize db:migrate",
       "seedAll": "npx sequelize db:seed:all",
