@@ -16,7 +16,16 @@ export const  validateDriversOnCreate  = (data) => {
 
 export const  validateRolesOnCreate  = (data) => {
     const schema = Joi.object({
+<<<<<<< HEAD
         rolename: Joi.string().required()
+=======
+        username: Joi.string().required(),
+        firstname: Joi.string().required(),
+        lastname: Joi.string().required(),
+        email: Joi.string().required().email(),
+        telephone: Joi.string().required().min(10),
+        userType: Joi.string().required(),
+>>>>>>> ft(assign) assign drivers buses
     });
 
     const value = schema.validate(data , { abortEarly: false });
