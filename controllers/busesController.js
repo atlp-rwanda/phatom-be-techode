@@ -2,6 +2,7 @@ import { success,fail,sendError } from "../function/respond.js";
 import { buses } from "../models"
 import Sequelize from "sequelize";
 import { validateBusInput, validateId } from '../function/validation';
+import { paginate } from "../utils/paginate.js";
 
 const { Op } = Sequelize;
 
@@ -11,7 +12,6 @@ const busExist = async (busId) =>{
     if(getBus.length > 0) return getBus 
     return false
 }
-
 
 const addBus = async (req,res) => {
     try {
@@ -28,14 +28,21 @@ const addBus = async (req,res) => {
         return sendError(res,500,null,error.message);        
     }  
 }
+
+
 const getAllBuses = async (req, res) => {    
     try {
-        const allBus = await buses.findAndCountAll();           
-        return success(res,200,{buses: allBus},"Retrived");        
+        const dataPage = req.query.page;
+        const dataSize = req.query.size;
+        const { page , size } = paginate(dataPage,dataSize);
+        const allBus = await buses.findAndCountAll({ limit: size, offset: page * size });           
+        return success(res,200,{buses: allBus.rows , totalPage : Math.ceil(allBus.count / size)},"Retrived");        
     } catch (error) {
         return sendError(res,500,null,error.message);        
     }  
 }
+
+
 const getSingleBus = async (req, res) => { 
     try {
         const id = req.id;
@@ -48,6 +55,8 @@ const getSingleBus = async (req, res) => {
         return sendError(res,500,null,error.message);      
     }
 }
+
+
 const deleteBus = async (req, res) => {
     try {
         const id = req.id;
@@ -60,6 +69,9 @@ const deleteBus = async (req, res) => {
         return sendError(res,500,null,error.message);     
     }  
 }
+
+
+
 const updateBus = async (req, res) => {
     try {
         const id = req.id;

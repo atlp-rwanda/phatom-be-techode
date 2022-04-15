@@ -55,6 +55,15 @@ const router = express.Router();
  *    summary: Getting permissions 
  *    tags:
  *    - "Permssions"
+ *    parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: size
+ *        schema:
+ *          type: integer
  *    responses:
  *        200:
  *         description: Retrieved

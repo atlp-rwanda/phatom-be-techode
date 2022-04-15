@@ -92,6 +92,15 @@ router.post('/register',isLoggedIn ,checkAuth, addBus)
  *   get:
  *     summary: Getting all buses
  *     tags: [Buses]
+ *     parameters:
+ *       - in: query
+ *         name: page
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: size
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: All available buses
