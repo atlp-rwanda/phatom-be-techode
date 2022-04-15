@@ -6,7 +6,7 @@ import { success, fail, sendError } from "../function/respond.js";
 
 const signUp = async (req, res) => {
   try {  
-    
+    const profileImage = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__480.png"
     const { fullname, username, email, password } = req.body;
     
     if(username.trim().length <= 0)	throw new Error('Body with username should not not be spaced');					
@@ -17,9 +17,9 @@ const signUp = async (req, res) => {
 
     
     const hash = hashPassword(password);
-    const user = await users.create({ fullname, username, email, roles : null, password: hash });
+    const user = await users.create({ fullname, username, email, profileImage, roles : null, password: hash });
     const token = jwtToken.createToken(user);
-    return success(res, 201, { token, user: { fullname, username, email } }, "user created")
+    return success(res, 201, { token, user: { fullname, username, email, profileImage } }, "user created")
   } catch (e) {
     return sendError(res, 500, {error :null}, e.message);
   }
@@ -32,26 +32,38 @@ const signIn = async (req, res, next) => {
 
     if(password.trim().length <= 0)	throw new Error('Body with password can not be space');					
 
-    const user = await users.findOne({ where: { email } });
-
-    
+    const user = await users.findOne({ where: { email , isDeleted: false  } });
 
     if (user && comparePassword(password, user.password)) {
-      const { fullname, username, role, email } = user;
-      const token = jwtToken.createToken(user);
-      res.cookie("access-token", token, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24,
-      })
-      
-      const isVerified = jwtToken.verifyToken(token);
-      return success(res, 200, { user: { fullname, username, role, email , isVerified }, token }, "loginMessage",req)
+      if(!user.isDeleted){
+        const { fullname, username, role, email , userType,profileImage } = user;
+        const token = jwtToken.createToken(user);
+
+        res.cookie("access-token", token, {
+          httpOnly: true,
+          maxAge: 60 * 60 * 24,
+        })
+        
+        const isVerified = jwtToken.verifyToken(token);
+        return success(res, 200, { user: { fullname, username, role, email , isVerified,userType,profileImage}, token }, "loginMessage",req)
+        /* c8 ignore next 4*/
+      } else {
+        return fail(res, 401, null, "accountNotAuthorized",req)
+      }
     }
     return fail(res, 401, null, "wrongCredential",req)
-  } catch (e) {
-    return sendError(res, 500, null, e.massage);
-  }
+  } catch (e) { return sendError(res, 500, null, e.massage) }
 }
 
 
-export { signUp, signIn };
+const isAuth = async (req, res, next) => {
+
+  try {
+    const { token } = req.body;  
+    const isVerified = jwtToken.verifyToken(token);
+    const user = await users.findOne({ where: { id: isVerified.userId , isDeleted: false  } });
+    const  { id ,fullname, username, role, email , userType,profileImage }  = user;
+    return success(res, 200, { user: { id,fullname, username, role, email , isVerified,userType,profileImage}, token }, "loginMessage",req)
+  } catch (e) { return sendError(res, 500, null, e.massage) }
+}
+export { signUp, signIn, isAuth };

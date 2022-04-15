@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -6,19 +6,24 @@ const envConfigs = require('../config/config.js');
 const dotEnv = require('dotenv');
 dotEnv.config();
 const basename = path.basename(__filename);
+/* c8 ignore next 1 */
 const env = process.env.ENVIRONMENT || 'development';
 const config = envConfigs[env];
 const db = {};
 
 let sequelize;
-
+/* c8 ignore next 6 */
 if (config.url) {
 	sequelize = new Sequelize(config.url, config);
-} 
-/* c8 ignore next 3 */
-else {
-	sequelize = new Sequelize(config.database, config.username, config.password, config);
-  }
+} else {
+/* c8 ignore next 7 */
+	sequelize = new Sequelize(
+		config.database,
+		config.username,
+		config.password,
+		config
+	);
+}
 
 fs.readdirSync(__dirname)
 	.filter((file) => {
@@ -27,7 +32,10 @@ fs.readdirSync(__dirname)
 		);
 	})
 	.forEach((file) => {
-		const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
+		const model = require(path.join(__dirname, file))(
+			sequelize,
+			Sequelize.DataTypes
+		);
 		db[model.name] = model;
 	});
 

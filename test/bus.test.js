@@ -1,7 +1,7 @@
 import chai,{ expect }  from "chai"
 import chaiHTTP from "chai-http"
 import { app } from "../app"
-import buses from "../models/buses.js"
+import { user } from "../utils/testData"
 import db from "../models"
 chai.should();
 chai.use(chaiHTTP);
@@ -10,20 +10,30 @@ let token;
 describe('Crud operation for buses ', () => {
 	before((done) => {
 		db.users.destroy({
-			truncate: true,
-			restartIdentity: true,
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true			
 		});
 		done();
 	});
 	beforeEach(async () => {
-		const user = {
-			fullname: 'cyifuzo jean damascene',
-			username: 'cyifuzo',
-			email: 'operator@andela.com',
-			role: 'client',
-			password: 'test123',
-		};
-		await chai.request(app).post(`/api/v1/users/login/register`).send(user);
+		await db.operators.destroy({
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
+		});
+		await db.drivers.destroy({
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
+		});
+		await db.users.destroy({
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true			
+		});
+		
+		await chai.request(app).post(`/api/v1/users/login/register`).send(user[4]);
 	});
 	beforeEach(async () => {
 		let user = {
@@ -39,9 +49,22 @@ describe('Crud operation for buses ', () => {
 		token = response.body.data.token;
 	});
 	afterEach(async () => {
-		await db.users.destroy({
-			truncate: true,
+		
+		await db.operators.destroy({
+			truncate : true, 
+			cascade: true ,
 			restartIdentity: true,
+		});
+		await db.drivers.destroy({
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
+		});
+		await db.users.destroy({
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
+			
 		});
 	});
 
@@ -115,6 +138,8 @@ describe('Crud operation for buses ', () => {
 		response.body.message.should.be.eql("Permission have been assigned");
 		expect(response).to.have.status(200);
 	});
+
+
 	it('Should assign role ', (done) => {
 		chai
 			.request(app)
@@ -128,13 +153,12 @@ describe('Crud operation for buses ', () => {
 				res.body.should.have.property('status');
 				res.body.data.user.rows.should.be.a('array');
 				res.body.message.should.be.a('string');
-				res.body.message.should.be.eql("Role have been updated");
+				res.body.message.should.be.eql("Role has been updated");
 				chai.expect(res).to.have.status(200);
 				done();
 			});
 	});
 	it('Should access create route ', (done) => {
-		console.log('should assign role');
 		chai
 			.request(app)
 			.put(`/api/v1/roles/assign/users`)
@@ -167,7 +191,7 @@ describe('Crud operation for buses ', () => {
 								res.body.should.have.property('status');
 								res.body.data.user.rows.should.be.a('array');
 								res.body.message.should.be.a('string');
-								res.body.message.should.be.eql("Role have been updated");
+								res.body.message.should.be.eql("Role has been updated");
 								chai.expect(res).to.have.status(200);
 								done();
 							});
@@ -189,7 +213,7 @@ describe('Crud operation for buses ', () => {
 				res.body.should.have.property('status');
 				res.body.message.should.be.a('string');
 				res.body.message.should.be.eql("jwt must be provided");
-				chai.expect(res).to.have.status(401);
+				chai.expect(res).to.have.status(500);
 				done();
 			});
 	});
@@ -229,7 +253,7 @@ describe('Crud operation for buses ', () => {
 				res.body.should.be.a('object');
 				res.body.should.have.property('status');
 				res.body.message.should.be.a('string');
-				res.body.message.should.be.eql("Bus not found");
+				res.body.message.should.be.eql("bus does not exist");
 				chai.expect(res).to.have.status(404);
 				done();
 			});
@@ -409,7 +433,7 @@ describe('Crud operation for buses ', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('status');
 						res.body.message.should.be.a('string');
-						res.body.message.should.be.eql("Bus not found");
+						res.body.message.should.be.eql("bus does not exist");
 						chai.expect(res).to.have.status(404);
 						done();
 					});
@@ -551,7 +575,7 @@ describe('Crud operation for buses ', () => {
 						res.body.should.be.a('object');
 						res.body.should.have.property('status');
 						res.body.message.should.be.a('string');
-						res.body.message.should.be.eql("Bus not found");
+						res.body.message.should.be.eql("bus does not exist");
 						chai.expect(res).to.have.status(404);
 						done();
 					});

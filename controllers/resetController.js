@@ -3,16 +3,18 @@ import { users, resetTokens } from '../models';
 import db from '../models/index.js';
 import sendMail from '../utils/resetUtil.js';
 import { success, fail, sendError } from '../function/respond.js';
+import { hashPassword } from '../middlewares/auth';
+import dotEnv from 'dotenv';
 
+dotEnv.config()
 export const forgotPassword = async (req, res) => {
 	try {
 		const { email } = req.body;
 		if (!req.body.email) {
 			return fail(res, 401, null, 'missingEmail', req);
 		}
-		const user = await users.findOne({ where: { email } });
-		if (!user) 
-		return fail(res, 400, null, 'userNotFound', req);
+		const user = await users.findOne({ where: { email :  email.toString() } });
+		if (!user) return fail(res, 400, null, 'userNotFound', req);
 		
 
 		/* ========= Deleting token assigned to this users ========== */
@@ -66,11 +68,12 @@ export const changePasswordPost = async (req, res) => {
     
 	/* ==== Checking if token is valid  ====== */
 	const tokenIsValid = await resetoken.checkValid();
+	/* c8 ignore next 2 */
 	if (!tokenIsValid) return res.status(400).json({ message: 'expired' });
 
 	/* ==== Getting user to reset password for ====== */
 	const user = await users.findByPk(resetoken.user);
-	user.password = newPassword;
+	user.password = hashPassword(newPassword);
 
 	/* ====  save new password ====== */
 	const saveUser = await user.save();

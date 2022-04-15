@@ -1,4 +1,5 @@
 const sendError = (res , code , data , message="", req=null) => {
+    /* c8 ignore next 2 */
     const transilatedMessage =  req != null ? req.t(message) : message.replace(/\"/g,"");
     res.status(code).json({"status": "error" , data , message:transilatedMessage });
 }

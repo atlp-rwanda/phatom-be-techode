@@ -1,6 +1,5 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { config } from 'dotenv';
+import { jwtToken } from './auth';
 
 config();
 
@@ -9,15 +8,18 @@ config();
 export const adminAuth = async (req , res , next) => {
   /* c8 ignore next 13 */
   try {
-     const token = req.header("auth-token");
-      const verified = jwt.verify(token , "Techode");
+    let token = req.header("auth-token");
+    let bearerToken =  req.header("auth-token").split(" ");
+    if(bearerToken.length > 1 ){
+      token = bearerToken[1];
+    }   
+    const verified = jwtToken.verifyToken(token);
 
-      if(verified.id) return next()
-      return  res.status(401).json({'status': 'fail','code': 401,'message' : "Not authorized", "data": null});
-      console.log(verified)
+    if(verified.userId) return next()
+    return  res.status(401).json({'status': 'fail','code': 401,'message' : "Not authorized", "data": null});
       
-  } catch (error) {
-   return  res.status(401).json({'status': 'fail','code': 401,'message' : "Not authorized", "data": null});
-  }
+  } catch (error) { return  res.status(401).json({'status': 'fail','code': 401,'message' : error.message, "data": null}); }
   
 }
+
+export default adminAuth

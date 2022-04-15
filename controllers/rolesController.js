@@ -50,7 +50,7 @@ const deleteRole = async (req, res) => {
         /* ================================ End: validatoin ================================= */ 
     
         /* ======= Start:: Delete roles =================== */ 
-            roles.destroy({where : {id}}).then(roles => {
+            roles.destroy({where : {id}, cascade: true }).then(roles => {
                 return success(res,200,roles,"Deleted");
             })
         /* ========= End:: Delete roles ================== */  
@@ -202,7 +202,7 @@ const assignRole = async (req,res) => {
             if(exist) { return fail(res,400,null,"roleAlreadyAssigned",req); }            
 
         /* ========================= Start:: Updating the user role ==================  */ 
-            await users.update({roleId},{where:{ id : userId }});
+            await users.update({roleId , userType:role[0].rolename },{where:{ id : userId }});
             const getUsers = await users.findAndCountAll({attributes: {exclude: ['password']},where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
@@ -239,7 +239,7 @@ const removeRole = async (req,res) => {
             }
 
         /* ========================= Start:: Updating the user role ==================  */ 
-            await users.update({roleId : null},{where:{ id : userId }});
+            await users.update({roleId : null, userType: null},{where:{ id : userId }});
             const getUsers = await users.findAndCountAll({attributes: {exclude: ['password']},where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 

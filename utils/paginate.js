@@ -1,4 +1,5 @@
 export const paginate = (page , size , order = null) => {
+    
     const data = {
        page: 0,
        size: 5,
