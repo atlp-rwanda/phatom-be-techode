@@ -1,17 +1,20 @@
 import { users , roles } from "../models";
 import { success,fail,sendError } from "../function/respond.js";
 import { getRolesPermission } from "../controllers/rolesController.js"
+import { jwtToken } from "./auth";
+import { validateAction } from "../function/validation";
 
 
 // This middleware will be called after login authentication
 const checkAuth = async (req,res,next) => {
     try {
-        // const userId  = req.userId;
-        const userId  = req.header('userId');
+        const userId  = req.userId ? req.userId : req.header('userId');
         const action  = req.header('action');
-        if(!userId) return fail(res,400,null,"UseId is required");
+        const actionHasError = validateAction({ action }).error;
 
-        if(action.trim().length == 0) return fail(res,400,null,"Please provide the action to perform");
+        if(!userId) return fail(res,400,null,"UseId is required");
+        if(actionHasError) return fail(res,400,null, actionHasError.details[0].message );
+        
         /* ===================== Getting User =========================== */
         const user = await users.findAll({where: { id:userId }});
         let userExist = user.length;
@@ -42,4 +45,17 @@ const checkAuth = async (req,res,next) => {
         return sendError(res,500,null,error.message);
     }
 } 
-export default checkAuth
+
+const isLoggedIn = async (req , res , next) => {
+    const authToken = req.header('auth-token');
+    if(!authToken) return fail(res,400,null,"Please login" );
+    try {
+        const token = authToken.split(" ")[1];
+        const verified = jwtToken.verifyToken(token);
+        req.userId = verified.userId;
+        next();
+    } catch (error) {
+        return fail(res,401,null,"Unverified token");
+    }
+} 
+export  { checkAuth , isLoggedIn }

@@ -1,7 +1,7 @@
 import express from 'express'
 import { createRoute } from '../../controllers/dammyController.js';
-import  { removeRole,getAllroles, createRole , deleteRole, assignPermssion,removePermission,assignRole,updateRole } from "../../controllers/rolesController.js"
-import checkAuth from '../../middlewares/checkAuthorization.js';
+import { removeRole,getAllroles, createRole , deleteRole, assignPermssion,removePermission,assignRole,updateRole } from "../../controllers/rolesController.js"
+import { checkAuth , isLoggedIn } from '../../middlewares/checkAuthorization.js';
 
 
 const router = express.Router();
@@ -712,7 +712,7 @@ const router = express.Router();
 
 
 /* ============= Start:: Testing access controll ===== */ 
-    router.post('/createAccessTest', checkAuth , createRoute);
+    router.post('/createAccessTest', isLoggedIn ,checkAuth , createRoute);
 /* =============== End:: Testing access controll  ===== */ 
 
 
