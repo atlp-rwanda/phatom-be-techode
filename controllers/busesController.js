@@ -9,6 +9,7 @@ const { Op } = Sequelize;
 
 const busExist = async (busId) =>{
     const getBus = await buses.findAll({ where: { id : busId } }); 
+    /* c8 ignore next 3 */ 
     if(getBus.length > 0) return getBus 
     return false
 }
@@ -16,17 +17,20 @@ const busExist = async (busId) =>{
 const addBus = async (req,res) => {
     try {
         const { error } = validateBusInput(req.body);
-        if(error) return fail(res,400,null,error.details[0].message);
+        if(error){
+            return fail(res,400,null,error.details[0].message);
+        }
     
         const { bustype, routecode, platenumber } = req.body;
         const plateNumberExist = await buses.findAll({where:{platenumber}});
-        if(plateNumberExist.length > 0) return fail(res,400,null,"Platenumber already exist");
+        if(plateNumberExist.length > 0){
+            return fail(res,400,null,"plateExist",req);
+        }
     
         const createBus = await buses.create({ bustype, routecode, platenumber });
-        return success(res,201,createBus,"Bus has been created");        
-    } catch (error) {
-        return sendError(res,500,null,error.message);        
-    }  
+        return success(res,201,createBus,"busCreated",req);   
+        /* c8 ignore next 3 */        
+    } catch (error) { return sendError(res,500,null,error.message); }  
 }
 
 
@@ -36,24 +40,22 @@ const getAllBuses = async (req, res) => {
         const dataSize = req.query.size;
         const { page , size } = paginate(dataPage,dataSize);
         const allBus = await buses.findAndCountAll({ limit: size, offset: page * size });           
-        return success(res,200,{buses: allBus.rows , totalPage : Math.ceil(allBus.count / size)},"Retrived");        
-    } catch (error) {
-        return sendError(res,500,null,error.message);        
-    }  
+        return success(res,200,{buses: allBus.rows , totalPage : Math.ceil(allBus.count / size)},"Retrived",req);        
+     /* c8 ignore next 2 */ 
+    } catch (error) { return sendError(res,500,null,error.message) }  
 }
 
 
 const getSingleBus = async (req, res) => { 
     try {
         const id = req.id;
-        const getBus = await buses.findByPk(id); 
+        const getBus = await buses.findAll({ where: { id }}); 
         if(getBus.length == 0){
-            return fail(res,404,null,'Bus not found')            
+            return fail(res,404,null,'busNotExist',req)            
         }   
-        return success(res,200,getBus,"Retrived");  
-    } catch (error) {
-        return sendError(res,500,null,error.message);      
-    }
+        return success(res,200,getBus,"Retrived",req);  
+        /* c8 ignore next 2 */ 
+    } catch (error) { return sendError(res,500,null,error.message); }
 }
 
 
@@ -61,13 +63,14 @@ const deleteBus = async (req, res) => {
     try {
         const id = req.id;
         const bus = await busExist(id);
-        if(!bus) return fail(res,404,null,'Bus not found');  
+        if(!bus){
+            return fail(res,404,null,'busNotExist',req);  
+        }
 
         await buses.destroy({ where :  { id }});
-        return success(res,200,buses,'Bus has been deleted'); 
-    } catch (error) {
-        return sendError(res,500,null,error.message);     
-    }  
+        return success(res,200,buses,'busDeleted',req); 
+        /* c8 ignore next 2 */   
+    } catch (error) { return sendError(res,500,null,error.message); }  
 }
 
 
@@ -78,19 +81,24 @@ const updateBus = async (req, res) => {
         const { bustype, routecode, platenumber } = req.body;
 
         const bus = await busExist(id);
-        if(!bus) return fail(res,404,null,'Bus not found');  
+        if(!bus){
+            return fail(res,404,null,'busNotExist',req);  
+        }
 
         const { error } = validateBusInput(req.body);
-        if(error) return fail(res,400,null,error.details[0].message);
+        if(error){
+            return fail(res,400,null,error.details[0].message);
+        }
 
         const plateNumberExist = await buses.findAll({where:{platenumber}});
-        if(plateNumberExist.length > 0) return fail(res,400,null,"Platenumber already exist");
+        if(plateNumberExist.length > 0){ 
+            return fail(res,400,null,"plateExist",req);
+        }
 
         await buses.update({ bustype, routecode, platenumber } , { where :  { id }});
-        return success(res,200,buses,'Bus has been updated'); 
-    } catch (error) {
-        return sendError(res,500,null,error.message);  
-    }    
+        return success(res,200,buses,'updated',req);
+    /* c8 ignore next 2 */        
+    } catch (error) { return sendError(res,500,null,error.message); }    
 }
 
 

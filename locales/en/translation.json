@@ -37,5 +37,12 @@
     "newOperator": "New operator created",
     "allOperators": "All operators",
     "operatorNotFound": "Operator doesn't exist",
-    "operatorUpdated": "Operator Updated"
+    "operatorUpdated": "Operator Updated",
+    "plateExist": "plate number already exists",    
+    "busExist": "Bus already exists",    
+    "busNotExist": "Bus not found",
+    "busDeleted": "The bus has been deleted",    
+    "busCreated":"Bus has been created",    
+    "pleaseLogin": "Please login",
+    "unverifiedToken":"Jeton non vérifié"
 }

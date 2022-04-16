@@ -27,9 +27,8 @@ const getAllpermissions = async (req, res) => {
                 return success(res,200,{ permission : permission.rows , totalPage : Math.ceil(permission.count / size) },"Retrieved");
             })
         /* ========= End:: List all permissions ================== */ 
-     } catch (error) {
-        return sendError(res,500,null,error.message);   
-     }
+     /* c8 ignore next 1 */ 
+     } catch (error) {  return sendError(res,500,null,error.message)}
    
         
    

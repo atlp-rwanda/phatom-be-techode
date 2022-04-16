@@ -1,3 +1,4 @@
+import { fail } from "../function/respond";
 import { validateId } from "../function/validation";
 
 const isValidaId = (req,res,next) =>{

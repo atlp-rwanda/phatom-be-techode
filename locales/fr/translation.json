@@ -37,5 +37,12 @@
     "newOperator": "Nouvel opérateur créé",
     "allOperators": "Tous les opérateurs",
     "operatorNotFound": "L'opérateur n'existe pas",
-    "operatorUpdated": "Opérateur mis à jour"
+    "operatorUpdated": "Opérateur mis à jour",
+    "plateExist": "le numéro de plaque existe déjà",
+    "busExist": "le numéro de plaque existe déjà",    
+    "busDeleted": "Le bus a été supprimé",
+    "busNotExist": "le Bus introuvable",
+    "busCreated":"Le bus a été créé",
+    "pleaseLogin": "Veuillez vous connecter",    
+    "unverifiedToken":"Unverified token"
 }

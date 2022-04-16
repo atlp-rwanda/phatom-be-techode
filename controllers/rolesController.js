@@ -58,7 +58,8 @@ const deleteRole = async (req, res) => {
             roles.destroy({where : {id}}).then(roles => {
                 return success(res,200,roles,"Deleted");
             })
-        /* ========= End:: Delete roles ================== */         
+        /* ========= End:: Delete roles ================== */  
+    /* c8 ignore next 1 */           
     } catch (error) { return sendError(res,500,null,error.message) }	
 };
 

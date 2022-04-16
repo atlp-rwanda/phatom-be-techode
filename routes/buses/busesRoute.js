@@ -45,6 +45,12 @@ const router = express.Router()
  *  post:
  *    tags:
  *    - "Buses"
+ *    parameters:
+ *     - name: Accept-Language
+ *       in: header
+ *       description: fr for french and en for english default is english
+ *       schema:
+ *         type: string
  *    summary: Create a buses 
  *    description: Fill inforamation route code , plate number , route code
  *    requestBody:
@@ -101,6 +107,11 @@ router.post('/register',isLoggedIn ,checkAuth, addBus)
  *         name: size
  *         schema:
  *           type: integer
+ *       - name: Accept-Language
+ *         in: header
+ *         description: fr for french and en for english default is english
+ *         schema:
+ *          type: string              
  *     responses:
  *       200:
  *         description: All available buses
@@ -135,6 +146,11 @@ router.get('/', getAllBuses)
  *           type: string
  *         required: true
  *         description: The buses id
+ *       - name: Accept-Language
+ *         in: header
+ *         description: fr for french and en for english default is english
+ *         schema:
+ *          type: string       
  *     responses:
  *       200:
  *         description: The buses description by id
@@ -169,7 +185,11 @@ router.get('/:id', isValidaId,getSingleBus)
  *           type: string
  *         required: true
  *         description: The buses id
- * 
+ *       - name: Accept-Language
+ *         in: header
+ *         description: fr for french and en for english default is english
+ *         schema:
+ *          type: string
  *     responses:
  *       200:
  *         description: The buses was deleted
@@ -188,7 +208,7 @@ router.get('/:id', isValidaId,getSingleBus)
  *        content:
  *           application/json:
  *              schema: 
- *                $ref: "#/components/schemas/response"
+ *                $ref: "#/components/schemas/response" 
  */
 router.delete('/:id',isLoggedIn ,checkAuth, isValidaId,deleteBus)
 /**
@@ -204,6 +224,11 @@ router.delete('/:id',isLoggedIn ,checkAuth, isValidaId,deleteBus)
  *           type: string
  *         required: true
  *         description: The buses id 
+ *       - name: Accept-Language
+ *         in: header
+ *         description: fr for french and en for english default is english
+ *         schema:
+ *          type: string       
  *    requestBody:
  *      required: true
  *      content:
