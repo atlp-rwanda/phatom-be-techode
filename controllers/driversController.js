@@ -36,7 +36,7 @@ const addDriver = async(req,res) => {
             password: hashedPassword 
         }).then( async (driver) => {
             await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, driver.email, null ,req.t('emailMessage'));
-            return success(res,201,driver,'newDriver',req)
+            return success(res,201,driver,'newDriver', req)
         })
         /* c8 ignore next 1*/
         .catch((errors)=> { return sendError(res,500,errors,errors.message) })
