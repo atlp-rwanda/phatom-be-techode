@@ -136,20 +136,9 @@ const updateUser = async(req, res) => {
     } catch(error){ return sendError(res,500,null,error.message) }
 }
 
-const assignBus = async (req, res) => {
-	try {
-		/**
-		 * Statements
-		 */
-	} catch (error) {
-		console.error(error.message);
-	}
-}
-
 export  { 
 	getAllUsers, 
 	createUser, 
-	assignBus,
 	getSingleUser, 
 	deleteUser, 
 	updateUser
