@@ -107,6 +107,10 @@ router.post('/register',isLoggedIn ,checkAuth, addBus)
  *         name: size
  *         schema:
  *           type: integer
+ *       - in: query
+ *         name: order
+ *         schema:
+ *           type: string 
  *       - name: Accept-Language
  *         in: header
  *         description: fr for french and en for english default is english

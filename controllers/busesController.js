@@ -38,8 +38,11 @@ const getAllBuses = async (req, res) => {
     try {
         const dataPage = req.query.page;
         const dataSize = req.query.size;
-        const { page , size } = paginate(dataPage,dataSize);
-        const allBus = await buses.findAndCountAll({ limit: size, offset: page * size });           
+        const orderBy = req.query.order;
+        const { page , size ,order } = paginate(dataPage,dataSize,orderBy);
+        const allBus = await buses.findAndCountAll({ limit: size, offset: page * size,  order: [
+            ["id", order]
+          ] });           
         return success(res,200,{buses: allBus.rows , totalPage : Math.ceil(allBus.count / size)},"Retrived",req);        
      /* c8 ignore next 2 */ 
     } catch (error) { return sendError(res,500,null,error.message) }  
