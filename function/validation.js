@@ -1,29 +1,11 @@
 import Joi from "joi";
 
-export const  validateDriverId  = (data) => {
-    const schema = Joi.object({
-        id: Joi.number().required()
-    });
-
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-
 export const  validateDriversOnCreate  = (data) => {
     const schema = Joi.object({
         firstname: Joi.string().required(),
         lastname: Joi.string().required(),
         email: Joi.string().required().email(),
         telephone: Joi.string().required().min(10)
-    });
-
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-
-export const  validateRolesOnDelete  = (data) => {
-    const schema = Joi.object({
-        id: Joi.number().required()
     });
 
     const value = schema.validate(data , { abortEarly: false });
@@ -39,15 +21,6 @@ export const  validateRolesOnCreate  = (data) => {
     return value
 }
 
-export const  validateRolesOnAssign  = (data) => {
-    const schema = Joi.object({
-        roleid: Joi.number().required(),
-        permissionid: Joi.number().required()
-    });
-
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
 
 export const  validatePermissionAssignment  = (data) => {
     const schema = Joi.object({
@@ -69,6 +42,8 @@ export const validateBusInput = ( data ) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
+
+
 export const  validateId = (data) => {
     const schema = Joi.object({
         id: Joi.number().required()

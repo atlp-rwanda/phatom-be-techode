@@ -4,14 +4,14 @@ export const paginate = (page , size , order = null) => {
        size: 5,
        order: "asc"
     }
-    const pageNumber = Number.parseInt(page);
+    const pageNumber = Number(page);
     /* c8 ignore next 3 */ 
-    if(!Number.isNaN(pageNumber) && pageNumber > 0){
+    if(pageNumber && pageNumber > 0){
         data.page = pageNumber;
     }
-    const sizeNumber = Number.parseInt(size);
+    const sizeNumber = Number(size);
     /* c8 ignore next 3 */ 
-    if(!Number.isNaN(sizeNumber) && sizeNumber > 0 && sizeNumber < 10){
+    if(sizeNumber && sizeNumber > 0 && sizeNumber < 10){
         data.size = sizeNumber;
     }
 

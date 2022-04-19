@@ -8,7 +8,10 @@ import { validateAction } from "../function/validation";
 // This middleware will be called after login auth
 const checkAuth = async (req,res,next) => {
     try {
-        const userId  = req.userId ? req.userId : req.header('userId');
+        let userId = req.header('userId');
+        if(req.userId){
+            userId = req.userId;
+        }
         const action  = req.header('action');
         const actionHasError = validateAction({ action }).error;
         

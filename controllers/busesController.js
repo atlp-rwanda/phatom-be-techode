@@ -1,16 +1,16 @@
 import { success,fail,sendError } from "../function/respond.js";
 import { buses } from "../models"
 import Sequelize from "sequelize";
-import { validateBusInput, validateId } from '../function/validation';
+import { validateBusInput } from '../function/validation';
 import { paginate } from "../utils/paginate.js";
 
 const { Op } = Sequelize;
 
 
 const busExist = async (busId) =>{
-    const getBus = await buses.findAll({ where: { id : busId } }); 
+    const getBus = await buses.findByPk( busId ); 
     /* c8 ignore next 3 */ 
-    if(getBus.length > 0) return getBus 
+    if(getBus) return getBus 
     return false
 }
 
@@ -22,8 +22,8 @@ const addBus = async (req,res) => {
         }
     
         const { bustype, routecode, platenumber } = req.body;
-        const plateNumberExist = await buses.findAll({where:{platenumber}});
-        if(plateNumberExist.length > 0){
+        const plateNumberExist = await buses.findOne({where:{platenumber}});
+        if(plateNumberExist){
             return fail(res,400,null,"plateExist",req);
         }
     
@@ -36,9 +36,7 @@ const addBus = async (req,res) => {
 
 const getAllBuses = async (req, res) => {    
     try {
-        const dataPage = req.query.page;
-        const dataSize = req.query.size;
-        const orderBy = req.query.order;
+        const { page:dataPage, size:dataSize , order: orderBy } = req.query;
         const { page , size ,order } = paginate(dataPage,dataSize,orderBy);
         const allBus = await buses.findAndCountAll({ limit: size, offset: page * size,  order: [
             ["id", order]
@@ -52,8 +50,8 @@ const getAllBuses = async (req, res) => {
 const getSingleBus = async (req, res) => { 
     try {
         const id = req.id;
-        const getBus = await buses.findAll({ where: { id }}); 
-        if(getBus.length == 0){
+        const getBus = await busExist(id); 
+        if(!getBus){
             return fail(res,404,null,'busNotExist',req)            
         }   
         return success(res,200,getBus,"Retrived",req);  
@@ -71,7 +69,7 @@ const deleteBus = async (req, res) => {
         }
 
         await buses.destroy({ where :  { id }});
-        return success(res,200,buses,'busDeleted',req); 
+        return success(res,200,1,'busDeleted',req); 
         /* c8 ignore next 2 */   
     } catch (error) { return sendError(res,500,null,error.message); }  
 }

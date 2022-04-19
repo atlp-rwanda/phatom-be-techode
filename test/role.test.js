@@ -206,6 +206,17 @@ describe("Access control testing", () => {
 				done()
             });            
     });
+    it('Should not remove permission with valid inputs', (done) => {
+        chai.request(app)
+            .delete(`/api/v1/roles/permission/remove`)
+            .send({
+                roleid:1
+            })
+            .end((err, res) => {
+                chai.expect(res).to.have.status(400);
+				done()
+            });            
+    });
 
     it('Should not assign permission whose role does not exist', (done) => {
         chai.request(app)

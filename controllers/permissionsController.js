@@ -19,11 +19,16 @@ const permissionExist = async (id = null , permissionname = null) => {
 const getAllpermissions = async (req, res) => {
 	
      try {
-        const dataPage = req.query.page;
-        const dataSize = req.query.size;
-        const { page , size } = paginate(dataPage,dataSize);
+        const { page:dataPage, size:dataSize , order:orderBy } = req.query;
+        const { page , size , order } = paginate(dataPage,dataSize,orderBy);
         /* ======= Start:: List all permissions =================== */ 
-            permissions.findAndCountAll({ limit : size , offset: page * size }).then(permission => {
+            permissions.findAndCountAll({ 
+                limit : size ,
+                offset: page * size ,
+                order: [
+                        ["id", order]
+                    ]
+                }).then(permission => {
                 return success(res,200,{ permission : permission.rows , totalPage : Math.ceil(permission.count / size) },"Retrieved");
             })
         /* ========= End:: List all permissions ================== */ 

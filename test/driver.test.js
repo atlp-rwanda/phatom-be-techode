@@ -63,7 +63,7 @@ describe('Test one : drivers', () => {
 	it('should return an validation errors error', async () => {
 		const id = '19a'
 		const response = await chai.request(app).get(`/api/v1/drivers/${id}`)
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	})
 	it('should Return not found if an id does not exist', async () => {
 		const id = '1944'
@@ -79,7 +79,7 @@ describe('Test one : drivers', () => {
 	it('should return validation errors errors on invalid delete', async () => {
 		const id = 'null'
 		const response = await chai.request(app).delete(`/api/v1/drivers/${id}`)
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	})
 
 	it('should Return not found if an id does not exist', async () => {
@@ -98,7 +98,7 @@ describe('Test one : drivers', () => {
 			password: 'test123',
 		};
 		const response = await chai.request(app).put(`/api/v1/drivers/${id}`).send(driver);
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	});
 
 	it('should not update a Driver without email', async () => {

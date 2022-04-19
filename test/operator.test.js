@@ -68,7 +68,7 @@ describe('Test one : operators', () => {
 	it('should return an validation errors error', async () => {
 		const id = '19a'
 		const response = await chai.request(app).get(`/api/v1/operators/${id}`)
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	})
 	it('should Return a single operator', async () => {
 		const id = '1'
@@ -78,7 +78,7 @@ describe('Test one : operators', () => {
 	it('should return validation errors errors on invalid delete', async () => {
 		const id = 'null'
 		const response = await chai.request(app).delete(`/api/v1/operators/${id}`)
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	})
 	it('should Return not found if an id does not exist', async () => {
 		const id = 1944
@@ -107,7 +107,7 @@ describe('Test one : operators', () => {
 			password: 'test123',
 		};
 		const response = await chai.request(app).put(`/api/v1/operators/${id}`).send(operator);
-		expect(response).to.have.status(422);
+		expect(response).to.have.status(400);
 	});
 
 	it('should update a Operator', async () => {

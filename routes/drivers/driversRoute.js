@@ -1,5 +1,6 @@
 import express from 'express'
 import { addDriver,allDrivers, getSingleDriver, deleteDriver, updateDriver } from '../../controllers/driversController'
+import isValidaId from '../../middlewares/isValidaId'
 
 const router = express.Router()
 /**
@@ -119,7 +120,7 @@ router.get('/', allDrivers)
  *       500:
  *         description: Internal server error
  */
-router.get('/:id', getSingleDriver)
+router.get('/:id',isValidaId, getSingleDriver)
 /**
  * @swagger
  * /api/v1/drivers/{id}:
@@ -142,7 +143,7 @@ router.get('/:id', getSingleDriver)
  *       500:
  *        description: Internal server error
  */
-router.delete('/:id', deleteDriver)
+router.delete('/:id',isValidaId, deleteDriver)
 /**
  * @swagger
  * /api/v1/drivers/{id}:
@@ -174,6 +175,6 @@ router.delete('/:id', deleteDriver)
  *      500:
  *        description: Internal server error
  */
-router.put('/:id', updateDriver)
+router.put('/:id',isValidaId, updateDriver)
 
 export default router
