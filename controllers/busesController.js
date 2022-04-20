@@ -54,7 +54,7 @@ const getSingleBus = async (req, res) => {
         if(!getBus){
             return fail(res,404,null,'busNotExist',req)            
         }   
-        return success(res,200,getBus,"Retrived",req);  
+        return success(res,200,{ bus : getBus},"Retrived",req);  
         /* c8 ignore next 2 */ 
     } catch (error) { return sendError(res,500,null,error.message); }
 }
@@ -78,7 +78,7 @@ const deleteBus = async (req, res) => {
 
 const updateBus = async (req, res) => {
     try {
-        const id = req.id;
+        const { id } = req;
         const { bustype, routecode, platenumber } = req.body;
 
         const bus = await busExist(id);
@@ -91,13 +91,14 @@ const updateBus = async (req, res) => {
             return fail(res,400,null,error.details[0].message);
         }
 
-        const plateNumberExist = await buses.findAll({where:{platenumber}});
+        let plateNumberExist = await buses.findAll({where:{platenumber}});
         if(plateNumberExist.length > 0){ 
             return fail(res,400,null,"plateExist",req);
         }
 
         await buses.update({ bustype, routecode, platenumber } , { where :  { id }});
-        return success(res,200,buses,'updated',req);
+        plateNumberExist = await buses.findOne({where:{platenumber}});
+        return success(res,200,{ buses : plateNumberExist},'updated',req);
     /* c8 ignore next 2 */        
     } catch (error) { return sendError(res,500,null,error.message); }    
 }
