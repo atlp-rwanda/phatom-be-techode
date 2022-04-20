@@ -1,12 +1,9 @@
-import { users, buses } from "../models";
+import { users, buses, operators, drivers } from "../models";
 import { success,fail,sendError } from "../function/respond.js";
-import sendMail from '../utils/sendEmail'
-import Sequelize from "sequelize"
-import { validateDriversOnCreate, validateDriverId } from '../function/validation'
 import generator from 'generate-password'
 import bcrypt from 'bcrypt'
+import sendEmail from '../utils/resetUtil';
 
-const { Op } = Sequelize
 const passwordNew = generator.generate({
 	length: 10,
 	numbers: true
@@ -14,8 +11,8 @@ const passwordNew = generator.generate({
 
 const getAllUsers = async (req, res) => {
 	/* ======= Start:: List all users =================== */ 
-		users.findAndCountAll({attributes: {exclude: ['password']}}).then(users => {				
-			return success(res,200,users,"Retrieved");
+		users.findAll({attributes: {exclude: ['password']}}).then(users => {				
+			return success(res,200,{users:users},"Retrieved");
 		})
 	/* ========= End:: List all users ================== */ 	
 };
@@ -26,27 +23,29 @@ const createUser = async (req, res) => {
 
 	    /* =============================== start: Validation ============================== */ 
 		const { firstname, lastname, username, email, telephone, userType } = req.body
-		const { error } = validateDriversOnCreate({firstname:firstname, lastname:lastname, username:username, email:email, telephone:telephone, userType:userType})
-		if(error) { 
-			return fail(res, 422, error.details[0].message)
+        const userExist = await users.findOne({ where: { email : email}});
+    if(userExist){
+			return fail(res,409,{user:null},'userExist',req)
 		}
-		const userExist = await users.findAll({
-			where :{ 
-				email:email
-			}
-		});
-		if(userExist.length > 0){
-			return fail(res,409,null,'userExist',req)
-		}
+        
 		/* =========== start: User creation ================ */ 
 		users.create({
-			fullname: req.body.firstname + ' ' + req.body.lastname,
-			username: req.body.username, 
-			email: req.body.email,
-			telephone: req.body.telephone,
-			userType: req.body.userType,
+			fullname: firstname + ' ' + lastname,
+			username: username, 
+			email: email,
+			telephone: telephone,
+			userType: userType,
 			password: hashedPassword
-		}).then( user => {
+		}).then( async (user)=> {
+            if(user.userType == 'driver' || user.userType == 'Driver'){
+                drivers.create({ userId: user.id})
+            }
+            if(user.userType == 'operator' || user.userType == 'Operator'){
+                /* c8 ignore next 2 */
+                operators.create({ userId: user.id})
+            }
+
+            await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, user.email, null ,req.t('emailMessage'));
 			return success(res,201,{username,userType},"New user have been created", req)
 		}).catch(err => { return sendError(res,500,err,err.message,req) })
 		/* =========== start: User creation ============== */ 
@@ -56,20 +55,30 @@ const createUser = async (req, res) => {
 const getSingleUser = async(req, res) => {
     try{
         let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error){
-            return fail(res,422,null,error.details[0].message) 
-        }
-        const userExist = await users.findAll({
+        const userExist = await users.findOne({
             where :{ 
-                id 
+                id: id,
+                isDeleted: false 
             }
         });
-    if(userExist.length == 0){
-        return fail(res,404,userExist,'userNotFound',req)
+    if(!userExist){
+        return fail(res,404,{user:userExist},'userNotFound',req)
     }
-        users.findByPk(id).then((driver)=> {
-            return success(res,200,driver,'Single user',req)
+        await users.findByPk(id).then((user)=> {
+            const { fullname,username, userType} = user
+            if(userType == 'Operator' || userType == 'operator'){
+                operators.findAll({where: {userId: id}, attributes:{exclude: ['createdAt', 'updatedAt']}}).then( operator => {
+                    return success(res,200,{fullname,username, operator},'Single user',req)
+                })
+            }
+            if(userType == 'Driver' || userType == 'driver'){
+                drivers.findAll({where: {userId: id}, include: buses, attributes:{exclude: ['createdAt', 'updatedAt']}}).then( driver => {
+                    return success(res,200,{fullname,username, driver},'Single user',req)
+                })
+            }
+            if(userType == null){
+                return success(res,200,{fullname,username},'Single user',req)
+            }
         })
         /* c8 ignore next 1*/
     } catch(error){return sendError(res,500,null,error.message, req)}
@@ -77,22 +86,21 @@ const getSingleUser = async(req, res) => {
 
 const deleteUser = async(req, res) => {
     let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) {
-        return fail(res,422,null,error.details[0].message) 
-    }
-    const userExist = await users.findAll({
+    const userExist = await users.findOne({
         where :{ 
             id 
         }
     });
-    if(userExist.length == 0){
-        return fail(res,404,userExist,'userNotFound',req)
+    if(!userExist){
+        return fail(res,404,{user:userExist},'userNotFound',req)
     }
     try{
         users.findByPk(id).then((user)=> {
-            user.destroy()
-            return success(res,204,user,"user deleted", req)
+            const { id,username} = user
+            user.update({
+                isDeleted: true
+            })
+            return success(res,200,{id, username},"user deleted", req)
         })
         /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message) }
@@ -101,26 +109,23 @@ const deleteUser = async(req, res) => {
 const updateUser = async(req, res) => {
     try {
         let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error){
-            return fail(res,422,null,error.details[0].message) 
-        }
-        const userExist = await users.findAll({
+        const userExist = await users.findOne({
             where :{ 
                 id 
             }
         });
-        if(userExist.length == 0){
-            return fail(res,404,userExist,'userNotFound',req)
+        if(!userExist){
+            return fail(res,404,{user:userExist},'userNotFound',req)
         }
         users.findByPk(id).then((user) => {
+            const { id, username, telephone, email, lastname, firstname} = user
             user.update({
-                fullname: req.body.firstname + ' ' +  req.body.lastname,
-                username: req.body.username,
-                email: req.body.email,
-                telephone: req.body.telephone,
+                fullname: firstname + ' ' + lastname,
+                username:username,
+                email:email,
+                telephone:telephone,
             })
-            return success(res,200,user,'userUpdated',req)
+            return success(res,200,{id, username},'userUpdated',req)
         })
         /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message) }

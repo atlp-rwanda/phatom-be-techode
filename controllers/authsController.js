@@ -34,23 +34,25 @@ const signIn = async (req, res, next) => {
 
     const user = await users.findOne({ where: { email } });
 
-    
-
     if (user && comparePassword(password, user.password)) {
-      const { fullname, username, role, email } = user;
-      const token = jwtToken.createToken(user);
-      res.cookie("access-token", token, {
-        httpOnly: true,
-        maxAge: 60 * 60 * 24,
-      })
-      
-      const isVerified = jwtToken.verifyToken(token);
-      return success(res, 200, { user: { fullname, username, role, email , isVerified }, token }, "loginMessage",req)
+      if(!user.isDeleted){
+        const { fullname, username, role, email } = user;
+        const token = jwtToken.createToken(user);
+
+        res.cookie("access-token", token, {
+          httpOnly: true,
+          maxAge: 60 * 60 * 24,
+        })
+        
+        const isVerified = jwtToken.verifyToken(token);
+        return success(res, 200, { user: { fullname, username, role, email , isVerified }, token }, "loginMessage",req)
+      } else {
+        /* c8 ignore next 2*/
+        return fail(res, 401, null, "accountNotAuthorized",req)
+      }
     }
     return fail(res, 401, null, "wrongCredential",req)
-  } catch (e) {
-    return sendError(res, 500, null, e.massage);
-  }
+  } catch (e) { return sendError(res, 500, null, e.massage) }
 }
 
 

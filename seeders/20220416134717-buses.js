@@ -10,6 +10,11 @@ module.exports = {
           bustype: 'Couster',
           routecode: 401,
           platenumber:"RAD000X"
+        },
+        {
+          bustype: 'Coaster',
+          routecode: 402,
+          platenumber:"RAD000Y"
         }
       ], 
       {});

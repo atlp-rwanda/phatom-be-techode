@@ -19,10 +19,12 @@ describe('Reset password : All', () => {
 	});
 	it('should create a User', async () => {
 		const user = {
-			fullname: 'cyifuzo jean chrysostome',
-			username: 'chance',
-			password: 'test123',
-			email: 'delcy@gmail.com',
+			firstname: 'newcyifuzo',
+			lastname: 'jeanew',
+			username: 'chancenew',
+			telephone: '07884764987',
+			userType: 'Driver',
+			email: 'daaaqk@example.com'
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
@@ -40,7 +42,7 @@ describe('Reset password : All', () => {
 
 	it('render mail', async () => {
 		const user = {
-			email: 'delcy@gmail.com',
+			email: 'daaak@example.com',
 		};
 		const response = await chai
 			.request(app)
@@ -77,7 +79,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
 		
 
 		const resetToken = await resetTokens.create({
@@ -97,7 +99,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
 	
 
 		const resetToken = await resetTokens.create({
@@ -117,9 +119,8 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
 		
-
 		const resetToken = await resetTokens.create({
 			user: user.id,
 			token: token1,
@@ -138,7 +139,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
 	
 
 		const resetToken = await resetTokens.create({

@@ -16,26 +16,25 @@ const paginate = (model) => {
 		model.findAll().then(data => {
 
 		if(endIndex < model.length){
+			/* c8 ignore next 5 */
 			result.next = {
 				page: page + 1,
 				limit: limit
 			}
 		}
 		if(startIndex > 0){
+			/* c8 ignore next 5 */
 			result.previous = {
 				page: page - 1,
 				limit: limit
 			}
 		}
 		result.results = data.slice(startIndex, endIndex);
-		// result.results = await model.findAll().limit(limit).skip(startIndex);
 		return success(res,200,result,"paginated list", req)
-		// res.paginatedResult = result;
+		/* c8 ignore next 2 */
 		next();
 	})
-	} catch(err) { 
-		return sendError(res, 500, null, err.message, req)
-	}
+	} catch(err) { return sendError(res, 500, null, err.message, req) }
 }
 }
 export default paginate

@@ -9,10 +9,6 @@ chai.use(chaiHTTP);
 let token;
 describe('Crud operation for buses ', () => {
 	before((done) => {
-		db.users.destroy({
-			truncate: true,
-			restartIdentity: true,
-		});
 		done();
 	});
 	beforeEach(async () => {
@@ -39,6 +35,14 @@ describe('Crud operation for buses ', () => {
 		token = response.body.data.token;
 	});
 	afterEach(async () => {
+		await db.operators.destroy({
+			truncate: true,
+			restartIdentity: true,
+		});
+		await db.drivers.destroy({
+			truncate: true,
+			restartIdentity: true,
+		});
 		await db.users.destroy({
 			truncate: true,
 			restartIdentity: true,

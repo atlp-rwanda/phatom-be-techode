@@ -40,7 +40,6 @@
     "operatorUpdated": "Operator Updated",
     "plateExist": "plate number already exists",    
     "busExist": "Bus already exists",    
-    "busNotExist": "Bus not found",
     "busDeleted": "The bus has been deleted",    
     "busCreated":"Bus has been created",    
     "pleaseLogin": "Please login",
@@ -55,5 +54,12 @@
     "userNotFound":"user Not Found",
     "Single user": "Single user",
     "user deleted": "user deleted",
-    "userUpdated": "user updated"
+    "userUpdated": "user updated",
+    "busNotExist": "bus does not exist",
+    "User not a driver": "User not a driver",
+    "bus already assigned to a driver": "bus already assigned to a driver",
+    "bus assigned successfully": "bus assigned successfully",
+    "assignedBus": "You have been assigned a bus",
+    "accountNotAuthorized": "account not authorized",
+    "busAssigned": "bus already assigned"
 }

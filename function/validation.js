@@ -1,31 +1,22 @@
 import Joi from "joi";
 
-export const  validateDriversOnCreate  = (data) => {
+export const  validateRolesOnCreate  = (data) => {
     const schema = Joi.object({
-        username: Joi.string().required(),
-        firstname: Joi.string().required(),
-        lastname: Joi.string().required(),
-        email: Joi.string().required().email(),
-        telephone: Joi.string().required().min(10),
-        userType: Joi.string().required(),
+        rolename: Joi.string().required()
     });
 
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
 
-export const  validateRolesOnCreate  = (data) => {
+export const  validateUsersOnCreate  = (data) => {
     const schema = Joi.object({
-<<<<<<< HEAD
-        rolename: Joi.string().required()
-=======
         username: Joi.string().required(),
         firstname: Joi.string().required(),
         lastname: Joi.string().required(),
         email: Joi.string().required().email(),
         telephone: Joi.string().required().min(10),
-        userType: Joi.string().required(),
->>>>>>> ft(assign) assign drivers buses
+        userType: Joi.string().required()
     });
 
     const value = schema.validate(data , { abortEarly: false });
@@ -44,6 +35,7 @@ export const  validatePermissionAssignment  = (data) => {
 }
 
 export const validateBusInput = ( data ) => {
+    /* c8 ignore next 11 */
     const schema = Joi.object({
         bustype: Joi.string().required().min(5),
         routecode: Joi.number().required().min(3),
@@ -64,10 +56,20 @@ export const  validateId = (data) => {
     return value
 }
 
-
+/* c8 ignore next 7 */
 export const  validateAction = (data) => {
     const schema = Joi.object({
         action: Joi.string().required().min(4)
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+
+export const validateBusOnAssign = (data) => {
+    const schema = Joi.object({
+        userId: Joi.number().required(),
+        busId: Joi.number().required()
     });
 
     const value = schema.validate(data , { abortEarly: false });
