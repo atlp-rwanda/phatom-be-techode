@@ -58,5 +58,6 @@
     "routeDeleted": "Route supprimée",
     "routeUpdated": "Route modifiée",
     "profilePic":"photo de profil créée",
-    "updateProfile":"photo de profil mise à jour"
+    "updateProfile":"photo de profil mise à jour",
+    "userExist":" l'utilisateur n'existe pas "
 }

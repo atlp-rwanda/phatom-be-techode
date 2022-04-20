@@ -8,21 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      RouteName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      RouteNumber: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      Distance: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      ProfileImage: {
-        type: Sequelize.STRING,
-        allowNull: false
+      bustype: {
+        type: Sequelize.STRING
       },
       routecode: {
         type: Sequelize.INTEGER

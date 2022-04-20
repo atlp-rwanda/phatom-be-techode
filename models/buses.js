@@ -15,10 +15,9 @@ module.exports = (sequelize, DataTypes) => {
     
   }
   buses.init({
-    RouteName: DataTypes.STRING,
-    RouteNumber: DataTypes.STRING,
-    Distance: DataTypes.STRING,
-    ProfileImage: DataTypes.STRING,
+    bustype: DataTypes.STRING,
+    routecode: DataTypes.INTEGER,
+    platenumber: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'buses',

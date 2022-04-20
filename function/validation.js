@@ -78,3 +78,13 @@ export const  validateAction = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
+/* ========= End: Assign Permissions validation ============== */ 
+
+/* ========= Start: update profile  validation ============== */ 
+export const  validateProfile  = (data) => {
+    /* c8 ignore next 4 */
+    const schema = Joi.object({id: Joi.number().required(),profileImage: Joi.string().required()});
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+/* ========= End:  update profile validation ============== */ 

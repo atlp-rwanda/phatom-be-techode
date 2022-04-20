@@ -58,5 +58,6 @@
     "routeDeleted": "Route deleted",
     "routeUpdated": "Route updated",
     "profilePic":"profile picture created",
-    "updateProfile":"profile picture updated"
+    "updateProfile":"profile picture updated",
+    "userExist":"user doesnt exist"
 }

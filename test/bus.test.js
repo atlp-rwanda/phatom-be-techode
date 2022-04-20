@@ -189,7 +189,7 @@ describe('Crud operation for buses ', () => {
 				res.body.should.have.property('status');
 				res.body.message.should.be.a('string');
 				res.body.message.should.be.eql("jwt must be provided");
-				chai.expect(res).to.have.status(401);
+				chai.expect(res).to.have.status(500);
 				done();
 			});
 	});

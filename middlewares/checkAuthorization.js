@@ -70,6 +70,7 @@ const isLoggedIn = async (req , res , next) => {
             req.userId = verified.userId;
             return next();
         }  
-    } catch (error) {return sendError(res,401,null,error.message);}
+        /* c8 ignore next 1 */ 
+    } catch (error) {return sendError(res,500,null,error.message);}
 } 
 export  { checkAuth , isLoggedIn }

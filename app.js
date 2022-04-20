@@ -21,7 +21,6 @@ import profileRoutes from './routes/profile/profilePic.js'
 import permission from './routes/permissions/permissions.js';
 import rolesRoute from './routes/roles/roles.js';
 import accountRouter from './routes/users/accounts.js';
-import usersRoutes from './routes/users/users.js';
 import busesRoute from './routes/buses/busesRoute.js';
 
 import routesRoute from './routes/routes/routesRoute'

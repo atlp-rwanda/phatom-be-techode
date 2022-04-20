@@ -1,14 +1,10 @@
 import express from 'express'
-import { createProfile, updateProfile } from "../../controllers/profileContoller.js"
-import checkAuth from '../../middlewares/checkAuthorization.js'
+import { updateProfile } from "../../controllers/profileContoller.js"
+import { checkAuth, isLoggedIn } from '../../middlewares/checkAuthorization.js'
 
 
 const router = express.Router();
 
-
-/* === Start:: Create user profile === */ 
-    router.post('/register', createProfile);
-/* ==== End:: Create user profile === */
 
 /**
  * @swagger
@@ -28,7 +24,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/v1/profile/{id}:
+ * /api/v1/profile:
  *  put:
  *    summary: Update the driver || operator information
  *    tags: [profiles]
@@ -58,7 +54,7 @@ const router = express.Router();
  *        description: Internal server error
  */
 /* ==== Start:: update user profile === */ 
-	router.put('/:id',updateProfile);
+	router.put('/', isLoggedIn, checkAuth, updateProfile);
     
 /* ==== End:: update user profile === */ 
 
