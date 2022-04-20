@@ -21,12 +21,7 @@ import accountRouter from './routes/users/accounts.js';
 import usersRoutes from './routes/users/users.js';
 import busesRoute from './routes/buses/busesRoute.js';
 
-import driversRoute from './routes/drivers/driversRoute'
 import routesRoute from './routes/routes/routesRoute'
-import operatorsRoute from './routes/operators/operatorsRoute'
-import i18next from 'i18next'
-import backend from 'i18next-fs-backend'
-import middleware from 'i18next-http-middleware'
 
 
 /* ========== setting up dotenv ============= */

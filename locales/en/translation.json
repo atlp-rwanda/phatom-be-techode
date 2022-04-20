@@ -49,5 +49,13 @@
     "userNotFound": " user not found",
     "linkHasBeenSent":"link has been sent to your email",
     "TokenDoesnotExist":"Token does not exist!",
-    "TokenHasExpired":"Token has expired"
+    "TokenHasExpired":"Token has expired",
+    "routeExist": "Route already exist",
+    "newRoute": "Route Created",
+    "allRoutes": "All routes",
+    "routeNotFound": "Route not found",
+    "singleRoute": "Single route",
+    "routeDeleted": "Route deleted",
+    "routeUpdated": "Route updated"
+
 }
