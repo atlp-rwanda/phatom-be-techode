@@ -63,9 +63,7 @@ const allOperators = async(req, res) => {
 
 const getSingleOperator = async(req, res) => {
     try{
-        let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error) return fail(res,422,null,error.details[0].message) 
+        let id = req.id 
         const operatorExist = await operators.findAll({
             where :{ 
                 id 
@@ -83,9 +81,7 @@ const getSingleOperator = async(req, res) => {
 
 const deleteOperator = async(req, res) => {
     try{
-        let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error) return fail(res,422,null,error.details[0].message) 
+        let  id  = req.id
         const operatorExist = await operators.findAll({
             where :{ 
                 id 
@@ -103,11 +99,7 @@ const deleteOperator = async(req, res) => {
 }
 const updateOperator = async(req, res) => {
     try {
-        let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error){
-            return fail(res,422,null,error.details[0].message)
-        } 
+        let id = req.id
         const operatorExist = await operators.findAll({
             where :{ 
                 id 

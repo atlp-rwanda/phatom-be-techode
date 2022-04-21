@@ -16,5 +16,8 @@ exclude_patterns:
   - "**/test/"
   - "**/__test__/"
   - "coverage/"
+  - "seeders/"
+  - "migrations/"
+  - "models/"
   - "*.test.js"
   - "/**/*{V,v}alidation.js"

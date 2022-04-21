@@ -12,6 +12,7 @@ import options from './config/options.js';
 
 import driversRoute from './routes/drivers/driversRoute'
 import operatorsRoute from './routes/operators/operatorsRoute'
+import busesRoute from './routes/buses/busesRoute'
 import i18next from 'i18next'
 import backend from 'i18next-fs-backend'
 import middleware from 'i18next-http-middleware'
@@ -62,19 +63,20 @@ i18next
 
 
 /* ========== Start:: Driver api url ========= */ 
-app.use('/api/v1/drivers', driversRoute);
+  app.use('/api/v1/drivers', driversRoute);
 /* ============== End:: Driver api ========= */ 
 
 /* ========== Start:: Admin api url ========= */ 
-app.use('/api/v1/dashboard', dashboardRoutes);
+  app.use('/api/v1/dashboard', dashboardRoutes);
 /* ============== End:: Admin api ========= */ 
 
 /* ========== Start:: User api url ========= */ 
   app.use('/api/v1/users', usersRoutes);
   app.use('/api/v1/users/login', loginRoute);
 /* ============== Start:: User api ========= */ 
+
 /* ========== Start:: Operator api url ========= */ 
-app.use('/api/v1/operators', operatorsRoute);
+  app.use('/api/v1/operators', operatorsRoute);
 /* ============== End:: Operator api ========= */ 
 
 /* ========== Start:: role api url ========= */ 
@@ -85,11 +87,15 @@ app.use('/api/v1/operators', operatorsRoute);
   app.use('/api/v1/permissions', permission);
 /* ============== Start:: permissions api ========= */ 
 
-
 /* ========== Start:: Api documantation version one ============ */ 
   app.use('/api/v1/doc', swaggerUI.serve, swaggerUI.setup(specs));
-/* ========== Start:: Api documantation version one ============ */ 
-app.use('/api/v1/lng', languageRoutes);
+/* ========== Start:: Api documantation version one ============ */
+
+/* ========== Start:: buses api url ========= */ 
+  app.use('/api/v1/buses', busesRoute);
+/* ============== End:: buses api ========= */ 
+
+  app.use('/api/v1/lng', languageRoutes);
 
 app.listen(PORT, () => {
   app.emit("Started")

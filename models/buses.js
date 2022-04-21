@@ -12,9 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+    
   }
   buses.init({
-    rolename: DataTypes.STRING
+    bustype: DataTypes.STRING,
+    routecode: DataTypes.INTEGER,
+    platenumber: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'buses',
