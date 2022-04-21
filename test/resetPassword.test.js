@@ -92,7 +92,7 @@ describe('Reset password : All', () => {
 		expect(response).to.have.status(200);
 	});
 
-	it('token ', async () => {
+	it('should requeste password reset ', async () => {
 		const password = {
 			password: 'test12!D',
 		};
@@ -112,7 +112,7 @@ describe('Reset password : All', () => {
 		expect(response).to.have.status(200);
 	});
 
-	it('should allow user to request resetting password without providing email', async () => {
+	it('should allow user to request resetting password without providing unkown email', async () => {
 		const password = {
 			password: 'test12!D',
 		};
@@ -132,15 +132,25 @@ describe('Reset password : All', () => {
 		expect(response).to.have.status(404);
 	});
 
+	
+	it('should requeste password reset ', async () => {
+		const password = {
+			password: 'test12!D',
+		};
+		const token1 = uuid();
+		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+	
 
-	// it('should not create a User without password', async () => {
-	// const user = {};
-	// 	const response = await chai.request(app).post(`/api/v1/users`).send(user);
-	// 	expect(response).to.have.status(500);
-	// });
+		const resetToken = await resetTokens.create({
+			user: user.id,
+			token: token1,
+		});
+		const response = await chai
+			.request(app)
+			.get(`/api/v1/accounts/reset-password/asdfhnnthyrthfghfffttyhuhu`)
+			.send(password);
 
-	// it('should Retieve all users', async () => {
-	// 	const response = await chai.request(app).get(`/api/v1/users`);
-	// 	expect(response).to.have.status(200);
-	// });
+		expect(response).to.have.status(400);
+	});
+		
 });

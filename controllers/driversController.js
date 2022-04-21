@@ -1,10 +1,10 @@
 import { drivers } from '../models'
 import { success,fail,sendError } from "../function/respond.js";
-import sendMail from '../utils/sendEmail'
 import Sequelize from "sequelize"
 import { validateDriversOnCreate } from '../function/validation'
 import generator from 'generate-password'
 import bcrypt from 'bcrypt'
+import sendEmail from '../utils/resetUtil';
 
 const { Op } = Sequelize
 const passwordNew = generator.generate({
@@ -34,8 +34,8 @@ const addDriver = async(req,res) => {
             email: req.body.email,
             telephone: req.body.telephone,
             password: hashedPassword 
-        }).then(driver => {
-            sendMail(driver.email, req.t('emailMessage'),`${ req.t('pwdMsg')+" "+passwordNew}`)
+        }).then( async (driver) => {
+            await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, driver.email, null ,req.t('emailMessage'));
             return success(res,201,driver,'newDriver',req)
         })
         /* c8 ignore next 1*/

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import { users, resetTokens } from '../models';
 import db from '../models/index.js';
-import sendMail from './resetUtil.js';
+import sendMail from '../utils/resetUtil.js';
 import { success, fail, sendError } from '../function/respond.js';
 
 export const forgotPassword = async (req, res) => {
@@ -33,13 +33,9 @@ export const forgotPassword = async (req, res) => {
 			'http://localhost:5000/api/v1/accounts/reset-password/'
 		}${generateToken.token}`;
 		const isSend = await sendMail(link, email, user);
-
-		if (isSend) return success(res, 200, null, 'linkHasBeenSent', req);
-			
-		return res.status(500).json({messsage:(`Email has not been sent due to: ${isSend}`)});
-	} catch (error) {
-		return res.status(500).json({ error: error.message });
-	}
+        return success(res, 200, null, 'linkHasBeenSent', req);
+		/* c8 ignore next 1 */	
+	} catch (error) { return res.status(500).json({ error: error.message })	}
 };
 
 export const validateToken = async (req, res) => {
@@ -47,16 +43,14 @@ export const validateToken = async (req, res) => {
 	const resetoken = await resetTokens.findOne({ where: { token } });
 
 	/* ======== Checking if token exist  =================== */
-	if (!resetoken)
-	    return fail(res, 400, null, 'TokenDoesnotExist', req);
-
+	if (!resetoken) return fail(res, 400, null, 'TokenDoesnotExist', req);
 
 	/* ======== Checking if token is valid  ========== */
 	const tokenIsValid = await resetoken.checkValid();
-	if (!tokenIsValid) {
+	/* c8 ignore next 4 */
+	if (!tokenIsValid) {				
 		await resetoken.destroy();
-	
-		return fail(res, 400, null, '	TokenHasExpired', req);
+		return fail(res, 400, null, 'TokenHasExpired', req);
 	}
 	return res.status(200).json(resetoken);
 };

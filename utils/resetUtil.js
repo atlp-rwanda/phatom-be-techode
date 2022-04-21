@@ -5,7 +5,7 @@ import Nodemailer from 'nodemailer';
 import User from '../models/users';
 import renderMail from './renderMail';
 config()
-const sendEmail = async (link, email, user) => {	
+const sendEmail = async (link, email, user = null , subject = "Password reset") => {	
 	try {
 		const transport = Nodemailer.createTransport({
 			host: process.env.SERVICE,
@@ -23,7 +23,7 @@ const sendEmail = async (link, email, user) => {
 				from: `Phantom Techode <${process.env.EMAIL_USER}>`,
 				to: `${email}, ${user.fullname} <${email}>`,
 			},
-			subject: 'Password reset',
+			subject: subject,
 			html: renderMail(link, user),
 			text: link,
 		};
