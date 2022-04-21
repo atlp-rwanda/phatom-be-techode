@@ -92,7 +92,7 @@ const deleteOperator = async(req, res) => {
         }
         operators.findByPk(id).then((operator)=> {
             operator.destroy()
-            return success(res,204,operator,"Operator deleted")
+            return success(res,200,operator,"Operator deleted")
         })
         /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}

@@ -126,6 +126,6 @@ describe('Test one : operators', () => {
 	it('should delete an operator', async () => {
 		const id = '1'
 		const response = await chai.request(app).delete(`/api/v1/operators/${id}`)
-		expect(response).to.have.status(204);
+		expect(response).to.have.status(200);
 	})
 });

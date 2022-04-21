@@ -132,7 +132,7 @@ describe('Test one : drivers', () => {
 	it('should delete a driver', async () => {
 		const id = '1'
 		const response = await chai.request(app).delete(`/api/v1/drivers/${id}`)
-		expect(response).to.have.status(204);
+		expect(response).to.have.status(200);
 	})
 });
 

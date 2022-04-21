@@ -21,6 +21,7 @@ import accountRouter from './routes/users/accounts.js';
 import usersRoutes from './routes/users/users.js';
 import busesRoute from './routes/buses/busesRoute.js';
 
+import routesRoute from './routes/routes/routesRoute'
 
 
 /* ========== setting up dotenv ============= */
@@ -61,6 +62,10 @@ i18next
 /* ========== Start:: Driver api url ========= */ 
   app.use('/api/v1/drivers', driversRoute);
 /* ============== End:: Driver api ========= */ 
+
+/* ========== Start:: Route api url ========= */ 
+app.use('/api/v1/routes', routesRoute);
+/* ============== End:: Route api ========= */ 
 
 /* ========== Start:: Admin api url ========= */ 
   app.use('/api/v1/dashboard', dashboardRoutes);
