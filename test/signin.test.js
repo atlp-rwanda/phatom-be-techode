@@ -28,6 +28,20 @@ describe('Test one : users', () => {
         const response = await chai.request(app).post(`/api/v1/users/login/register`).send(user);
         expect(response).to.have.status(201);
     });
+   
+    it('should not create a one User twice', async () => {
+        const user = {
+            fullname: 'cyifuzo jean damascene',
+            username: 'cyifuzo',
+            email: 'admin@andela.com',
+            role: 'client',
+            password: 'test123',
+        };
+        const response = await chai.request(app).post(`/api/v1/users/login/register`).send(user);
+        expect(response).to.have.status(409);
+    });
+
+
 	it('should not create user without valid email ', (done) => {
 		const user = {
 			fullname: 'cyifuzo jean damascene',
@@ -100,17 +114,6 @@ describe('Test one : users', () => {
         expect(response).to.have.status(401);
     });
 
-    it('should not create a one User twice', async () => {
-     const user = {
-         fullname: 'cyifuzo jean damascene',
-         username: 'chance',
-         email: 'admin@andela.com',
-         role: 'client',
-         password: 'test123',
-     };
-     const response = await chai.request(app).post(`/api/v1/users/login/register`).send(user);
-     expect(response).to.have.status(409);
-    });
 
 	it('should not login without spaced password', (done) => {
         let user = {

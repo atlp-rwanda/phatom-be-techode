@@ -1,6 +1,7 @@
 import { permissions } from "../models";
 import { success,fail,sendError } from "../function/respond.js";
 import db from "../models/index.js";
+import { paginate } from "../utils/paginate";
 
 
 const permissionExist = async (id = null , permissionname = null) => {
@@ -17,12 +18,23 @@ const permissionExist = async (id = null , permissionname = null) => {
 
 const getAllpermissions = async (req, res) => {
 	
-
-    /* ======= Start:: List all permissions =================== */ 
-        permissions.findAndCountAll().then(permission => {
-            return success(res,200,permission,"Retrieved");
-        })
-    /* ========= End:: List all permissions ================== */ 
+     try {
+        const { page:dataPage, size:dataSize , order:orderBy } = req.query;
+        const { page , size , order } = paginate(dataPage,dataSize,orderBy);
+        /* ======= Start:: List all permissions =================== */ 
+            permissions.findAndCountAll({ 
+                limit : size ,
+                offset: page * size ,
+                order: [
+                        ["id", order]
+                    ]
+                }).then(permission => {
+                return success(res,200,{ permission : permission.rows , totalPage : Math.ceil(permission.count / size) },"Retrieved");
+            })
+        /* ========= End:: List all permissions ================== */ 
+     /* c8 ignore next 1 */ 
+     } catch (error) {  return sendError(res,500,null,error.message)}
+   
         
    
 	

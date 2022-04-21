@@ -1,5 +1,6 @@
 import express from 'express'
 import { addOperator, allOperators, getSingleOperator, deleteOperator, updateOperator } from '../../controllers/operatorsController'
+import isValidaId from '../../middlewares/isValidaId'
 
 const router = express.Router()
 /**
@@ -119,7 +120,7 @@ router.get('/', allOperators)
  *       500:
  *         description: Internal server error
  */
-router.get('/:id', getSingleOperator)
+router.get('/:id',isValidaId, getSingleOperator)
 /**
  * @swagger
  * /api/v1/operators/{id}:
@@ -142,7 +143,7 @@ router.get('/:id', getSingleOperator)
  *       500:
  *        description: Internal server error
  */
-router.delete('/:id', deleteOperator)
+router.delete('/:id',isValidaId, deleteOperator)
 /**
  * @swagger
  * /api/v1/operators/{id}:
@@ -174,6 +175,6 @@ router.delete('/:id', deleteOperator)
  *      500:
  *        description: Internal server error
  */
-router.put('/:id', updateOperator)
+router.put('/:id',isValidaId, updateOperator)
 
 export default router

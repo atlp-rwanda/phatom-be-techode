@@ -1,16 +1,5 @@
 import Joi from "joi";
-/* ========= Start: Delete role request validation ============== */ 
-export const  validateDriverId  = (data) => {
-    const schema = Joi.object({
-        id: Joi.number().required()
-    });
 
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-/* ========= Start: Delete role request validation ============== */ 
-
-/* ========= Start: Create role request validation ============== */ 
 export const  validateDriversOnCreate  = (data) => {
     const schema = Joi.object({
         firstname: Joi.string().required(),
@@ -22,19 +11,7 @@ export const  validateDriversOnCreate  = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
-/* ========= Start: Create role request validation ============== */ 
-/* ========= Start: Delete role request validation ============== */ 
-export const  validateRolesOnDelete  = (data) => {
-    const schema = Joi.object({
-        id: Joi.number().required()
-    });
 
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-/* ========= End: Delete role request validation ============== */ 
-
-/* ========= Start: Create role request validation ============== */ 
 export const  validateRolesOnCreate  = (data) => {
     const schema = Joi.object({
         rolename: Joi.string().required()
@@ -43,21 +20,8 @@ export const  validateRolesOnCreate  = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
-/* ========= End: Create driver request validation ============== */ 
 
-/* ========= Start: Assign Permissions validation ============== */ 
-export const  validateRolesOnAssign  = (data) => {
-    const schema = Joi.object({
-        roleid: Joi.number().required(),
-        permissionid: Joi.number().required()
-    });
 
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-/* ========= End: Assign Permissions validation ============== */ 
-
-/* ========= Start: Assign Permissions validation ============== */ 
 export const  validatePermissionAssignment  = (data) => {
     const schema = Joi.object({
         roleId: Joi.number().required(),
@@ -67,4 +31,34 @@ export const  validatePermissionAssignment  = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
-/* ========= End: Assign Permissions validation ============== */ 
+
+export const validateBusInput = ( data ) => {
+    const schema = Joi.object({
+        bustype: Joi.string().required().min(5),
+        routecode: Joi.number().required().min(3),
+        platenumber:Joi.string().required().min(5)
+    })
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+
+
+export const  validateId = (data) => {
+    const schema = Joi.object({
+        id: Joi.number().required()
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+
+
+export const  validateAction = (data) => {
+    const schema = Joi.object({
+        action: Joi.string().required().min(4)
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}

@@ -4,22 +4,11 @@ import db from "../models/index.js";
 
 
 const getAllUsers = async (req, res) => {
- 
-		/* ======= Start:: List all users with count ========== */ 
-			// users.findAll().then(users => {
-			// 	return success(res,200,users,"Retrieved");
-			// })
-		/* ======= End:: List all users with count ============ */ 
-		
-	
-	
-		/* ======= Start:: List all users =================== */ 
-			users.findAndCountAll().then(users => {
-				
-				return success(res,200,users,"Retrieved");
-			})
-		/* ========= End:: List all users ================== */ 
-	
+	/* ======= Start:: List all users =================== */ 
+		users.findAndCountAll({attributes: {exclude: ['password']}}).then(users => {				
+			return success(res,200,users,"Retrieved");
+		})
+	/* ========= End:: List all users ================== */ 	
 };
 
 const createUser = async (req, res) => {

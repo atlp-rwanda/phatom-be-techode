@@ -2,7 +2,7 @@ import { drivers } from '../models'
 import { success,fail,sendError } from "../function/respond.js";
 import sendMail from '../utils/sendEmail'
 import Sequelize from "sequelize"
-import { validateDriversOnCreate, validateDriverId } from '../function/validation'
+import { validateDriversOnCreate } from '../function/validation'
 import generator from 'generate-password'
 import bcrypt from 'bcrypt'
 
@@ -66,11 +66,7 @@ const allDrivers = async(req, res) => {
 
 const getSingleDriver = async(req, res) => {
     try{
-        let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error){
-            return fail(res,422,null,error.details[0].message) 
-        }
+        let  id  = req.id
         const driverExist = await drivers.findAll({
             where :{ 
                 id 
@@ -87,11 +83,7 @@ const getSingleDriver = async(req, res) => {
 }
 
 const deleteDriver = async(req, res) => {
-    let { id } = req.params
-    const { error } = validateDriverId({id})
-    if(error) {
-        return fail(res,422,null,error.details[0].message) 
-    }
+    let id  = req.id
     const driverExist = await drivers.findAll({
         where :{ 
             id 
@@ -110,11 +102,7 @@ const deleteDriver = async(req, res) => {
 }
 const updateDriver = async(req, res) => {
     try {
-        let { id } = req.params
-        const { error } = validateDriverId({id})
-        if(error){
-            return fail(res,422,null,error.details[0].message) 
-        }
+        let id  = req.id
         const driverExist = await drivers.findAll({
             where :{ 
                 id 

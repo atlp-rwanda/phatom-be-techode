@@ -6,7 +6,7 @@ config();
 
 
 export const jwtToken = {
-  createToken({ id, username: email }) {
+  createToken({ id, email }) {
     return jwt.sign(
       { userId: id, email },
       process.env.JWT_SECRETE,

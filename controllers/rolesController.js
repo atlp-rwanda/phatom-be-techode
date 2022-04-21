@@ -2,7 +2,7 @@ import { roles } from "../models";
 import { users } from "../models";
 import { success,fail,sendError } from "../function/respond.js";
 import db from "../models/index.js";
-import { validateRolesOnCreate, validateRolesOnDelete, validateRolesOnAssign ,validatePermissionAssignment } from "../function/validation.js"
+import { validateRolesOnCreate ,validatePermissionAssignment } from "../function/validation.js"
 import { permissionExist } from "./permissionsController";
 
 
@@ -42,12 +42,7 @@ const getAllroles = async (req, res) => {
 const deleteRole = async (req, res) => {	
     try {
         /* ============================ start: validatoin ================================= */ 
-            const { id } = req.params;
-            const { error } = validateRolesOnDelete({ id });
-            if(error) {
-                return fail(res,400,null,error.details[0].message) ;
-            }
-
+            const  id  = req.id;
             let exist = await roleExist(id)           
             if(exist.length == 0){
                return fail(res,400,null,"roleNotExist",req) ;
@@ -58,7 +53,8 @@ const deleteRole = async (req, res) => {
             roles.destroy({where : {id}}).then(roles => {
                 return success(res,200,roles,"Deleted");
             })
-        /* ========= End:: Delete roles ================== */         
+        /* ========= End:: Delete roles ================== */  
+    /* c8 ignore next 1 */           
     } catch (error) { return sendError(res,500,null,error.message) }	
 };
 
@@ -88,16 +84,11 @@ const createRole = async (req, res) => {
 const updateRole = async (req, res) => {
     try {
         /* ============================ start: validatoin ================================= */ 
-            const { id } = req.params;
+            const id  = req.id;
             const { rolename } = req.body;
             
             let { error } = validateRolesOnCreate({ rolename });
             if(error) {
-                return fail(res,400,null,error.details[0].message);
-            }
-
-            error = validateRolesOnDelete({ id }).error;
-            if( error) {
                 return fail(res,400,null,error.details[0].message);
             }
 
@@ -117,25 +108,9 @@ const updateRole = async (req, res) => {
 
 const assignPermssion = async(req,res) => {
     try {
-        const { roleid , permissionid } = req.body;
-        const { error } = validateRolesOnAssign({ permissionid,roleid });
-        if(error) {
-            return fail(res,400,null,error.details[0].message);
-        }
-
-        /* =================== Start:: validate if permssions exsist ==================  */ 
-        const pExist = await permissionExist(permissionid);
-        if(pExist.length == 0){
-            return fail(res,400,null,"permissionDoesNotExist",req);
-        }
-
-
-        /* =================== Start:: Validate if role exist ==================  */ 
-        const rExist = await roleExist(roleid);
-        if(rExist.length == 0 ) {
-            return fail(res,400,null,"roleNotExist",req);
-        }
-
+        
+        const { roleid ,rExist,pExist } = req;
+        
 
         /* ========= Start:: validate if role has already that permission ===============  */ 
         const getRole = rExist[0];
@@ -165,23 +140,8 @@ const assignPermssion = async(req,res) => {
 
 const removePermission = async (req,res) => {
     try {
-        const { roleid , permissionid } = req.body;
-        const { error } = validateRolesOnAssign({ permissionid,roleid });
-        if(error) {
-            return fail(res,400,null,error.details[0].message);
-        }
-        /* =================== Start:: validate if permssions exsist ==================  */ 
-        const pExist = await permissionExist(permissionid);
-        if(pExist.length == 0){
-            return fail(res,400,null,"permissionDoesNotExist",req)
-        }
-    
-    
-        /* =================== Start:: Validate if role exist ==================  */ 
-        const rExist = await roleExist(roleid);
-        if(rExist.length == 0 ){
-            return fail(res,400,null,"roleNotExist",req);
-        }
+
+        const { roleid ,pExist } = req;
 
 
         /* =================== Start:: Validate if role exist ==================  */ 
@@ -245,7 +205,7 @@ const assignRole = async (req,res) => {
 
         /* ========================= Start:: Updating the user role ==================  */ 
             await users.update({roleId},{where:{ id : userId }});
-            const getUsers = await users.findAndCountAll({where: { id : userId }});
+            const getUsers = await users.findAndCountAll({attributes: {exclude: ['password']},where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
         /* c8 ignore next 1*/
@@ -282,7 +242,7 @@ const removeRole = async (req,res) => {
 
         /* ========================= Start:: Updating the user role ==================  */ 
             await users.update({roleId : null},{where:{ id : userId }});
-            const getUsers = await users.findAndCountAll({where: { id : userId }});
+            const getUsers = await users.findAndCountAll({attributes: {exclude: ['password']},where: { id : userId }});
             return success(res,200,{ user: getUsers },"roleUpdated",req);
         /* ========================== Emd:: Updating the user role ==================  */ 
         /* c8 ignore next 1*/

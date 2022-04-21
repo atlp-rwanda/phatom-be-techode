@@ -1,7 +1,6 @@
 {
     "welcome": "Bienvenue chez Fantôme",
     "success": "Succès",
-<<<<<<< HEAD
     "roleNotExist":"Le rôle n'existe pas",
     "roleExist":"Le rôle existe déjà",    
     "roleHaveBeenCreated":"Le rôle a été créé",
@@ -19,16 +18,12 @@
     "requiredEmail": "E-mail est requis",
     "requiredPassword": "Mot de passe requis",
     "wrongCredential":"Accréditation non valide",
-<<<<<<< HEAD
     "loginMessage":"Connecté avec succès",
     "phantomLogout": "Se déconnecter",
-    "token": "jeton créé"
-=======
-    "loginMessage":"Connecté avec succès"
-=======
+    "token": "jeton créé",
     "status": "statut",
     "error": "Erreur",
-    "fail":"échouer",
+    "fail": "échouer",
     "Single driver": "Chauffeur unique",
     "DriverExist": "Le pilote avec cet e-mail existe déjà",
     "emailMessage": "Mot de passe fantôme généré automatiquement",
@@ -42,7 +37,17 @@
     "newOperator": "Nouvel opérateur créé",
     "allOperators": "Tous les opérateurs",
     "operatorNotFound": "L'opérateur n'existe pas",
-    "operatorUpdated": "Opérateur mis à jour"
->>>>>>> ch(tests & translation) tests controllers
->>>>>>> ch(tests & translation) tests controllers
+    "operatorUpdated": "Opérateur mis à jour",
+    "plateExist": "le numéro de plaque existe déjà",
+    "busExist": "le numéro de plaque existe déjà",    
+    "busDeleted": "Le bus a été supprimé",
+    "busNotExist": "le Bus introuvable",
+    "busCreated":"Le bus a été créé",
+    "pleaseLogin": "Veuillez vous connecter",    
+    "unverifiedToken":"Unverified token",
+    "missingEmail": "e-mail manquant",
+    "userNotFound": " utilisateur non trouvé",
+    "linkHasBeenSent": "le lien a été envoyé à votre email",
+    "TokenDoesnotExist": "Le jeton n'existe pas",
+    "TokenHasExpired": "Le jeton a expiré"
 }

@@ -55,6 +55,24 @@ const router = express.Router();
  *    summary: Getting permissions 
  *    tags:
  *    - "Permssions"
+ *    parameters:
+ *      - in: query
+ *        name: page
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: size
+ *        schema:
+ *          type: integer
+ *      - in: query
+ *        name: order
+ *        schema:
+ *          type: string  
+ *      - in: header
+ *        name: Accept-Language
+ *        description: fr for french and en for english default is english
+ *        schema:
+ *          type: string    
  *    responses:
  *        200:
  *         description: Retrieved

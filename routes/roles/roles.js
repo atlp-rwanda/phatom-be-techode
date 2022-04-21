@@ -1,7 +1,9 @@
 import express from 'express'
 import { createRoute } from '../../controllers/dammyController.js';
-import  { removeRole,getAllroles, createRole , deleteRole, assignPermssion,removePermission,assignRole,updateRole } from "../../controllers/rolesController.js"
-import checkAuth from '../../middlewares/checkAuthorization.js';
+import { removeRole,getAllroles, createRole , deleteRole, assignPermssion,removePermission,assignRole,updateRole } from "../../controllers/rolesController.js"
+import { checkAuth , isLoggedIn } from '../../middlewares/checkAuthorization.js';
+import isValidaId, { validatePidRid } from '../../middlewares/isValidaId.js';
+import { permssionRoleExist } from '../../middlewares/permssionRoleExist.js';
 
 
 const router = express.Router();
@@ -687,19 +689,19 @@ const router = express.Router();
 /* ==== End:: Create roles  ====== */ 
 
 /* === Start:: Delete roles  ===== */ 
-    router.delete('/:id', deleteRole);
+    router.delete('/:id',isValidaId, deleteRole);
 /* ==== End:: Delete roles  ====== */ 
 
 /* ===== Start:: Update roles  ===== */ 
-    router.put('/:id', updateRole);
+    router.put('/:id',isValidaId, updateRole);
 /* ====== End:: Update roles  ====== */ 
 
 /* =========== Start:: Remove roles  ======================= */ 
-    router.delete('/permission/remove', removePermission);
+    router.delete('/permission/remove',validatePidRid,permssionRoleExist, removePermission);
 /* ============= End:: Remove roles  ======================= */ 
 
 /* ===== Start:: Assign roles permission to roles  ====== */ 
-    router.post('/permission/assign', assignPermssion);
+    router.post('/permission/assign',validatePidRid,permssionRoleExist, assignPermssion);
 /* ======= End:: Assign roles permission to roles  ====== */ 
 
 /* ============= Start:: Assign roles to user  ===== */ 
@@ -712,7 +714,7 @@ const router = express.Router();
 
 
 /* ============= Start:: Testing access controll ===== */ 
-    router.post('/createAccessTest', checkAuth , createRoute);
+    router.post('/createAccessTest', isLoggedIn ,checkAuth , createRoute);
 /* =============== End:: Testing access controll  ===== */ 
 
 
