@@ -15,7 +15,9 @@ describe('Test one : drivers', () => {
 		});
 		done();
 	});
+	let driverId;
 	it('should create a Driver', async () => {
+
 		const driver = {
 			firstname: 'John',
             lastname: 'Doe',
@@ -25,6 +27,7 @@ describe('Test one : drivers', () => {
 		};
 		const response = await chai.request(app).post(`/api/v1/drivers/register`).send(driver);
 		expect(response).to.have.status(201);
+		driverId = response.body.data.id
 	});
 
 	it('should not create an existing Driver', async () => {
@@ -72,8 +75,8 @@ describe('Test one : drivers', () => {
 	})
 
 	it('should Return a single driver', async () => {
-		const id = '1'
-		const response = await chai.request(app).get(`/api/v1/drivers/${id}`)
+		
+		const response = await chai.request(app).get(`/api/v1/drivers/${driverId}`)
 		expect(response).to.have.status(200);
 	})
 	it('should return validation errors errors on invalid delete', async () => {
@@ -129,7 +132,7 @@ describe('Test one : drivers', () => {
 	it('should delete a driver', async () => {
 		const id = '1'
 		const response = await chai.request(app).delete(`/api/v1/drivers/${id}`)
-		expect(response).to.have.status(204);
+		expect(response).to.have.status(200);
 	})
 });
 

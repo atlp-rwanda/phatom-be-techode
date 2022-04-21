@@ -1,5 +1,17 @@
 import Joi from "joi";
 
+/* ========= Start: Route id validation ============== */ 
+export const  validateRouteId  = (data) => {
+    const schema = Joi.object({
+        id: Joi.number().required()
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+/* ========= Start: Route idvalidation ============== */ 
+
+/* ========= Start: Create role request validation ============== */ 
 export const  validateDriversOnCreate  = (data) => {
     const schema = Joi.object({
         firstname: Joi.string().required(),
@@ -11,8 +23,27 @@ export const  validateDriversOnCreate  = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
+/* ========= Start: Create role request validation ============== */ 
 
-export const  validateRolesOnCreate  = (data) => {
+/* ========= Start: Create route validation ============== */ 
+export const  validateRoutesOnCreate  = (data) => {
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        code: Joi.string().required(),
+        city: Joi.string().required(),
+        startLocation: Joi.string().required(),
+        endLocation: Joi.string().required(),
+        duration: Joi.number().required(),
+        distance: Joi.number().required()
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
+/* ========= Start: Create route request validation ============== */ 
+
+/* ========= Start: Delete role request validation ============== */ 
+export const  validateRolesOnDelete  = (data) => {
     const schema = Joi.object({
         rolename: Joi.string().required()
     });

@@ -1,10 +1,10 @@
 import { operators } from '../models'
 import { success,fail,sendError } from "../function/respond.js";
-import sendMail from '../utils/sendEmail'
 import { Sequelize } from '../models';
 import { validateDriversOnCreate, validateDriverId } from '../function/validation'
 import generator from 'generate-password'
 import bcrypt from 'bcrypt'
+import sendEmail from '../utils/resetUtil';
 
 const { Op } = Sequelize
 const passwordNew = generator.generate({
@@ -32,8 +32,8 @@ const addOperator = async(req,res) => {
             email: req.body.email,
             telephone: req.body.telephone,
             password: hashedPassword 
-        }).then(operator => {
-            sendMail(operator.email, req.t('emailMessage'), `${ req.t('pwdMsg')+" "+passwordNew}`)
+        }).then( async (operator) => {
+            await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, operator.email, null ,req.t('emailMessage'));
             return success(res,201,operator,'newOperator',req)
         })
         /* c8 ignore next 1*/
@@ -92,7 +92,7 @@ const deleteOperator = async(req, res) => {
         }
         operators.findByPk(id).then((operator)=> {
             operator.destroy()
-            return success(res,204,operator,"Operator deleted")
+            return success(res,200,operator,"Operator deleted")
         })
         /* c8 ignore next 1*/
     } catch(error){ return sendError(res,500,null,error.message)}

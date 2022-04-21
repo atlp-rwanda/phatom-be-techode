@@ -1,18 +1,17 @@
+const baseUrl = process.env.SERVER_URL;
 const options = {
 	definition: {
 		openapi: '3.0.0',
 		info: {
 			title: 'Phantom - Techode',
 			version: '1.0.0',
-			description: 'Phantom backend API. Application that allows simulating bus movements and enabling passengers to track their locations & movements. (Backend).',
+			description:
+				'Phantom backend API. Application that allows simulating bus movements and enabling passengers to track their locations & movements. (Backend).',
 		},
 		servers: [
 			{
-				url: `http://localhost:5000/`,
+				url: baseUrl || `http://localhost:5000`,
 			},
-            {
-				url: `http://phantom-back-ch-config--n1ewma.herokuapp.com/`,
-			}
 		],
 		components: {
 			securitySchemes: {
@@ -30,9 +29,7 @@ const options = {
 			},
 		],
 	},
-	apis: [
-		'./routes/**/*.js'
-	],
+	apis: ['./routes/**/*.js'],
 };
 
-export default options
+export default options;
