@@ -437,7 +437,7 @@ describe("Testin access" , () => {
             .put(`/api/v1/roles/assign/users`)
             .send({
                 roleId: 1,
-                userId: 3
+                userId: 70
             })
             .end((err, res) => {
                 chai.expect(res).to.have.status(400);

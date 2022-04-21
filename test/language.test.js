@@ -14,7 +14,7 @@ describe('Lang test', () => {
 			truncate: true,
 		});
 		done();
-	});	
+	});
 	it('Test', async () => {
 		const user = {
 			fullname: 'cyifuzo jean chrysostome',
@@ -23,5 +23,4 @@ describe('Lang test', () => {
 		const response = await chai.request(app).get(`/api/v1/lng/welcome`);
 		expect(response).to.have.status(200);
 	});
-
 });

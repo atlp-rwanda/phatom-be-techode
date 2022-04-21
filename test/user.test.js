@@ -11,7 +11,7 @@ describe('Test one : users', () => {
 	before((done) => {
 		users.destroy({
 			where: {
-				where: { isDeleted : false }
+				where: { isDeleted: false },
 			},
 			truncate: true,
 		});
@@ -22,6 +22,7 @@ describe('Test one : users', () => {
 			fullname: 'cyifuzo jean chrysostome',
 			username: 'chance',
 			password: 'test123',
+			email: 'delcy@gmail.com',
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
@@ -36,7 +37,7 @@ describe('Test one : users', () => {
 	});
 
 	it('should not create a User without password', async () => {
-    const user = {};
+		const user = {};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(500);
 	});
@@ -54,5 +55,4 @@ describe('Test one : users', () => {
 		const response = await chai.request(app).get(`/api/v1/dashboard/logout`);
 		expect(response).to.have.status(404);
 	});
-
 });

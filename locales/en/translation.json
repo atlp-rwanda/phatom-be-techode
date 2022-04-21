@@ -44,5 +44,10 @@
     "busDeleted": "The bus has been deleted",    
     "busCreated":"Bus has been created",    
     "pleaseLogin": "Please login",
-    "unverifiedToken":"Jeton non vérifié"
+    "unverifiedToken":"Jeton non vérifié",
+    "missingEmail": "missing email",
+    "userNotFound": " user not found",
+    "linkHasBeenSent":"link has been sent to your email",
+    "TokenDoesnotExist":"Token does not exist!",
+    "TokenHasExpired":"Token has expired"
 }

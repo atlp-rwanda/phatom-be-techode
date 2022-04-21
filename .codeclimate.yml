@@ -18,6 +18,7 @@ exclude_patterns:
   - "coverage/"
   - "seeders/"
   - "migrations/"
+  - "utils/renderMail.js"
   - "models/"
   - "*.test.js"
   - "/**/*{V,v}alidation.js"
