@@ -1,6 +1,7 @@
 import express from 'express'
-import { createUser,getAllUsers } from "../../controllers/userController.js"
-
+import { createUser,getAllUsers, getSingleUser, deleteUser, updateUser } from "../../controllers/userController.js"
+import {  users } from "../../models"
+import paginate from '../../middlewares/paginate.js';
 
 const router = express.Router();
 
@@ -37,8 +38,13 @@ const router = express.Router();
     router.get('/', getAllUsers);
 /* ==== End:: list all users route === */ 
 
+router.get('/paginated', paginate(users));
+
 /* === Start:: Create users route === */ 
     router.post('/', createUser);
 /* ==== End:: Create users route === */ 
+router.get('/:id', getSingleUser)
+router.delete('/:id',deleteUser)
+router.put('/:id',updateUser)
 
 export default router

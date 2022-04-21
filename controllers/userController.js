@@ -1,7 +1,16 @@
-import { users } from "../models";
+import { users, buses } from "../models";
 import { success,fail,sendError } from "../function/respond.js";
-import db from "../models/index.js";
+import sendMail from '../utils/sendEmail'
+import Sequelize from "sequelize"
+import { validateDriversOnCreate, validateDriverId } from '../function/validation'
+import generator from 'generate-password'
+import bcrypt from 'bcrypt'
 
+const { Op } = Sequelize
+const passwordNew = generator.generate({
+	length: 10,
+	numbers: true
+});
 
 const getAllUsers = async (req, res) => {
 	/* ======= Start:: List all users =================== */ 
@@ -12,21 +21,115 @@ const getAllUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-    try {
+		
+		const hashedPassword = await bcrypt.hash(passwordNew, 10)
 
 	    /* =============================== start: Validation ============================== */ 
-			if(!req.body.username && !req.body.password &&  !req.body.fullname && !req.body.email) throw new Error('Body is required');				
-			if(!req.body.password || req.body.password.trim() === "") return fail(res,400,req.body,"Please make sure you add password");
-		/* ================================= End: Validation ============================== */ 
-		
+		const { firstname, lastname, username, email, telephone, userType } = req.body
+		const { error } = validateDriversOnCreate({firstname:firstname, lastname:lastname, username:username, email:email, telephone:telephone, userType:userType})
+		if(error) { 
+			return fail(res, 422, error.details[0].message)
+		}
+		const userExist = await users.findAll({
+			where :{ 
+				email:email
+			}
+		});
+		if(userExist.length > 0){
+			return fail(res,409,null,'userExist',req)
+		}
 		/* =========== start: User creation ================ */ 
-			const newUser = users.create(req.body);
-			const {fullname,username} = req.body;
-			return success(res,201,{fullname,username},"New user have been created");
+		users.create({
+			fullname: req.body.firstname + ' ' + req.body.lastname,
+			username: req.body.username, 
+			email: req.body.email,
+			telephone: req.body.telephone,
+			userType: req.body.userType,
+			password: hashedPassword
+		}).then( user => {
+			return success(res,201,{username,userType},"New user have been created", req)
+		}).catch(err => { return sendError(res,500,err,err.message,req) })
 		/* =========== start: User creation ============== */ 
-	} catch (error) {
-		return sendError(res,500,null,error.message);
-	}
+
 };
 
-export  { getAllUsers, createUser };
+const getSingleUser = async(req, res) => {
+    try{
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error){
+            return fail(res,422,null,error.details[0].message) 
+        }
+        const userExist = await users.findAll({
+            where :{ 
+                id 
+            }
+        });
+    if(userExist.length == 0){
+        return fail(res,404,userExist,'userNotFound',req)
+    }
+        users.findByPk(id).then((driver)=> {
+            return success(res,200,driver,'Single user',req)
+        })
+        /* c8 ignore next 1*/
+    } catch(error){return sendError(res,500,null,error.message, req)}
+}
+
+const deleteUser = async(req, res) => {
+    let { id } = req.params
+    const { error } = validateDriverId({id})
+    if(error) {
+        return fail(res,422,null,error.details[0].message) 
+    }
+    const userExist = await users.findAll({
+        where :{ 
+            id 
+        }
+    });
+    if(userExist.length == 0){
+        return fail(res,404,userExist,'userNotFound',req)
+    }
+    try{
+        users.findByPk(id).then((user)=> {
+            user.destroy()
+            return success(res,204,user,"user deleted", req)
+        })
+        /* c8 ignore next 1*/
+    } catch(error){ return sendError(res,500,null,error.message) }
+}
+
+const updateUser = async(req, res) => {
+    try {
+        let { id } = req.params
+        const { error } = validateDriverId({id})
+        if(error){
+            return fail(res,422,null,error.details[0].message) 
+        }
+        const userExist = await users.findAll({
+            where :{ 
+                id 
+            }
+        });
+        if(userExist.length == 0){
+            return fail(res,404,userExist,'userNotFound',req)
+        }
+        users.findByPk(id).then((user) => {
+            user.update({
+                fullname: req.body.firstname + ' ' +  req.body.lastname,
+                username: req.body.username,
+                email: req.body.email,
+                telephone: req.body.telephone,
+            })
+            return success(res,200,user,'userUpdated',req)
+        })
+        /* c8 ignore next 1*/
+    } catch(error){ return sendError(res,500,null,error.message) }
+}
+
+export  { 
+	getAllUsers, 
+	createUser, 
+	getSingleUser, 
+	deleteUser, 
+	updateUser,
+ };
