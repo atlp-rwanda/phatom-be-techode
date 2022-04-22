@@ -3,6 +3,7 @@ import { success,fail,sendError } from "../function/respond.js";
 import generator from 'generate-password'
 import bcrypt from 'bcrypt'
 import sendEmail from '../utils/resetUtil';
+import { hashPassword, jwtToken } from '../middlewares/auth'
 
 const passwordNew = generator.generate({
 	length: 10,
@@ -19,7 +20,7 @@ const getAllUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
 		
-		const hashedPassword = await bcrypt.hash(passwordNew, 10)
+		const hashedPassword = hashPassword(passwordNew)
 
 	    /* =============================== start: Validation ============================== */ 
 		const { firstname, lastname, username, email, telephone, userType } = req.body
@@ -40,8 +41,8 @@ const createUser = async (req, res) => {
             if(user.userType == 'driver' || user.userType == 'Driver'){
                 drivers.create({ userId: user.id})
             }
+            /* c8 ignore next 4 */
             if(user.userType == 'operator' || user.userType == 'Operator'){
-                /* c8 ignore next 2 */
                 operators.create({ userId: user.id})
             }
 
@@ -66,8 +67,8 @@ const getSingleUser = async(req, res) => {
     }
         await users.findByPk(id).then((user)=> {
             const { fullname,username, userType} = user
+            /* c8 ignore next 5*/
             if(userType == 'Operator' || userType == 'operator'){
-                /* c8 ignore next 4*/
                 operators.findAll({where: {userId: id}, attributes:{exclude: ['createdAt', 'updatedAt']}}).then( operator => {
                     return success(res,200,{fullname,username, operator},'Single user',req)
                 })

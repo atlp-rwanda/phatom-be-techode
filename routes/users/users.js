@@ -3,7 +3,7 @@ import { createUser,getAllUsers, getSingleUser, deleteUser, updateUser } from ".
 import {  users } from "../../models"
 import paginate from '../../middlewares/paginate.js';
 import { validId, validCreate, validAssign } from '../../middlewares/validation'
-import {assignBus} from "../../controllers/assignBusController"
+import { assignBus, unAssignBus} from "../../controllers/assignBusController"
 
 const router = express.Router();
 
@@ -79,6 +79,11 @@ const router = express.Router();
  *      - name: Accept-Language
  *        in: header
  *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
+ *      - in: header
+ *        name: auth-token
+ *        description: Valid token for access
  *        schema:
  *          type: string
  *    requestBody:
@@ -176,6 +181,11 @@ const router = express.Router();
  *      - name: Accept-Language
  *        in: header
  *        description: fr for french and en for english default is english 
+ *        schema:
+ *          type: string
+ *      - in: header
+ *        name: auth-token
+ *        description: Valid token for access
  *        schema:
  *          type: string
  *    requestBody:
@@ -319,6 +329,11 @@ const router = express.Router();
  *        description: fr for french and en for english default is english 
  *        schema:
  *          type: string
+ *      - in: header
+ *        name: auth-token
+ *        description: Valid token for access
+ *        schema:
+ *          type: string
  *    responses:
  *        200: 
  *          description: Retrived
@@ -353,6 +368,83 @@ const router = express.Router();
  *      - name: Accept-Language
  *        in: header
  *        description: fr for french and en for english default english
+ *        schema:
+ *          type: string
+ *      - in: header
+ *        name: auth-token
+ *        description: Valid token for access
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *            schema:
+ *              required: true
+ *              properties:
+ *                 userId:
+ *                    type: integer
+ *                    description: Contains role role id to gain new permission
+ *                 busId:
+ *                    type: integer
+ *                    description: Contains role id to assing to a role
+ *    responses:
+ *        200: 
+ *          description: Updated
+ *          content:
+ *            application/json:
+ *                schema:
+ *                  type: object
+ *                  properties:
+ *                    status:
+ *                      type: string
+ *                    data:
+ *                      type: object
+ *                    message:
+ *                      type: string  
+ *                        
+ *        400:
+ *          description: Invalid inputs
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"
+ *        404:
+ *          description: User or bus not found
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"
+ *        401:
+ *          description: Unauhtorized
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"
+ *        500:
+ *          description: Server users
+ *          content:
+ *              application/json:
+ *                schema: 
+ *                  $ref: "#/components/schemas/error"      
+ * */ 
+
+/**
+ * 
+ * @swagger  
+ * /api/v1/users/unassign_buses/:
+ *  put:
+ *    summary: unAssgining drivers to buses
+ *    tags:
+ *    - "Assign"
+ *    parameters:
+ *      - name: Accept-Language
+ *        in: header
+ *        description: fr for french and en for english default english
+ *        schema:
+ *          type: string
+ *      - in: header
+ *        name: auth-token
+ *        description: Valid token for access
  *        schema:
  *          type: string
  *    requestBody:
@@ -421,6 +513,7 @@ router.get('/paginated', paginate(users));
 router.get('/:id', validId, getSingleUser)
 router.delete('/:id',validId, deleteUser)
 router.put('/assign_buses', validAssign, assignBus)
+router.put('/unassign_buses', validAssign, unAssignBus)
 router.put('/:id',validId, updateUser)
 
 export default router

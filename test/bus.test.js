@@ -1,7 +1,7 @@
 import chai,{ expect }  from "chai"
 import chaiHTTP from "chai-http"
 import { app } from "../app"
-import buses from "../models/buses.js"
+import { user } from "../utils/testData"
 import db from "../models"
 chai.should();
 chai.use(chaiHTTP);
@@ -32,15 +32,8 @@ describe('Crud operation for buses ', () => {
 			cascade: true ,
 			restartIdentity: true			
 		});
-		const user = {
-			fullname: 'cyifuzo jean damascene',
-			username: 'cyifuzo',
-			email: 'operator@andela.com',
-			role: 'client',
-			userType: 'Operator',
-			password: 'test123',
-		};
-		await chai.request(app).post(`/api/v1/users/login/register`).send(user);
+		
+		await chai.request(app).post(`/api/v1/users/login/register`).send(user[4]);
 	});
 	beforeEach(async () => {
 		let user = {

@@ -4,9 +4,8 @@ import express from 'express'
 import { success,fail,sendError } from "../function/respond.js";
 
 
-
+/* c8 ignore next 11 */
 const logout = (req, res) => {
-    /* c8 ignore next 10 */
     if (res.cookie) {
         res.clearCookie("access-token");
         // res.redirect('/');

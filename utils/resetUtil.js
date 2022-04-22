@@ -21,7 +21,7 @@ const sendEmail = async (link, email, user = null , subject = "Password reset") 
 			to: email,
 			envelope: {
 				from: `Phantom Techode <${process.env.EMAIL_USER}>`,
-				to: `${email}, ${user.fullname} <${email}>`,
+				to: `${email}, ${user != null ? user.fullname : ""} <${email}>`,
 			},
 			subject: subject,
 			html: renderMail(link, user),

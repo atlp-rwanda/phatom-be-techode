@@ -65,6 +65,7 @@ export const changePasswordPost = async (req, res) => {
     
 	/* ==== Checking if token is valid  ====== */
 	const tokenIsValid = await resetoken.checkValid();
+	/* c8 ignore next 2 */
 	if (!tokenIsValid) return res.status(400).json({ message: 'expired' });
 
 	/* ==== Getting user to reset password for ====== */

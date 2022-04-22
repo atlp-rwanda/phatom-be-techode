@@ -14,16 +14,14 @@ const paginate = (model) => {
 		const result = {}
 
 		model.findAll().then(data => {
-
+		/* c8 ignore next 18 */
 		if(endIndex < model.length){
-			/* c8 ignore next 5 */
 			result.next = {
 				page: page + 1,
 				limit: limit
 			}
 		}
 		if(startIndex > 0){
-			/* c8 ignore next 5 */
 			result.previous = {
 				page: page - 1,
 				limit: limit
@@ -31,7 +29,6 @@ const paginate = (model) => {
 		}
 		result.results = data.slice(startIndex, endIndex);
 		return success(res,200,result,"paginated list", req)
-		/* c8 ignore next 2 */
 		next();
 	})
 	} catch(err) { return sendError(res, 500, null, err.message, req) }

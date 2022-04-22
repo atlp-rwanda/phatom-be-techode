@@ -55,11 +55,8 @@
     "singleRoute": "Route unique",
     "routeDeleted": "Route supprimée",
     "routeUpdated": "Route modifiée",
-<<<<<<< HEAD
     "profilePic":"photo de profil créée",
     "updateProfile":"photo de profil mise à jour",
-    "userExist":" l'utilisateur n'existe pas "
-=======
     "paginated list": "liste paginée",
     "New user have been created": "Un nouvel utilisateur a été créé",
     "userExist": "Utilisateur existe",
@@ -71,8 +68,9 @@
     "User not a driver": "Utilisateur non conducteur",
     "bus already assigned to a driver": "bus déjà attribué à un conducteur",
     "bus assigned successfully": "bus attribué avec succès",
+    "bus unassigned successfully": "bus désaffecté avec succès",
     "assignedBus": "Un bus vous a été attribué",
     "accountNotAuthorized": "compte non autorisé",
-    "busAssigned": "bus déjà affecté"
->>>>>>> c6c4686d5e69ce5497153b257023a95eaccb59c0
+    "busAssigned": "bus déjà affecté",
+    "This driver does not have specified bus": "Ce pilote n'a pas de bus spécifié"
 }

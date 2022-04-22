@@ -26,8 +26,37 @@ const assignBus = async (req, res) => {
         /* c8 ignore next 1*/
         return success(res,200, {username: user.username} ,"bus assigned successfully",req)
         })
+        /* c8 ignore next 1*/
+	} catch (error) { return sendError(res,500,null,error.message) }
+}
+
+const unAssignBus = async (req, res) => {
+	try {
+        const { userId, busId } = req.body
+       	const user = await users.findOne({where : {id : userId, userType:['Driver', 'driver'], isDeleted: false}})
+    
+        if(!user) {
+            return fail(res, 404,null, "userNotExist", req)
+        }
+        const bus = await buses.findOne({where : {id : busId}})
+        if(!bus){
+            /* c8 ignore next 2*/
+            return fail(res, 404,null, "busNotExist", req)
+        }
+        const busExist = await drivers.findOne({where : {busId}})
+        if(busExist){
+            await drivers.update({busId: null}, {where: { userId : userId }}).then(async (driver) => {
+                await sendEmail(`${user.fullname}`, user.email, null ,req.t('assignedBus'));
+                
+            /* c8 ignore next 1*/
+            return success(res,200, {username: user.username} ,"bus unassigned successfully",req)
+            })
+        } else {
+            return fail(res, 404,null, "This driver does not have specified bus", req)
+        }
+        /* c8 ignore next 1*/
 	} catch (error) { return sendError(res,500,null,error.message) }
 }
 
  
-export { assignBus } 
+export { assignBus, unAssignBus } 

@@ -2,8 +2,8 @@ import { users } from "../models";
 import { validateProfile } from "../function/validation";
 import { success, fail, sendError } from "../function/respond.js";
  
+/* c8 ignore next 13 */
 const updateProfile = async (req, res) => {
-	/* c8 ignore next 12 */
 	try {
 		const { profileImage } = req.body
 		const profile_id = req.userId 

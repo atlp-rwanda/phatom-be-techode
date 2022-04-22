@@ -1,7 +1,7 @@
 import chai,{ expect }  from "chai"
 import chaiHTTP from "chai-http"
 import { app } from "../app"
-import users from "../models/users.js"
+import { user } from "../utils/testData"
 import db from "../models"
 chai.should();
 chai.use(chaiHTTP);
@@ -16,15 +16,7 @@ describe('Test one : users and profile', () => {
 	});
 
 	it('should create a User', async () => {
-		const user = {
-			firstname: 'cyifuzo',
-			lastname: 'jean chrysostome',
-			username: 'chance',
-			telephone: '07884764564',
-			userType: 'Driver',
-			email: 'daak@example.com'
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[0]);
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
 		response.body.message.should.be.a('string');
@@ -32,15 +24,7 @@ describe('Test one : users and profile', () => {
 		expect(response).to.have.status(201);
 	});
 	it('should not create an existing User', async () => {
-		const driver = {
-			firstname: 'cyifuzo',
-			lastname: 'jean chrysostome',
-			username: 'chance',
-			telephone: '07884764564',
-			userType: 'Driver',
-			email: 'cyifuzo@example.com'
-		};
-		const response = await chai.request(app).post(`/api/v1/users/`).send(driver);
+		const response = await chai.request(app).post(`/api/v1/users/`).send(user[0]);
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
 		response.body.message.should.be.a('string');
@@ -49,25 +33,14 @@ describe('Test one : users and profile', () => {
 	});
 
 	it('should not create a User without email', async () => {
-		const driver = {
-			firstname: 'cyifuzo',
-			lastname: 'jean chrysostome',
-			username: 'chance',
-			telephone: '07884764564',
-			userType: 'Driver',
-		};
-		const response = await chai.request(app).post(`/api/v1/users/`).send(driver);
+		const response = await chai.request(app).post(`/api/v1/users/`).send(user[1]);
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
 		response.body.message.should.be.a('string');
 		expect(response).to.have.status(400);
 	});
 	it('should not create a User without complete fields', async () => {
-		const user = {
-			firstname: 'cyifuzo jean chrysostome',
-			username: 'chance',
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[2]);
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
 		response.body.message.should.be.a('string');
@@ -110,9 +83,7 @@ describe('Test one : users and profile', () => {
 			.put(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
-		// response.body.message.should.be.eql("User does not exist");
 		expect(response).to.have.status(400);
 	});
 
@@ -123,7 +94,6 @@ describe('Test one : users and profile', () => {
 			.put(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("user Not Found");
 		expect(response).to.have.status(404);
@@ -136,7 +106,6 @@ describe('Test one : users and profile', () => {
 			.put(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("user updated");
 		expect(response).to.have.status(200);
@@ -152,7 +121,6 @@ describe('Test one : users and profile', () => {
 			});
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("User does not exist");
 		expect(response).to.have.status(404);
@@ -168,10 +136,23 @@ describe('Test one : users and profile', () => {
 			});
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("bus does not exist");
 		expect(response).to.have.status(404);
+	});
+
+	it('should assign driver a bus', async () => {
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/users/assign_buses`)
+			.send({
+				userId: '20px',
+				busId: "3as",
+			});
+		response.body.should.be.a('object');
+		response.body.should.have.property('status');
+		response.body.message.should.be.a('string');
+		expect(response).to.have.status(400);
 	});
 
 	it('should assign driver a bus', async () => {
@@ -184,7 +165,6 @@ describe('Test one : users and profile', () => {
 			});
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("bus assigned successfully");
 		expect(response).to.have.status(200);
@@ -200,11 +180,74 @@ describe('Test one : users and profile', () => {
 			});
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.role.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("bus already assigned");
 		expect(response).to.have.status(409);
 	});
+
+	/** unassign buses */
+
+	it('should unassign driver a bus', async () => {
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/users/unassign_buses`)
+			.send({
+				userId: 51,
+				busId: 3,
+			});
+		response.body.should.be.a('object');
+		response.body.should.have.property('status');
+		response.body.message.should.be.a('string');
+		response.body.message.should.be.eql("User does not exist");
+		expect(response).to.have.status(404);
+	});
+
+	it('should unassign driver a bus', async () => {
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/users/unassign_buses`)
+			.send({
+				userId: 2,
+				busId: 31,
+			});
+		response.body.should.be.a('object');
+		response.body.should.have.property('status');
+		response.body.message.should.be.a('string');
+		response.body.message.should.be.eql("bus does not exist");
+		expect(response).to.have.status(404);
+	});
+
+	it('should unassign driver a bus', async () => {
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/users/unassign_buses`)
+			.send({
+				userId: 2,
+				busId: 3,
+			});
+		response.body.should.be.a('object');
+		response.body.should.have.property('status');
+		response.body.message.should.be.a('string');
+		response.body.message.should.be.eql("bus unassigned successfully");
+		expect(response).to.have.status(200);
+	});
+
+	it('should unassign driver a bus', async () => {
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/users/unassign_buses`)
+			.send({
+				userId: 2,
+				busId: 3,
+			});
+		response.body.should.be.a('object');
+		response.body.should.have.property('status');
+		response.body.message.should.be.a('string');
+		response.body.message.should.be.eql("This driver does not have specified bus");
+		expect(response).to.have.status(404);
+	});
+
+
 
 	it('should retrieve all users', async () => {
 		const id = 1200
@@ -213,7 +256,6 @@ describe('Test one : users and profile', () => {
 			.get(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("user Not Found");
 		expect(response).to.have.status(404);
@@ -226,7 +268,6 @@ describe('Test one : users and profile', () => {
 			.get(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("Single user");
 		expect(response).to.have.status(200);
@@ -238,7 +279,6 @@ describe('Test one : users and profile', () => {
 			.get(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("Single user");
 		expect(response).to.have.status(200);
@@ -250,7 +290,6 @@ describe('Test one : users and profile', () => {
 			.get(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("Single user");
 		expect(response).to.have.status(200);
@@ -262,7 +301,6 @@ describe('Test one : users and profile', () => {
 			.delete(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("user Not Found");
 		expect(response).to.have.status(404);
@@ -275,7 +313,6 @@ describe('Test one : users and profile', () => {
 			.delete(`/api/v1/users/${id}`)
 		response.body.should.be.a('object');
 		response.body.should.have.property('status');
-		// response.body.data.users.should.be.a('array');
 		response.body.message.should.be.a('string');
 		response.body.message.should.be.eql("user deleted");
 		expect(response).to.have.status(200);

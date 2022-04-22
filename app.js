@@ -17,7 +17,8 @@ import permission from './routes/permissions/permissions.js';
 import rolesRoute from './routes/roles/roles.js';
 import accountRouter from './routes/users/accounts.js';
 import busesRoute from './routes/buses/busesRoute.js';
-
+import usersRoutes from './routes/users/users.js';
+import profileRoutes from './routes/profile/profilePic.js'
 import routesRoute from './routes/routes/routesRoute'
 
 /* ========== setting up dotenv ============= */
@@ -68,6 +69,10 @@ app.use('/api/v1/routes', routesRoute);
   app.use('/api/v1/users', usersRoutes);
   app.use('/api/v1/users/login', loginRoute);
 /* ============== Start:: User api ========= */ 
+
+/*======= START:: Update profile api ======= */
+app.use('/api/v1/profile', profileRoutes);
+/*======= START:: Update profile api ======= */
 
 /* ========== Start:: role api url ========= */ 
   app.use('/api/v1/roles', rolesRoute);

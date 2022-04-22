@@ -5,6 +5,7 @@ const { expect } = require('chai');
 import { v4 as uuid } from 'uuid';
 import { resetTokens, users } from '../models';
 const db = require('../models');
+import { user, dummyEmail } from "../utils/testData"
 
 chai.should();
 chai.use(chaiHTTP);
@@ -19,15 +20,7 @@ describe('Reset password : All', () => {
 		done();
 	});
 	it('should create a User', async () => {
-		const user = {
-			firstname: 'newcyifuzo',
-			lastname: 'jeanew',
-			username: 'chancenew',
-			telephone: '07884764987',
-			userType: 'Driver',
-			email: 'daaaqk@example.com'
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[3]);
 		expect(response).to.have.status(201);
 	});
 	it('should not allow user to request resetting password without providing email', async () => {
@@ -82,7 +75,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 		
 
 		const resetToken = await resetTokens.create({
@@ -102,7 +95,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 	
 
 		const resetToken = await resetTokens.create({
@@ -122,7 +115,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 		
 		const resetToken = await resetTokens.create({
 			user: user.id,
@@ -142,7 +135,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 	
 
 		const resetToken = await resetTokens.create({

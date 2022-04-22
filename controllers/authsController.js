@@ -46,8 +46,8 @@ const signIn = async (req, res, next) => {
         
         const isVerified = jwtToken.verifyToken(token);
         return success(res, 200, { user: { fullname, username, role, email , isVerified }, token }, "loginMessage",req)
+        /* c8 ignore next 4*/
       } else {
-        /* c8 ignore next 2*/
         return fail(res, 401, null, "accountNotAuthorized",req)
       }
     }

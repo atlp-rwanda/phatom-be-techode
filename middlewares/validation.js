@@ -46,7 +46,9 @@ const validCreate = (req, res, next) => {
  const validAssign = (req, res, next) => {
    const { userId, busId } = req.body
    const { error } = validateBusOnAssign({ userId, busId })
-  if(error) return fail(res,400, {error: null}, error.details[0].message)
+  if(error){
+    return fail(res,400, {error: null}, error.details[0].message)
+  }
   next();
  }
 

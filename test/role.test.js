@@ -3,6 +3,7 @@ const chaiHTTP = require('chai-http');
 const { app } = require('../app');
 const { expect } = require('chai');
 const { roles } = require('../models');
+import { user } from "../utils/testData"
 const db = require('../models');
 const { getRolesPermission } = require('../controllers/rolesController');
 chai.should();
@@ -356,15 +357,8 @@ describe("Access control testing", () => {
     });
 
     it('should create a User', async () => {
-		const user = {
-			firstname: 'cyifuzo',
-			lastname: 'jean chrysostome',
-			username: 'chance',
-			telephone: '07884764564',
-			email: 'cyifuzo@example.com',
-            userType: 'Driver'
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[6]);
 		expect(response).to.have.status(201);
 	});
 
@@ -601,16 +595,8 @@ describe("Testin access" , () => {
     });
 
     it('should create a User', async () => {
-		const user = {
-            firstname: 'cyifuzo',
-			lastname: 'jean chrysostome',
-			username: 'chance',
-			telephone: '07884764564',
-			email: 'waka@example.com',
-            userType: 'Driver',
-            rolename: 'jean'
-        };
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[5]);
 		expect(response).to.have.status(201);
 	});
     
