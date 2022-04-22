@@ -56,6 +56,8 @@
     "routeNotFound": "Route not found",
     "singleRoute": "Single route",
     "routeDeleted": "Route deleted",
-    "routeUpdated": "Route updated"
-
+    "routeUpdated": "Route updated",
+    "profilePic":"profile picture created",
+    "updateProfile":"profile picture updated",
+    "userExist":"user doesnt exist"
 }

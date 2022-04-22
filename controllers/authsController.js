@@ -6,7 +6,7 @@ import { success, fail, sendError } from "../function/respond.js";
 
 const signUp = async (req, res) => {
   try {  
-    
+    const profileImage = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909__480.png"
     const { fullname, username, email, password } = req.body;
     
     if(username.trim().length <= 0)	throw new Error('Body with username should not not be spaced');					
@@ -17,9 +17,9 @@ const signUp = async (req, res) => {
 
     
     const hash = hashPassword(password);
-    const user = await users.create({ fullname, username, email, roles : null, password: hash });
+    const user = await users.create({ fullname, username, email, profileImage, roles : null, password: hash });
     const token = jwtToken.createToken(user);
-    return success(res, 201, { token, user: { fullname, username, email } }, "user created")
+    return success(res, 201, { token, user: { fullname, username, email, profileImage } }, "user created")
   } catch (e) {
     return sendError(res, 500, {error :null}, e.message);
   }

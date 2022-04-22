@@ -43,7 +43,7 @@
     "busDeleted": "Le bus a été supprimé",
     "busNotExist": "le Bus introuvable",
     "busCreated":"Le bus a été créé",
-    "pleaseLogin": "Veuillez vous connecter",    
+    "pleaseLogin": "Veuillez vous connecter",
     "unverifiedToken":"Unverified token",
     "missingEmail": "e-mail manquant",
     "userNotFound": " utilisateur non trouvé",
@@ -56,5 +56,8 @@
     "routeNotFound": "Route introuvable",
     "singleRoute": "Route unique",
     "routeDeleted": "Route supprimée",
-    "routeUpdated": "Route modifiée"
+    "routeUpdated": "Route modifiée",
+    "profilePic":"photo de profil créée",
+    "updateProfile":"photo de profil mise à jour",
+    "userExist":" l'utilisateur n'existe pas "
 }

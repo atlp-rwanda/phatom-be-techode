@@ -7,11 +7,11 @@ const db = require('../models');
 chai.should();
 chai.use(chaiHTTP);
 
-describe('Test one : users', () => {
+describe('Test one : users and profile', () => {
 	before((done) => {
 		users.destroy({
 			where: {
-				where: { isDeleted: false },
+				where: { isDeleted: false }
 			},
 			truncate: true,
 		});
@@ -23,10 +23,12 @@ describe('Test one : users', () => {
 			username: 'chance',
 			password: 'test123',
 			email: 'delcy@gmail.com',
+			profileImage: 'https://cdn.pixabay.com/photo/2018/03/15/23/16/car-3229816__480.jpg',
 		};
 		const response = await chai.request(app).post(`/api/v1/users`).send(user);
 		expect(response).to.have.status(201);
 	});
+
 	it('should not create a User without password', async () => {
 		const user = {
 			fullname: 'cyifuzo jean chrysostome',
