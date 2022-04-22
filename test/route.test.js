@@ -10,11 +10,11 @@ chai.use(chaiHTTP);
 let token;
 describe('Test one : router', () => {
 	before((done) => {
-		db.route.destroy({
-			where: {},
-			truncate: true,
-			restartIdentity: true,
-		});
+		// db.route.destroy({
+		// 	where: {},
+		// 	truncate: { cascade: true },
+		// 	restartIdentity: true,
+		// });
 		done();
 	});
 
@@ -27,10 +27,10 @@ describe('Test one : router', () => {
 	});
 
 	afterEach(async () => {
-		await db.users.destroy({
-			truncate: true,
-			restartIdentity: true,
-		});
+		// await db.users.destroy({
+		// 	truncate: { cascade: true },
+		// 	restartIdentity: true,
+		// });
 	});
 
 	it('should create a route', async () => {

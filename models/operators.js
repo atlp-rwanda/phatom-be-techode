@@ -10,15 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      operators.belongsTo(models.users, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
+      models.users.hasOne(operators, {
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      })
     }
   }
   operators.init({
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    telephone: DataTypes.STRING,
-    password: DataTypes.STRING
+    userId: DataTypes.INTEGER,
+    location: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'operators',
