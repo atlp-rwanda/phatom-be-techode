@@ -28,5 +28,6 @@ const assignBus = async (req, res) => {
         })
 	} catch (error) { return sendError(res,500,null,error.message) }
 }
+
  
-export { assignBus }
+export { assignBus } 

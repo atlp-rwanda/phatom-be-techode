@@ -12,6 +12,7 @@ describe('Test one : users', () => {
         db.users.destroy({
             where: {},
             truncate: true,
+            restartIdentity: true
         });
         done();
     });

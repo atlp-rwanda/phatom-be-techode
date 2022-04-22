@@ -8,9 +8,10 @@ module.exports = {
       name:"drivers_inhert_buses",
       references:{
         table: "buses",
-        field: "id"
+        field: "id",
+        cascade: true
       },
-      onDelete: 'CASCADE',
+      
     })
   },
 

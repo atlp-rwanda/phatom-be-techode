@@ -19,6 +19,7 @@ import accountRouter from './routes/users/accounts.js';
 import usersRoutes from './routes/users/users.js';
 import busesRoute from './routes/buses/busesRoute.js';
 
+import routesRoute from './routes/routes/routesRoute'
 
 /* ========== setting up dotenv ============= */
 dotEnv.config()
@@ -53,6 +54,11 @@ i18next
     return success(res,200,null,"welcome", req);
   });
 /* ============ End:: Root directory ========= */ 
+
+
+/* ========== Start:: Route api url ========= */ 
+app.use('/api/v1/routes', routesRoute);
+/* ============== End:: Route api ========= */ 
 
 /* ========== Start:: Admin api url ========= */ 
   app.use('/api/v1/dashboard', dashboardRoutes);

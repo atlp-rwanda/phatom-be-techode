@@ -12,8 +12,9 @@ chai.use(chaiHTTP);
 describe('Reset password : All', () => {
 	before((done) => {
 		db.users.destroy({
-			where: {},
-			truncate: true,
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
 		});
 		done();
 	});
@@ -41,8 +42,9 @@ describe('Reset password : All', () => {
 	});
 
 	it('render mail', async () => {
+        
 		const user = {
-			email: 'daaak@example.com',
+			email: 'daaaqk@example.com',
 		};
 		const response = await chai
 			.request(app)
@@ -75,11 +77,12 @@ describe('Reset password : All', () => {
 		expect(response).to.have.status(400);
 	});
 	it('should allow user to request resetting password without providing email', async () => {
-		const password = {
+		
+        const password = {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
+		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
 		
 
 		const resetToken = await resetTokens.create({
@@ -99,7 +102,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
+		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
 	
 
 		const resetToken = await resetTokens.create({
@@ -119,7 +122,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
+		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
 		
 		const resetToken = await resetTokens.create({
 			user: user.id,
@@ -139,7 +142,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'daaak@example.com' } });
+		const user = await users.findOne({ where: { email: 'daaaqk@example.com' } });
 	
 
 		const resetToken = await resetTokens.create({

@@ -67,6 +67,7 @@ const getSingleUser = async(req, res) => {
         await users.findByPk(id).then((user)=> {
             const { fullname,username, userType} = user
             if(userType == 'Operator' || userType == 'operator'){
+                /* c8 ignore next 4*/
                 operators.findAll({where: {userId: id}, attributes:{exclude: ['createdAt', 'updatedAt']}}).then( operator => {
                     return success(res,200,{fullname,username, operator},'Single user',req)
                 })

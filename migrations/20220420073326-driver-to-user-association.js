@@ -8,9 +8,9 @@ module.exports = {
       name:"drivers_inhert_users",
       references:{
         table: "users",
-        field: "id"
-      },
-      onDelete: 'CASCADE',
+        field: "id",        
+        cascade: true
+      }
     })
   },
 

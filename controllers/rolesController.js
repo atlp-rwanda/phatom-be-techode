@@ -69,7 +69,7 @@ const createRole = async (req, res) => {
 
             let exist = await roleExist(null,rolename)    
             if(exist.length > 0) {
-                return fail(res,400,null,"roleNotExist",req);
+                return fail(res,400,null,"roleExist",req);
             }
         /* ================== start: validatoin =================== */ 
 
@@ -199,9 +199,7 @@ const assignRole = async (req,res) => {
             }
         /* =============== Start:: validate if role exist ==================  */
             exist =  user[0].roleId ==  roleId;
-            if(exist) {
-                return fail(res,400,null,"roleAlreadyAssigned",req);    
-            }            
+            if(exist) { return fail(res,400,null,"roleAlreadyAssigned",req); }            
 
         /* ========================= Start:: Updating the user role ==================  */ 
             await users.update({roleId},{where:{ id : userId }});

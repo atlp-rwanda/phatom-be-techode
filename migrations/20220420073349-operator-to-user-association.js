@@ -8,9 +8,9 @@ module.exports = {
       name:"operators_inhert_users",
       references:{
         table: "users",
-        field: "id"
+        field: "id",        
+        cascade: true
       },
-      onDelete: 'CASCADE',
     })
   },
 

@@ -26,7 +26,8 @@ module.exports = {
       busId: {
         type: Sequelize.INTEGER,
         allowNull: true,
-        defaultValue: null
+        defaultValue: null,
+        cascade: true
       },
       createdAt: {
         allowNull: true,
