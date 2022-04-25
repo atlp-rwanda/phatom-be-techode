@@ -9,10 +9,6 @@ chai.use(chaiHTTP);
 
 describe('Lang test', () => {
 	before((done) => {
-		db.users.destroy({
-			where: {},
-			truncate: true,
-		});
 		done();
 	});
 	it('Test', async () => {

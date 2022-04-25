@@ -1,4 +1,7 @@
 export default (info, user) => {
+    /* c8 ignore next 2*/
+    if(user == null ){ return `<p>${info}</p>`; }
+    
 	let template = `
 
     <html  xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -608,8 +611,6 @@ export default (info, user) => {
 
 </html>
     `;
-    /* c8 ignore next 2*/
-    if(user == null ){ template = `<p>${info}</p>`; }
-
+    
 	return template;
 };

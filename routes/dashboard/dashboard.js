@@ -47,7 +47,7 @@ const router = express.Router();
  * @swagger
  * /api/v1/dashboard/logout:
  *   post:
- *     summary: Create a new Blog
+ *     summary: Create a valid token
  *     tags: [Dashboard]
  *     parameters:
  *      - in: header
@@ -78,7 +78,7 @@ router.post('/logout', adminAuth, dashBoardController.logout);
  * @swagger
  * /api/v1/dashboard/token:
  *   get:
- *     summary: Returns all blogs
+ *     summary: Logout
  *     tags: [Dashboard]
  *     responses:
  *       200:

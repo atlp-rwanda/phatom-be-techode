@@ -4,6 +4,7 @@ import db from "../models/index.js";
 
 
 const createRoute = async (req,res) => {
+  /* c8 ignore next 14 */
   const routes = [
       {
         id: 1,

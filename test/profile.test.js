@@ -10,6 +10,7 @@ describe('update profile ', () => {
 	before((done) => {
 		db.users.destroy({
 			truncate: true,
+			cascade: true ,
 			restartIdentity: true,
 		});
 		done();
@@ -40,6 +41,7 @@ describe('update profile ', () => {
 	afterEach(async () => {
 		await db.users.destroy({
 			truncate: true,
+			cascade: true ,
 			restartIdentity: true,
 		});
 	});
@@ -67,7 +69,7 @@ describe('update profile ', () => {
 			.put(`/api/v1/roles/assign/users`)
 			.send({
 				userId: 3,
-        roleId: 2,
+				roleId: 2,
 			})
 			.end((err, res) => {
 				chai
@@ -85,7 +87,7 @@ describe('update profile ', () => {
 							.delete(`/api/v1/roles/remove/users`)
 							.send({
 								userId: 3,
-                roleId: 2,
+								roleId: 2,
 							})
 							.end((err, res) => {
 								res.body.should.be.a('object');

@@ -5,6 +5,7 @@ const { expect } = require('chai');
 import { v4 as uuid } from 'uuid';
 import { resetTokens, users } from '../models';
 const db = require('../models');
+import { user, dummyEmail } from "../utils/testData"
 
 chai.should();
 chai.use(chaiHTTP);
@@ -12,19 +13,14 @@ chai.use(chaiHTTP);
 describe('Reset password : All', () => {
 	before((done) => {
 		db.users.destroy({
-			where: {},
-			truncate: true,
+			truncate : true, 
+			cascade: true ,
+			restartIdentity: true,
 		});
 		done();
 	});
 	it('should create a User', async () => {
-		const user = {
-			fullname: 'cyifuzo jean chrysostome',
-			username: 'chance',
-			password: 'test123',
-			email: 'delcy@gmail.com',
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[3]);
 		expect(response).to.have.status(201);
 	});
 	it('should not allow user to request resetting password without providing email', async () => {
@@ -39,8 +35,9 @@ describe('Reset password : All', () => {
 	});
 
 	it('render mail', async () => {
+        
 		const user = {
-			email: 'delcy@gmail.com',
+			email: 'daaaqk@example.com',
 		};
 		const response = await chai
 			.request(app)
@@ -73,11 +70,12 @@ describe('Reset password : All', () => {
 		expect(response).to.have.status(400);
 	});
 	it('should allow user to request resetting password without providing email', async () => {
-		const password = {
+		
+        const password = {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 		
 
 		const resetToken = await resetTokens.create({
@@ -97,7 +95,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 	
 
 		const resetToken = await resetTokens.create({
@@ -117,9 +115,8 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 		
-
 		const resetToken = await resetTokens.create({
 			user: user.id,
 			token: token1,
@@ -138,7 +135,7 @@ describe('Reset password : All', () => {
 			password: 'test12!D',
 		};
 		const token1 = uuid();
-		const user = await users.findOne({ where: { email: 'delcy@gmail.com' } });
+		const user = await users.findOne({ where: { email: dummyEmail[0].email } });
 	
 
 		const resetToken = await resetTokens.create({
