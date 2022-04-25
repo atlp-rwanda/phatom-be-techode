@@ -2,7 +2,7 @@ import chai from 'chai'
 import chaiHTTP from 'chai-http'
 import { app } from '../app'
 import { expect } from 'chai'
-import route from '../models/route.js';
+import routes from '../models/routes.js';
 import db from '../models'
 chai.should();
 chai.use(chaiHTTP);
@@ -10,11 +10,6 @@ chai.use(chaiHTTP);
 let token;
 describe('Test one : router', () => {
 	before((done) => {
-		db.route.destroy({
-			where: {},
-			truncate: true,
-			restartIdentity: true,
-		});
 		done();
 	});
 
@@ -27,10 +22,6 @@ describe('Test one : router', () => {
 	});
 
 	afterEach(async () => {
-		await db.users.destroy({
-			truncate: true,
-			restartIdentity: true,
-		});
 	});
 
 	it('should create a route', async () => {

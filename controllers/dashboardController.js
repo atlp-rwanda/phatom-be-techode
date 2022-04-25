@@ -2,11 +2,11 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie-parser'
 import express from 'express'
 import { success,fail,sendError } from "../function/respond.js";
+import { jwtToken } from '../middlewares/auth.js';
 
 
-
+/* c8 ignore next 11 */
 const logout = (req, res) => {
-    /* c8 ignore next 10 */
     if (res.cookie) {
         res.clearCookie("access-token");
         // res.redirect('/');
@@ -19,11 +19,8 @@ const logout = (req, res) => {
   };
 
  const generateToken = (req, res) => {
-     const token = jwt.sign({id: "kadj4nb"}, "Techode");
-     res.cookie("access-token", token,{
-              maxAge: 60*60*24,
-            })
-    //  res.send(token);
+    let id = Math.floor((Math.random() * 10) + 1);
+    const token = jwtToken.createToken({ id , email: process.env.EMAIL_USER }) 
     return success(res,200,token,"token",req);
  } 
 

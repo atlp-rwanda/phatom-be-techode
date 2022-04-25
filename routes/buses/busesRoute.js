@@ -51,6 +51,11 @@ const router = express.Router()
  *       description: fr for french and en for english default is english
  *       schema:
  *         type: string
+ *     - in: header
+ *       name: auth-token
+ *       description: Valid token for access
+ *       schema:
+ *         type: string
  *    summary: Create a buses 
  *    description: Fill inforamation route code , plate number , route code
  *    requestBody:
@@ -194,6 +199,11 @@ router.get('/:id', isValidaId,getSingleBus)
  *         description: fr for french and en for english default is english
  *         schema:
  *          type: string
+ *       - in: header
+ *         name: auth-token
+ *         description: Valid token for access
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: The buses was deleted
@@ -232,7 +242,12 @@ router.delete('/:id',isLoggedIn ,checkAuth, isValidaId,deleteBus)
  *         in: header
  *         description: fr for french and en for english default is english
  *         schema:
- *          type: string       
+ *          type: string  
+ *       - in: header
+ *         name: auth-token
+ *         description: Valid token for access
+ *         schema:
+ *           type: string     
  *    requestBody:
  *      required: true
  *      content:

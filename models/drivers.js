@@ -10,15 +10,28 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      drivers.belongsTo(models.users, {
+        onDelete: 'CASCADE',
+        onupdate: 'CASCADE'
+      })
+      models.users.hasOne(drivers, {
+        onDelete: 'CASCADE',
+        onupdate: 'CASCADE'
+      })
+      drivers.belongsTo(models.buses, {
+        onDelete: 'CASCADE',
+        onupdate: 'CASCADE'
+      })
+      models.buses.hasOne(drivers, {
+        onDelete: 'CASCADE',
+        onupdate: 'CASCADE'
+      })
     }
   }
   drivers.init({
-    firstname: DataTypes.STRING,
-    lastname: DataTypes.STRING,
-    email: DataTypes.STRING,
-    telephone: DataTypes.STRING,
-    password: DataTypes.STRING
+    userId: DataTypes.INTEGER,
+    driversLicense: DataTypes.STRING,
+    busId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'drivers',

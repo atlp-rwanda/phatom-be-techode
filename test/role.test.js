@@ -3,6 +3,7 @@ const chaiHTTP = require('chai-http');
 const { app } = require('../app');
 const { expect } = require('chai');
 const { roles } = require('../models');
+import { user } from "../utils/testData"
 const db = require('../models');
 const { getRolesPermission } = require('../controllers/rolesController');
 chai.should();
@@ -56,7 +57,7 @@ describe('Roles testing', () => {
     it('Should prompt an error, if permission  provided  does not exist', (done) => {
         chai.request(app)
             .post(`/api/v1/roles/createAccessTest`)
-            .set({ userId : 2 , action : "createRouteuyfgu"})
+            .set({ userId : 5 , action : "createRouteuyfgu"})
             .end((err, res) => {
                 chai.expect(res).to.have.status(401);
 				done()
@@ -356,13 +357,8 @@ describe("Access control testing", () => {
     });
 
     it('should create a User', async () => {
-		const user = {
-			fullname: 'cyifuzo jean chrysostome',
-			username: 'chance',
-			password: 'test123',
-            email:"sezerano@gmail.com"
-		};
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[6]);
 		expect(response).to.have.status(201);
 	});
 
@@ -599,13 +595,8 @@ describe("Testin access" , () => {
     });
 
     it('should create a User', async () => {
-		const user = {
-            fullname:"sezerano jean chrysotome",
-            username:"sezerano",
-            email:"jeanDoe@gmail.com",
-            password:"123456"
-        };
-		const response = await chai.request(app).post(`/api/v1/users`).send(user);
+		
+		const response = await chai.request(app).post(`/api/v1/users`).send(user[5]);
 		expect(response).to.have.status(201);
 	});
     

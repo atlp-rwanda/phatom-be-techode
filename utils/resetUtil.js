@@ -21,18 +21,16 @@ const sendEmail = async (link, email, user = null , subject = "Password reset") 
 			to: email,
 			envelope: {
 				from: `Phantom Techode <${process.env.EMAIL_USER}>`,
-				to: `${email}, ${user.fullname} <${email}>`,
+				to: `${email}, ${user != null ? user.fullname : ""} <${email}>`,
 			},
 			subject: subject,
 			html: renderMail(link, user),
 			text: link,
 		};
 		await transport.sendMail(message);
-		/* c8 ignore next 1 */
+		/* c8 ignore next 4*/
 		return true;
-	} catch (error) {
-		return error.message;
-	}
+	} catch (error) { return error.message }
 };
 
 

@@ -10,9 +10,8 @@ export const forgotPassword = async (req, res) => {
 		if (!req.body.email) {
 			return fail(res, 401, null, 'missingEmail', req);
 		}
-		const user = await users.findOne({ where: { email } });
-		if (!user) 
-		return fail(res, 400, null, 'userNotFound', req);
+		const user = await users.findOne({ where: { email :  email.toString() } });
+		if (!user) return fail(res, 400, null, 'userNotFound', req);
 		
 
 		/* ========= Deleting token assigned to this users ========== */
@@ -66,6 +65,7 @@ export const changePasswordPost = async (req, res) => {
     
 	/* ==== Checking if token is valid  ====== */
 	const tokenIsValid = await resetoken.checkValid();
+	/* c8 ignore next 2 */
 	if (!tokenIsValid) return res.status(400).json({ message: 'expired' });
 
 	/* ==== Getting user to reset password for ====== */

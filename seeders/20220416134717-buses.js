@@ -7,9 +7,14 @@ module.exports = {
     */
      await queryInterface.bulkInsert('buses', [
        {
-          bustype: 'Couster',
+          bustype: 'Coaster',
           routecode: 401,
           platenumber:"RAD000X"
+        },
+        {
+          bustype: 'Coaster',
+          routecode: 402,
+          platenumber:"RAD000Y"
         }
       ], 
       {});
