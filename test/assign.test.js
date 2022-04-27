@@ -66,6 +66,21 @@ describe("Test: tests bus assignment to route ", () =>{
 		
 	});
 
+	it(' it should not remove assigned route id bus does not exist', async () => {
+	
+		const response = await chai
+			.request(app)
+			.put(`/api/v1/assign/bus-to-route/RAD00asdfadsfX`).set({'auth-token': token})
+			
+		
+			response.body.should.be.a('object');
+			response.body.message.should.be.a('string');
+			response.body.message.should.be.eql("bus does not exist");
+		chai.expect(response).to.have.status(404);
+		
+		
+	});
+
 	it(' it should not remove assigned route if route does is invalid', async () => {
 	
 		const response = await chai

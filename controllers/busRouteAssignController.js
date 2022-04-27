@@ -42,7 +42,9 @@ export const removeBus = async (req, res) => {
 				platenumber: plate,
 			},
 		});
-		if (!bus) return fail(res, 404, null, 'busNotExist', req);
+		if (!bus){
+			return fail(res, 404, null, 'busNotExist', req);
+		}
 		bus.routeId = null;
 		await bus.save();
 		return success(res, 200, bus, 'busreAssignedSuccessfully', req);

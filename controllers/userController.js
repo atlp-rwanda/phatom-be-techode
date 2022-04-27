@@ -5,10 +5,6 @@ import bcrypt from 'bcrypt'
 import sendEmail from '../utils/resetUtil';
 import { hashPassword, jwtToken } from '../middlewares/auth'
 
-const passwordNew = generator.generate({
-	length: 10,
-	numbers: true
-});
 
 const getAllUsers = async (req, res) => {
 	/* ======= Start:: List all users =================== */ 
@@ -19,38 +15,41 @@ const getAllUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
+    const passwordNew = generator.generate({
+        length: 11,
+        numbers: true
+    });    
 		
-		const hashedPassword = hashPassword(passwordNew)
+    const hashedPassword = hashPassword(passwordNew)
+    /* =============================== start: Validation ============================== */ 
+    const { firstname, lastname, username, email, telephone, userType } = req.body
+    const userExist = await users.findOne({ where: { email : email , isDeleted: false }});
+    if(userExist){
+    	return fail(res,409,{user:null},'userExist',req)
+    }
+    
+    
+    /* =========== start: User creation ================ */ 
+    users.create({
+    	fullname: firstname + ' ' + lastname,
+    	username: username, 
+    	email: email,
+    	telephone: telephone,
+    	userType: userType,
+    	password: hashedPassword
+    }).then( async (user)=> {
+        if(user.userType == 'driver' || user.userType == 'Driver'){
+            drivers.create({ userId: user.id})
+        }
+        /* c8 ignore next 4 */
+        if(user.userType == 'operator' || user.userType == 'Operator'){
+            operators.create({ userId: user.id})
+        }
 
-	    /* =============================== start: Validation ============================== */ 
-		const { firstname, lastname, username, email, telephone, userType } = req.body
-        const userExist = await users.findOne({ where: { email : email}});
-        if(userExist){
-			return fail(res,409,{user:null},'userExist',req)
-		}
-       
-        
-		/* =========== start: User creation ================ */ 
-		users.create({
-			fullname: firstname + ' ' + lastname,
-			username: username, 
-			email: email,
-			telephone: telephone,
-			userType: userType,
-			password: hashedPassword
-		}).then( async (user)=> {
-            if(user.userType == 'driver' || user.userType == 'Driver'){
-                drivers.create({ userId: user.id})
-            }
-            /* c8 ignore next 4 */
-            if(user.userType == 'operator' || user.userType == 'Operator'){
-                operators.create({ userId: user.id})
-            }
-
-            await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, user.email, null ,req.t('emailMessage'));
-			return success(res,201,{username,userType},"New user have been created", req)
-		}).catch(err => { return sendError(res,500,err,err.message,req) })
-		/* =========== start: User creation ============== */ 
+        await sendEmail(`${ req.t('pwdMsg')+" "+passwordNew}`, user.email, null ,req.t('emailMessage'));
+    	return success(res,201,{username,userType},"New user have been created", req)
+    }).catch(err => { return sendError(res,500,err,err.message,req) })
+    /* =========== start: User creation ============== */ 
 
 };
 
