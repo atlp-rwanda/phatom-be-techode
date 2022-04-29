@@ -2,7 +2,7 @@ import chai from 'chai'
 import chaiHTTP from 'chai-http'
 import { app } from '../app'
 import { expect } from 'chai'
-import route from '../models/route.js';
+import routes from '../models/routes.js';
 import db from '../models'
 chai.should();
 chai.use(chaiHTTP);

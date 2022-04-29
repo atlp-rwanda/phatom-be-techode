@@ -72,5 +72,11 @@
     "assignedBus": "You have been assigned a bus",
     "accountNotAuthorized": "account not authorized",
     "busAssigned": "bus already assigned",
-    "This driver does not have specified bus": "This driver does not have specified bus"
+    "This driver does not have specified bus": "This driver does not have specified bus",
+    "busAssignedSuccessfully": "Bus assigned successfully",
+    "busreAssignedSuccessfully": "Bus assignment removed successfully",
+    "routeNotExist": "Route does not exist"
+  
+
+  
 }
