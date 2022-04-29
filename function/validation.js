@@ -28,19 +28,7 @@ export const  validateRoutesOnCreate  = (data) => {
 }
 /* ========= Start: Create route request validation ============== */ 
 
-export const  validateUsersOnCreate  = (data) => {
-    const schema = Joi.object({
-        username: Joi.string().required(),
-        firstname: Joi.string().required(),
-        lastname: Joi.string().required(),
-        email: Joi.string().required().email(),
-        telephone: Joi.string().required().min(10),
-        userType: Joi.string().required()
-    });
 
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
 
 export const  validatePermissionAssignment  = (data) => {
     const schema = Joi.object({
@@ -64,14 +52,43 @@ export const validateBusInput = ( data ) => {
     return value
 }
 
-export const  validateId = (data) => {
+export const validateId = (data) => {
+	const schema = Joi.object({
+		id: Joi.number().required(),
+	});
+
+	const value = schema.validate(data, { abortEarly: false });
+	return value;
+};
+
+
+/* =================== Start: Validate plate =============== */
+export const validatePlate = (data) => {
+	
+    const schema  = Joi.object({
+        plate: Joi.string().required().min(5),
+    });
+	const value = schema.validate(data, { abortEarly: false });
+	return value;
+};
+/* ===================== End:  Validate plate ============== */
+
+
+
+export const  validateUsersOnCreate  = (data) => {
     const schema = Joi.object({
-        id: Joi.number().required()
+        username: Joi.string().required(),
+        firstname: Joi.string().required(),
+        lastname: Joi.string().required(),
+        email: Joi.string().required().email(),
+        telephone: Joi.string().required().min(10),
+        userType: Joi.string().required()
     });
 
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
+
 
 /* c8 ignore next 7 */
 export const  validateAction = (data) => {
@@ -82,16 +99,16 @@ export const  validateAction = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
-/* ========= End: Assign Permissions validation ============== */ 
 
-/* ========= Start: update profile  validation ============== */ 
-export const  validateProfile  = (data) => {
-    /* c8 ignore next 4 */
-    const schema = Joi.object({id: Joi.number().required(),profileImage: Joi.string().required()});
-    const value = schema.validate(data , { abortEarly: false });
-    return value
-}
-/* ========= End:  update profile validation ============== */ 
+
+/* ========= Start: update profile  validation ============== */
+export const validateProfile = (data) => {
+	/* c8 ignore next 4 */
+	const schema = Joi.object({id: Joi.number().required(),profileImage: Joi.string().required(),});
+	const value = schema.validate(data, { abortEarly: false });
+	return value;
+};
+/* ========= End:  update profile validation ============== */
 
 export const validateBusOnAssign = (data) => {
     const schema = Joi.object({
@@ -102,3 +119,16 @@ export const validateBusOnAssign = (data) => {
     const value = schema.validate(data , { abortEarly: false });
     return value
 }
+/* ========= End:  update profile validation ============== */ 
+
+
+export const validateBusAssignRouteEntry = (data) => {
+   const schema  = Joi.object({
+            code: Joi.string().required().min(3),
+            plate: Joi.string().required().min(5),
+        });
+    
+	const value = schema.validate(data, { abortEarly: false });
+	return value;
+};
+/* ===================== End:  Validate routecode ============== */

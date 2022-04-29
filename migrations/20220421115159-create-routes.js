@@ -8,26 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING
+      routename: {
+        type: Sequelize.STRING,
+        defaultValue: null,
+        allowNull: true
       },
-      code: {
-        type: Sequelize.STRING
-      },
-      city: {
-        type: Sequelize.STRING
-      },
-      startLocation: {
-        type: Sequelize.STRING
-      },
-      endLocation: {
-        type: Sequelize.STRING
-      },
-      duration: {
-        type: Sequelize.STRING
-      },
-      distance: {
-        type: Sequelize.STRING
+      routecode: {
+        type: Sequelize.STRING,
+        defaultValue: null,
+        allowNull: true
       },
       createdAt: {
         allowNull: true,

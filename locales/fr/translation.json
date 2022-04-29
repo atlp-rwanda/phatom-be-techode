@@ -72,5 +72,9 @@
     "assignedBus": "Un bus vous a été attribué",
     "accountNotAuthorized": "compte non autorisé",
     "busAssigned": "bus déjà affecté",
-    "This driver does not have specified bus": "Ce pilote n'a pas de bus spécifié"
+    "This driver does not have specified bus": "Ce pilote n'a pas de bus spécifié",
+    "busAssignedSuccessfully":"bus attribué avec succès",
+    "busreAssignedSuccessfully": "Bus assignment removed successfully",
+    "routeNotExist":"L'itinéraire n'existe pas",    
+    "permissionNotFound": "Autorisation introuvable"
 }

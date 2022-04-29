@@ -40,5 +40,23 @@ const getAllpermissions = async (req, res) => {
 	
 };
 
+const getSinglePermision = async (req, res) => {
+	
+    try {
+        const query = req.params.permission;
+        if(!query){
+            return fail(res,400,null,"badRequest",req)
+        }
+        const data = await permissions.findOne({where:{permission : query}});
+        if(!data){
+            return fail(res,400,null,"permissionNotFound",req)
+        }
+        return success(res,200,{ permission : data },"Retrieved");
+       /* ========= End:: List all permissions ================== */ 
+    /* c8 ignore next 1 */ 
+    } catch (error) {  return sendError(res,500,null,error.message)}
+};
 
-export  { getAllpermissions , permissionExist };
+
+
+export  { getAllpermissions , permissionExist , getSinglePermision };

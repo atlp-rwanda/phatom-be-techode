@@ -3,7 +3,10 @@ import { users, resetTokens } from '../models';
 import db from '../models/index.js';
 import sendMail from '../utils/resetUtil.js';
 import { success, fail, sendError } from '../function/respond.js';
+import { hashPassword } from '../middlewares/auth';
+import dotEnv from 'dotenv';
 
+dotEnv.config()
 export const forgotPassword = async (req, res) => {
 	try {
 		const { email } = req.body;
@@ -70,7 +73,7 @@ export const changePasswordPost = async (req, res) => {
 
 	/* ==== Getting user to reset password for ====== */
 	const user = await users.findByPk(resetoken.user);
-	user.password = newPassword;
+	user.password = hashPassword(newPassword);
 
 	/* ====  save new password ====== */
 	const saveUser = await user.save();

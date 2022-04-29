@@ -32,11 +32,11 @@ const signIn = async (req, res, next) => {
 
     if(password.trim().length <= 0)	throw new Error('Body with password can not be space');					
 
-    const user = await users.findOne({ where: { email } });
+    const user = await users.findOne({ where: { email , isDeleted: false  } });
 
     if (user && comparePassword(password, user.password)) {
       if(!user.isDeleted){
-        const { fullname, username, role, email } = user;
+        const { fullname, username, role, email , userType,profileImage } = user;
         const token = jwtToken.createToken(user);
 
         res.cookie("access-token", token, {
@@ -45,7 +45,7 @@ const signIn = async (req, res, next) => {
         })
         
         const isVerified = jwtToken.verifyToken(token);
-        return success(res, 200, { user: { fullname, username, role, email , isVerified }, token }, "loginMessage",req)
+        return success(res, 200, { user: { fullname, username, role, email , isVerified,userType,profileImage}, token }, "loginMessage",req)
         /* c8 ignore next 4*/
       } else {
         return fail(res, 401, null, "accountNotAuthorized",req)

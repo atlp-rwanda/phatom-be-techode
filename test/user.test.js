@@ -249,7 +249,7 @@ describe('Test one : users and profile', () => {
 
 
 
-	it('should retrieve all users', async () => {
+	it('should not retrieve users who does not exist', async () => {
 		const id = 1200
 		const response = await chai
 			.request(app)
@@ -261,19 +261,8 @@ describe('Test one : users and profile', () => {
 		expect(response).to.have.status(404);
 	});
 
-	it('should retrieve all users', async () => {
+	it('should retrieve all users with id 3 if he/she exist', async () => {
 		const id = 3
-		const response = await chai
-			.request(app)
-			.get(`/api/v1/users/${id}`)
-		response.body.should.be.a('object');
-		response.body.should.have.property('status');
-		response.body.message.should.be.a('string');
-		response.body.message.should.be.eql("Single user");
-		expect(response).to.have.status(200);
-	});
-	it('should retrieve all users', async () => {
-		const id = 1
 		const response = await chai
 			.request(app)
 			.get(`/api/v1/users/${id}`)
@@ -294,7 +283,7 @@ describe('Test one : users and profile', () => {
 		response.body.message.should.be.eql("Single user");
 		expect(response).to.have.status(200);
 	});
-	it('should retrieve all users', async () => {
+	it('should not retrieve all users who is not registered', async () => {
 		const id = 311
 		const response = await chai
 			.request(app)
@@ -306,7 +295,7 @@ describe('Test one : users and profile', () => {
 		expect(response).to.have.status(404);
 	});
 
-	it('should retrieve all users', async () => {
+	it('should retrieve delete user with id 1', async () => {
 		const id = 1
 		const response = await chai
 			.request(app)
