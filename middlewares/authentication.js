@@ -9,10 +9,12 @@ export const adminAuth = async (req , res , next) => {
   /* c8 ignore next 13 */
   try {
     let token = req.header("auth-token");
+   
     let bearerToken =  req.header("auth-token").split(" ");
     if(bearerToken.length > 1 ){
       token = bearerToken[1];
     }   
+    
     const verified = jwtToken.verifyToken(token);
 
     if(verified.userId) return next()

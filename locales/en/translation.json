@@ -76,5 +76,7 @@
     "busAssignedSuccessfully": "Bus assigned successfully",
     "busreAssignedSuccessfully": "Bus assignment removed successfully",
     "routeNotExist": "Route does not exist",
-    "permissionNotFound": "Permission not found"
+    "permissionNotFound": "Permission not found",
+    "routeNotExist": "Route does not exist"
+  
 }

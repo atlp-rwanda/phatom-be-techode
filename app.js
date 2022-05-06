@@ -49,13 +49,6 @@ const io = socketIo(socketServer,{
 });
 
 
-/* ============== start:simulation ============= */
-app.get('/api/v1/simulation/activebus', (req, res) => {
-	res.sendFile(__dirname + '/view/index.html');
-});
-/* ============== end: simulatin =============== */  
-
-
 app.use(cookies());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -76,6 +69,7 @@ i18next
 
 
 const newClient = new Set();
+ /* c8 ignore next 162*/
 io.on('connection', function (socket) {
 	/* redis client */ 
 	newClient.add(socket.id);	
@@ -93,7 +87,7 @@ io.on('connection', function (socket) {
 	socket.on('stopBus', async (data) => {
 		const busStatus = await initBusStatus();
 		let busInfo = await busStatus.fetch(data.id);
-		if(busInfo){
+		if(busInfo != null){
 			const currentLocation = {
 				latitude: data.location.latitude,
 				longitude: data.location.longitude,
@@ -106,8 +100,9 @@ io.on('connection', function (socket) {
 		socket.emit('busStoped', {
 			bus: busInfo
 		});
-		socket.emit('location_update', {
-			bus: busInfo
+		const allBusInfo =  await busStatus.search().return.all();
+		io.emit('location_update', {
+			bus: allBusInfo
 		});
 	});
 	
@@ -205,6 +200,8 @@ io.on('connection', function (socket) {
 			id: "all"
 		});		
 	});
+
+	
 	socket.on("alighting", async (data) =>{
 		const busStatus = await initBusStatus();
 		const allBusInfo =  await busStatus.search().return.all();
@@ -219,6 +216,8 @@ io.on('connection', function (socket) {
 			bus: busInfo
 		});
 	})
+
+
 	socket.on("killAlighting", async (data) =>{
 		const busStatus = await initBusStatus();
 		const allBusInfo =  await busStatus.search().return.all();

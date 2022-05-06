@@ -28,6 +28,7 @@ const sendEmail = async (link, email, user = null , subject = "Password reset") 
 			text: link,
 		};
 		
+		
 		const sending = await transport.sendMail(message);
 		/* c8 ignore next 4*/		
 		return true;

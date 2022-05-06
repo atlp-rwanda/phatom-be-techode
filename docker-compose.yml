@@ -25,7 +25,7 @@ services:
       - pgdata1:/var/lib/postgress/data
   redis_server:
     container_name: redis_server
-    image: 'redis:alpine'
+    image: 'redis/redis-stack-server:latest'
     build:
       context: .
     expose:

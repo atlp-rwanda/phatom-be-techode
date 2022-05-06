@@ -120,7 +120,7 @@ const updateUser = async(req, res) => {
             return fail(res,404,{user:userExist},'userNotFound',req)
         }
         users.findByPk(id).then((user) => {
-            const { id, username, telephone, email, lastname, firstname} = user
+            const { id, username, telephone, email, lastname, firstname} = req.body
             user.update({
                 fullname: firstname + ' ' + lastname,
                 username:username,

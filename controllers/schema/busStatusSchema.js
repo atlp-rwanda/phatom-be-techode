@@ -8,6 +8,7 @@ const BusSchema = new Schema(ActiveBusEntity,
 		id: { type: 'number' },
 		driverId: { type: 'number' },
 		fullname: { type: 'string' },
+		routename: { type: 'string' },
 		routecode: { type: 'string' },
 		platenumber:{ type: 'string' },
 		passengers: { type: 'number' },
@@ -21,17 +22,16 @@ const BusSchema = new Schema(ActiveBusEntity,
     }
 );
 
+ /* c8 ignore next 10*/
 const initBusStatus = async () => {
 	try {
 		const redisClient = await client();
 		const repo =  redisClient.fetchRepository(BusSchema);
-		await repo.createIndex();		
-		
+		await repo.createIndex();
 		return repo;
 	} catch (error) {
-		console.log(error.message);
-	}
-	
+		return 0
+	}	
 };
 
 export default initBusStatus

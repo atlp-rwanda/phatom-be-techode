@@ -48,13 +48,14 @@ const driverAction =  async (req,res) =>{
     
         /* get cache  */
         const busCache = await busStatus.search()
-        .where('driverId')
-        .equal(driver.user.id)
+        .where('platenumber')
+        .equal(driver.bus.platenumber)
         .return.first(); 
 
         if(status == "start"){
-            /* if cache exist */            
-            if(busCache){              
+            /* if cache exist */          
+            if(busCache != null){         
+                busCache.routename = routesInfo.name,
                 busCache.currentLocation = JSON.stringify(currentLocation) ;
                 busCache.passengers = Number(passengers);
                 busCache.status= "on board";
@@ -68,6 +69,7 @@ const driverAction =  async (req,res) =>{
                 id: driver.bus.id,
                 driverId: driver.id,
                 fullname: driver.user.fullname,
+                routename: routesInfo.name,
                 routecode: routesInfo.code == null ? driver.bus.routecode :  routesInfo.code  ,
                 platenumber: driver.bus.platenumber,
                 passengers:Number(passengers),
@@ -77,7 +79,7 @@ const driverAction =  async (req,res) =>{
                 endLocation:JSON.stringify(endinOnlocation)
             });
 
-            return success(res, 200, { bus: busInfo} , 'locations');
+            return success(res, 200, { bus: busCache} , 'locations');
         }
         if(status == "remove"){
              busStatus.remove(req.body.id)
