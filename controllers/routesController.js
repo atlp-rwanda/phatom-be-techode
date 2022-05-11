@@ -1,4 +1,4 @@
-import { routes  } from '../models';
+import { routes, buses  } from '../models';
 import { success, fail, sendError } from '../function/respond.js';
 import {
 	validateRoutesOnCreate,
@@ -44,7 +44,7 @@ const getSingleRoute = async(req, res) => {
     try{
         let { id } = req.params
 
-        const oneRoute = await routes.findByPk(id)
+        const oneRoute = await routes.findByPk(id, { include: [buses]})
         if(oneRoute){
             return success(res,200,oneRoute,'singleRoute',req)
         } else {

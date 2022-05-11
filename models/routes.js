@@ -9,9 +9,13 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			route.hasMany(models.buses, {
+				foreignKey: 'routeId',
 				onDelete: 'SET NULL',
 				onUpdate: 'SET NULL',
 			});
+			models.buses.belongsTo(route, {
+				foreignKey: 'routeId',
+			})
 			// define association here
 		}
 	}
