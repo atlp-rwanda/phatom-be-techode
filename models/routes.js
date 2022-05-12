@@ -9,9 +9,19 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			route.hasMany(models.buses, {
+<<<<<<< HEAD
+				foreignKey: 'routeId',
 				onDelete: 'SET NULL',
 				onUpdate: 'SET NULL',
 			});
+			models.buses.belongsTo(route, {
+				foreignKey: 'routeId',
+			})
+=======
+				onDelete: 'SET NULL',
+				onUpdate: 'SET NULL',
+			});
+>>>>>>> 81a6845 (ft(simulation) Bus simulation)
 			// define association here
 		}
 	}

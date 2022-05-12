@@ -28,7 +28,10 @@ const sendEmail = async (link, email, user = null , subject = "Password reset") 
 			text: link,
 		};
 		
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 81a6845 (ft(simulation) Bus simulation)
 		const sending = await transport.sendMail(message);
 		/* c8 ignore next 4*/		
 		return true;

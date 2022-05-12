@@ -49,6 +49,13 @@ const io = socketIo(socketServer,{
 });
 
 
+/* ============== start:simulation ============= */
+app.get('/api/v1/simulation/activebus', (req, res) => {
+	res.sendFile(__dirname + '/view/index.html');
+});
+/* ============== end: simulatin =============== */  
+
+
 app.use(cookies());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));

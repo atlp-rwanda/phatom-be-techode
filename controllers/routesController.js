@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { routes, buses  } from '../models';
+=======
 import { routes  } from '../models';
+>>>>>>> 81a6845 (ft(simulation) Bus simulation)
 import { success, fail, sendError } from '../function/respond.js';
 import {
 	validateRoutesOnCreate,
@@ -44,7 +48,11 @@ const getSingleRoute = async(req, res) => {
     try{
         let { id } = req.params
 
+<<<<<<< HEAD
+        const oneRoute = await routes.findByPk(id, { include: [buses]})
+=======
         const oneRoute = await routes.findByPk(id)
+>>>>>>> 81a6845 (ft(simulation) Bus simulation)
         if(oneRoute){
             return success(res,200,oneRoute,'singleRoute',req)
         } else {

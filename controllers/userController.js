@@ -120,7 +120,11 @@ const updateUser = async(req, res) => {
             return fail(res,404,{user:userExist},'userNotFound',req)
         }
         users.findByPk(id).then((user) => {
+<<<<<<< HEAD
             const { id, username, telephone, email, lastname, firstname} = req.body
+=======
+            const { id, username, telephone, email, lastname, firstname} = user
+>>>>>>> 81a6845 (ft(simulation) Bus simulation)
             user.update({
                 fullname: firstname + ' ' + lastname,
                 username:username,
