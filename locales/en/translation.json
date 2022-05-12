@@ -3,9 +3,9 @@
     "success": "success",
     "roleNotExist":"Role does not exist", 
     "roleExist":"Role already exist",
-    "roleHaveBeenCreated":"Role have been created",
+    "roleHaveBeenCreated":"Role has been created",
     "userNotExist":"User does not exist",
-    "roleUpdated":"Role have been updated",    
+    "roleUpdated":"Role has been updated",    
     "userDoesNotHaveThisRole":"This user does not have this role",
     "roleAlreadyAssigned":"Role already assigned",
     "permissionHaveBeenRemoved":"Permission has been removed",
@@ -75,8 +75,8 @@
     "This driver does not have specified bus": "This driver does not have specified bus",
     "busAssignedSuccessfully": "Bus assigned successfully",
     "busreAssignedSuccessfully": "Bus assignment removed successfully",
+    "routeNotExist": "Route does not exist",
+    "permissionNotFound": "Permission not found",
     "routeNotExist": "Route does not exist"
-  
-
   
 }

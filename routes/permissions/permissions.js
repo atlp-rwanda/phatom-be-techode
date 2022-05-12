@@ -1,5 +1,5 @@
 import express from 'express'
-import { getAllpermissions, createPermission } from "../../controllers/permissionsController.js"
+import { getAllpermissions, createPermission, getSinglePermision } from "../../controllers/permissionsController.js"
 
 
 const router = express.Router();
@@ -107,4 +107,7 @@ const router = express.Router();
     router.get('/', getAllpermissions);
 /* ==== End:: list all permission route === */ 
 
+/* === Start:: list single permission route === */  
+    router.get('/:permission', getSinglePermision);
+/* ==== End:: list single permission route === */ 
 export default router

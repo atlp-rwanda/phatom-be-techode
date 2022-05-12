@@ -153,7 +153,7 @@ describe('Crud operation for buses ', () => {
 				res.body.should.have.property('status');
 				res.body.data.user.rows.should.be.a('array');
 				res.body.message.should.be.a('string');
-				res.body.message.should.be.eql("Role have been updated");
+				res.body.message.should.be.eql("Role has been updated");
 				chai.expect(res).to.have.status(200);
 				done();
 			});
@@ -191,7 +191,7 @@ describe('Crud operation for buses ', () => {
 								res.body.should.have.property('status');
 								res.body.data.user.rows.should.be.a('array');
 								res.body.message.should.be.a('string');
-								res.body.message.should.be.eql("Role have been updated");
+								res.body.message.should.be.eql("Role has been updated");
 								chai.expect(res).to.have.status(200);
 								done();
 							});

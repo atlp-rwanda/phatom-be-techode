@@ -59,11 +59,16 @@
       "nodemailer": "^6.7.3",
       "pg": "^8.7.3",
       "pg-hstore": "^2.3.4",
+      "redis": "^3.1.2",
+      "redis-om": "^0.3.1",
       "reflect-metadata": "^0.1.13",
       "sequelize": "^6.16.2",
       "sequelize-cli": "^6.4.1",
+      "sequelize-redis": "^1.0.12",
+      "socket.io": "^4.5.0",
       "swagger-jsdoc": "^6.1.0",
-      "swagger-ui-express": "^4.3.0"
+      "swagger-ui-express": "^4.3.0",
+      "tslib": "^2.4.0"
    },
    "devDependencies": {
       "@types/node": "^16.11.10",

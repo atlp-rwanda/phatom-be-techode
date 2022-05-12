@@ -4,6 +4,7 @@ import {  users } from "../../models"
 import paginate from '../../middlewares/paginate.js';
 import { validId, validCreate, validAssign } from '../../middlewares/validation'
 import { assignBus, unAssignBus} from "../../controllers/assignBusController"
+import { isAuth } from '../../controllers/authsController.js';
 
 const router = express.Router();
 
@@ -505,15 +506,16 @@ const router = express.Router();
     router.get('/', getAllUsers);
 /* ==== End:: list all users route === */ 
 
-router.get('/paginated', paginate(users));
+    router.get('/paginated', paginate(users));
 
 /* === Start:: Create users route === */ 
     router.post('/', validCreate, createUser);
 /* ==== End:: Create users route === */ 
-router.get('/:id', validId, getSingleUser)
-router.delete('/:id',validId, deleteUser)
-router.put('/assign_buses', validAssign, assignBus)
-router.put('/unassign_buses', validAssign, unAssignBus)
-router.put('/:id',validId, updateUser)
+    router.get('/:id', validId, getSingleUser)
+    router.delete('/:id',validId, deleteUser)
+    router.put('/assign_buses', validAssign, assignBus)
+    router.put('/unassign_buses', validAssign, unAssignBus)
+    router.put('/:id',validId, updateUser)
+    router.post('/isauth', isAuth);
 
 export default router

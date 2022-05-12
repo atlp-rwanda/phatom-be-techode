@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simulation test</title>
+	</head>
+  <style>
+    #bus-display{
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+    #bus-display>div{
+      width: 400px;
+      margin: 30px;
+    }
+    #bus-display>div>span{
+      display: flex;
+      align-items: center;
+    }
+    .label{
+      color: skyblue;
+    }
+  </style>
+	<body>
+
+    <div class="">
+      <h1>Active buses</h1>
+      <div id="bus-display">  
+      </div>      
+    </div>
+
+		<div class="" id="container">
+      Driver
+    </div>
+    
+    <form id="onStartForm" action="">
+      <input id="alight" type="number" autocomplete="off" />
+      <button>start</button>
+    </form>
+    
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.6.0/socket.io.min.js"></script>
+		<script	src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+		<script>
+			var socket = io();
+
+			var messages = document.getElementById('msg');
+			var onStartForm = document.getElementById('onStartForm');
+			var alight = document.getElementById('alight');
+      var busDisplay = document.getElementById('bus-display');
+
+			// onStartForm.addEventListener('submit', function (e) {
+			// 	e.preventDefault();
+			// 	if (alight.value) {
+			// 		socket.emit('locate');
+			// 		alight.value = '';
+			// 	}
+			// });
+      var activeBus = [] 
+      var html = ""     
+      window.addEventListener("load", () => {
+        socket.emit('locate');
+        socket.on('located', function (data) {
+          activeBus = data.buses;
+          activeBus.forEach( value => {
+            const currentLocation = JSON.parse(value.currentLocation);
+            html += `
+             <div>
+                <span>
+                  <h4>Driver Name: </h4>  <span class="label">${value.fullname}</span>  
+                </span>
+                <span>
+                  <h4>Plate number: </h4>  <span class="label">${value.platenumber}</span>  
+                </span>
+                <span>
+                  <h4>current location: </h1>  <span class="label">${currentLocation.latitude} - ${currentLocation.longitude}</span>  
+                </span>
+                <hr>  
+             </div>
+            `;
+          })
+          busDisplay.innerHTML = html;
+        });
+      })
+			
+
+
+
+		</script>
+	</body>
+</html>

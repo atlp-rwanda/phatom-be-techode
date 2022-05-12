@@ -56,4 +56,14 @@ const signIn = async (req, res, next) => {
 }
 
 
-export { signUp, signIn };
+const isAuth = async (req, res, next) => {
+
+  try {
+    const { token } = req.body;  
+    const isVerified = jwtToken.verifyToken(token);
+    const user = await users.findOne({ where: { id: isVerified.userId , isDeleted: false  } });
+    const  { id ,fullname, username, role, email , userType,profileImage }  = user;
+    return success(res, 200, { user: { id,fullname, username, role, email , isVerified,userType,profileImage}, token }, "loginMessage",req)
+  } catch (e) { return sendError(res, 500, null, e.massage) }
+}
+export { signUp, signIn, isAuth };

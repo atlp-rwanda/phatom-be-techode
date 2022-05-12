@@ -23,6 +23,15 @@ services:
       - PGPORT=7000
     volumes:
       - pgdata1:/var/lib/postgress/data
+  redis_server:
+    container_name: redis_server
+    image: 'redis/redis-stack-server:latest'
+    build:
+      context: .
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"    
   phantom_backend:
     container_name: phantom_backend
     build:
