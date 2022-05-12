@@ -1,5 +1,5 @@
 import { success,fail,sendError } from "../function/respond.js";
-import { buses } from "../models"
+import { buses, routes} from "../models"
 import Sequelize from "sequelize";
 import { validateBusInput } from '../function/validation';
 import { paginate } from "../utils/paginate.js";
@@ -8,7 +8,7 @@ const { Op } = Sequelize;
 
 
 const busExist = async (busId) =>{
-    const getBus = await buses.findByPk( busId ); 
+    const getBus = await buses.findByPk( busId, { include: [routes]} ); 
     /* c8 ignore next 3 */ 
     if(getBus) return getBus 
     return false
@@ -40,12 +40,11 @@ const getAllBuses = async (req, res) => {
         const { page , size ,order } = paginate(dataPage,dataSize,orderBy);
         const allBus = await buses.findAndCountAll({ limit: size, offset: page * size,  order: [
             ["id", order]
-          ] });           
+          ], include: [routes] });           
         return success(res,200,{buses: allBus.rows , totalPage : Math.ceil(allBus.count / size)},"Retrived",req);        
      /* c8 ignore next 2 */ 
     } catch (error) { return sendError(res,500,null,error.message) }  
 }
-
 
 const getSingleBus = async (req, res) => { 
     try {

@@ -5,9 +5,13 @@ module.exports = (sequelize, DataTypes) => {
 		
 		static associate(models) {
 			buses.belongsTo(models.routes, {
+				foreignKey: 'routeId',
 				onDelete: 'SET NULL',
 				onUpdate: 'SET NULL',
 			});
+			models.routes.hasMany(buses, {
+				foreignKey: 'routeId'
+			})
 		}
 	}
 	buses.init(
