@@ -132,3 +132,15 @@ export const validateBusAssignRouteEntry = (data) => {
 	return value;
 };
 /* ===================== End:  Validate routecode ============== */
+
+export const  validateContactOnSend  = (data) => {
+    const schema = Joi.object({
+        fullname: Joi.string().required(),
+        message: Joi.string().required(),
+        email: Joi.string().required().email(),
+        telephone: Joi.string().required().min(10),
+    });
+
+    const value = schema.validate(data , { abortEarly: false });
+    return value
+}
