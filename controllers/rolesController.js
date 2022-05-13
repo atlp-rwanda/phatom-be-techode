@@ -48,7 +48,15 @@ const deleteRole = async (req, res) => {
                return fail(res,400,null,"roleNotExist",req) ;
             }
         /* ================================ End: validatoin ================================= */ 
-    
+            const userExistWithThaRole = await users.findOne({
+                where :{ 
+                    roleId : id 
+                }
+            });  
+           
+            if(userExistWithThaRole){
+                return fail(res,400,{ data: null},'Role already in use')
+            }
         /* ======= Start:: Delete roles =================== */ 
             roles.destroy({where : {id}, cascade: true }).then(roles => {
                 return success(res,200,roles,"Deleted");

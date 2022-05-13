@@ -7,11 +7,11 @@ module.exports = {
     */
      await queryInterface.bulkInsert('routes', [
        {
-          name: 'Couster',
+          name: 'Kabeza - Kicukiro',
           code: 401,
           city: "Kigali",
-          startLocation: "0.12255225514",
-          endLocation: "30.523562",
+          startLocation: "-1.9797679,30.1100824",
+          endLocation: "-2.004187,30.1171787",
           duration: "30",
           distance: "10" 
         }

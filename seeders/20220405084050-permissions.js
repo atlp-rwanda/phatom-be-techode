@@ -58,6 +58,14 @@ module.exports = {
         {
           permission: 'updateBus',
           permission_name: 'Update bus'
+        },        
+        {
+          permission: 'registerDriver',
+          permission_name: 'Register driver'
+        },
+        {
+          permission: 'registerOperator',
+          permission_name: 'Register operator'
         },
       ] 
     )

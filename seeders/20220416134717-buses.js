@@ -25,6 +25,8 @@ module.exports = {
      * Add commands to revert seed here.
      * 
      */
+     await queryInterface.removeConstraint("drivers","drivers_inhert_buses")
+     await queryInterface.bulkDelete('drivers', null, {});
      await queryInterface.bulkDelete('buses', null, {});
   }
 };
