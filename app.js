@@ -20,6 +20,7 @@ import rolesRoute from './routes/roles/roles.js';
 import accountRouter from './routes/users/accounts.js';
 import busesRoute from './routes/buses/busesRoute.js';
 import usersRoutes from './routes/users/users.js';
+import contact from './routes/contact/contact'
 import routesRoute from './routes/routes/routesRoute'
 import activeBusSimulationRoute from './routes/busSimulation/busSimulationRoute'
 import  http  from "http";
@@ -248,6 +249,7 @@ io.on('connection', function (socket) {
 
 /* ========== Start:: Route api url ========= */ 
 	app.use('/api/v1/routes', routesRoute);
+	app.use('/api/v1/contact', contact);
 /* ============== End:: Route api ========= */ 
 
 /* ========== Start:: Admin api url ========= */ 

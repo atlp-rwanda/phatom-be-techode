@@ -1,3 +1,5 @@
+import { config } from "dotenv";
+config();
 const baseUrl = process.env.SERVER_URL;
 const options = {
 	definition: {

@@ -13,10 +13,6 @@ module.exports = {
 	production: {
 		url: process.env.DATABASE_PRODUCTION,
 		dialect: 'postgres',
-		logging: false,
-		ssl: false,
-		dialectOptions: {
-			ssl: { rejectUnauthorized: false },
-		},
+		logging: false
 	},
 };
